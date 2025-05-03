@@ -6,6 +6,7 @@ import Org_dashboard from './pages/Org_dashboard.jsx';
 import Delegate_dashboard from './pages/Delegate_dashboard.jsx';
 import CreateEvent from './pages/CreateEvent.jsx';
 
+
 const App = () => {
   return (
     <div>

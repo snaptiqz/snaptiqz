@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { FaStar, FaPlus, FaBell, FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const BottomNavbar = () => {
   const [activeTab, setActiveTab] = useState('favorites');
+  const navigate = useNavigate();
 
-  const navigate = (path) => {
-    console.log(`Navigating to: ${path}`);
-    setActiveTab(path.replace('/', ''));
-  };
+  
 
   const NavButton = ({ icon, path }) => {
     const isActive = activeTab === path.replace('/', '');
@@ -37,7 +36,7 @@ const BottomNavbar = () => {
       border border-white/10 backdrop-blur-lg
       bg-gradient-to-br from-white/10 via-white/5 to-transparent"
     >
-      <div className="w-full max-w-md mx-auto flex justify-between px-6 py-3">
+      <div className="w-full max-w-md mx-auto flex justify-between px-6 py-3"    onClick={() => navigate(path)}>
         <NavButton icon={<FaStar className="text-xl" />} path="/favorites" />
         <NavButton icon={<FaPlus className="text-xl" />} path="/create_event" />
         <NavButton icon={<FaBell className="text-xl" />} path="/notifications" />
