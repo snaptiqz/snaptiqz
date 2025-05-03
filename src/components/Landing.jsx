@@ -165,8 +165,7 @@ const Landing = () => {
   </motion.div>
 )}
 
-      {/* Logo */}
-      <img src={logo} alt="Logo" className="absolute top-4 left-4 w-6 h-6 z-10" />
+     
 
       {/* Content Text */}
       <motion.div
@@ -215,7 +214,7 @@ const Landing = () => {
   src={mike}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-50 sm:mt-0' : 'w-60 mt-6'
+    windowWidth < 640 ? 'w-50 mt-10' : 'w-60 mt-6'
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{
