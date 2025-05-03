@@ -1,6 +1,7 @@
 import React from 'react';
 import Landing from '../components/Landing';
 import Tagline from '../components/Tagline';
+import EventPlans from '../components/EventPlans';
 
 const Home = () => {
   return (
@@ -10,6 +11,9 @@ const Home = () => {
       </div>
       <div className="relative z-20">
         <Tagline />
+      </div>
+      <div className="relative z-30">
+        <EventPlans />
       </div>
     </div>
   );

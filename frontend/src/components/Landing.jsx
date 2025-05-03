@@ -300,7 +300,7 @@ const Landing = () => {
       {/* Bottom Message */}
       {animationState === 'initial' && (
   <div className="absolute bottom-0 w-full z-30 pointer-events-none">
-    <div className="text-center text-md sm:text-xl py-4 bg-gradient-to-t from-black/80 to-transparent">
+    <div className="text-center text-lg sm:text-xl py-4 bg-gradient-to-t from-black/80 to-transparent">
       <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text font-medium">
         Host Events for Free with Snaptiqs!
       </span>
