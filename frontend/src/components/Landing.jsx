@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import mike from '../assets/mike.png';
 import gridBg from '../assets/Grid_mob.png';
-import landingMob from '../assets/Landing_mob.png';
+import landingMob2 from '../assets/Landing_mob.png';
 import landingDesktop from '../assets/landing_desktop2.png';
-import landingMob2 from '../assets/landing.png';
+import landingMob from '../assets/landing_nogrid_mob.png';
 import google from "../assets/google_logo.png";
 import curl2 from '../assets/24_mob.png';
 import curl1 from '../assets/25_mob.png';
 import curlDeskLeft from '../assets/26_desk.png';
 import curlDeskRight from '../assets/27_desk.png';
 import logo from '../assets/logo.png';
-import vectorCurve from '../assets/curveVector.png'; // rename accordingly
+import { useNavigate } from 'react-router-dom'; // rename accordingly
 
 import { IoArrowForwardOutline } from 'react-icons/io5';
 
@@ -26,6 +26,9 @@ const Landing = () => {
   const [showStars, setShowStars] = useState(false);
 
   const [time, setTime] = useState('');
+  const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     const timer = setTimeout(() => setShowStars(true), 800); // delay to sync with grid if needed
@@ -57,6 +60,8 @@ const Landing = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  
 
   const TopRightNav = () => {
     return (
@@ -300,13 +305,14 @@ const Landing = () => {
       {/* Bottom Message */}
       {animationState === 'initial' && (
   <div className="absolute bottom-0 w-full z-30 pointer-events-none">
-    <div className="text-center text-lg sm:text-xl py-4 bg-gradient-to-t from-black/80 to-transparent">
-      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text font-medium">
+    <div className="text-center py-6 bg-gradient-to-t from-black/80 to-transparent">
+      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text- sm:text-2xl  tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
         Host Events for Free with Snaptiqs!
       </span>
     </div>
   </div>
 )}
+
 
 {/* Tagline Section */}
 
@@ -344,10 +350,14 @@ const Landing = () => {
                   <IoArrowForwardOutline className="text-white text-lg" />
                 </div>
               </div>
-              <button className="w-full max-w-md mx-auto flex items-center justify-center gap-2 bg-black text-white rounded-full py-3 font-medium border border-gray-800 hover:bg-gray-700 transition">
-                <img src={google} alt="G" className="w-5 h-5" />
-                Sign Up with Google
-              </button>
+              <button
+  onClick={() => navigate('/welcome')}
+  className="w-full max-w-md mx-auto flex items-center justify-center gap-2 bg-black text-white rounded-full py-3 font-medium border border-gray-800 hover:bg-gray-700 transition"
+>
+  <img src={google} alt="G" className="w-5 h-5" />
+  Sign Up with Google
+</button>
+
             </div>
           </div>
         </motion.div>

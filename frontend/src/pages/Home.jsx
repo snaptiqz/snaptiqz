@@ -2,6 +2,7 @@ import React from 'react';
 import Landing from '../components/Landing';
 import Tagline from '../components/Tagline';
 import EventPlans from '../components/EventPlans';
+import Footer from '../components/Footer';
 
 const Home = () => {
   return (
@@ -14,6 +15,9 @@ const Home = () => {
       </div>
       <div className="relative z-30">
         <EventPlans />
+      </div>
+      <div className="relative z-20">
+        <Footer />
       </div>
     </div>
   );

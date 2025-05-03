@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import vectorCurve from '../assets/curveVector.png';
+import landingDesktop from '../assets/landing_desktop.png';
+import landingMob from '../assets/Landing_mob.png';
 
 const Tagline = () => {
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="relative w-full text-center px-4 z-30 bg-black overflow-hidden font-sans mb-20">
-      {/* Star background */}
+      {/* Background Image */}
+      <img
+        src={windowWidth >= 640 ? landingDesktop : landingMob}
+        alt="background"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20"
+      />
+
+      {/* Stars */}
       <div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
         {[...Array(25)].map((_, i) => (
           <div
@@ -21,30 +38,31 @@ const Tagline = () => {
         ))}
       </div>
 
-      {/* Optional gradient fade */}
-      <div className="absolute top-0 left-0 w-full bg-gradient-to-b from-black to-transparent z-20" />
+      {/* Gradient Fade Top */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20" />
 
-      {/* Text on top of vector curve */}
-      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-20 z-30 min-h-[700px] sm:min-h-[900px]">
+      {/* Curve and Content */}
+      <div className="relative w-full flex justify-center items-center  sm:mt-20 z-30 min-h-[800px] sm:min-h-[1000px]">
         {/* Vector Curve */}
         <img
-          src={vectorCurve}
-          alt="curve"
-          className="w-full h-auto object-contain pointer-events-none max-w-7xl"
-        />
+  src={vectorCurve}
+  alt="curve"
+  className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none"
+  style={{ width: '800vw' }}
+/>
 
-        {/* Text over image */}
+
+
+        {/* Centered Content */}
         <div className="absolute top-[20%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4 pt-12 sm:pt-0 space-y-3 sm:space-y-6 max-w-[90%] mx-auto">
-
-          {/* Plan. Publish. Engage. */}
-          <div className="font-bold   tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-20">
+          {/* Tagline */}
+          <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-20">
             {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
               <span
                 key={i}
                 className="bg-gradient-to-b from-gray-500 to-white text-transparent bg-clip-text"
                 style={{
-                  fontSize: 'clamp(2rem, 6vw, 5rem)'
-
+                  fontSize: 'clamp(2rem, 6vw, 5rem)',
                 }}
               >
                 {text}
@@ -68,7 +86,7 @@ const Tagline = () => {
           <h3
             className="uppercase font-extrabold text-transparent leading-none"
             style={{
-             fontSize: 'clamp(3rem, 9vw, 12rem)',
+              fontSize: 'clamp(3rem, 9vw, 12rem)',
               WebkitTextStroke: '1px #ffffffaa',
               WebkitTextFillColor: 'transparent',
             }}
