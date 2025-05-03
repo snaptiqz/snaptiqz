@@ -187,69 +187,77 @@ const EventPlans = () => {
       </div>
 
       {/* Cards Section */}
+     
+
       <div className=" relative grid gap-9 z-40 px-4 mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center
 ">
 
         {standardPlans.map((plan, index) => (
-          <div
-            key={index}
-            className="relative w-full max-w-sm border-t-[2px]  rounded-[32px] border-gray-300/90 bg-transparent backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] overflow-hidden"
-
-          >
-<motion.img
-  src={lightGlow}
-  alt="card glow"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 0.8 }}
-  transition={{ duration: 1.6, ease: 'easeOut' }}
-  className="absolute -top-32 left-1/2 -translate-x-1/2 w-[400px] h-[400px] blur-2xl object-contain pointer-events-none z-[99] mix-blend-screen"
-/>
-
-
-          <div
-  className="relative z-40 px-6 py-8 rounded-[32px] h-full flex flex-col"
-  style={{
-    background: 'linear-gradient(180deg, rgba(29,34,53,0.6) 0%, rgba(12,13,16,0.6) 100%)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-  }}
->
-
-
-<h3 className="text-3xl text-center font-semibold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent mb-1">
-  {plan.title}
-</h3>
-
-              <p className="text-sm text-center mb-6 bg-gradient-to-b from-black to-gray-300 bg-clip-text text-transparent opacity-90">
-  {plan.subtitle}
-</p>
-
-
-              <div className="flex justify-center">
-                <ul className="text-sm space-y-3 text-white mb-6">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-white mr-2 flex-shrink-0">✓</span>
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {plan.footer && <p className="text-sm text-gray-300 mb-6 text-center">{plan.footer}</p>}
-
-              <button
-  className="w-full py-3 mt-auto rounded-full bg-gradient-to-b from-white to-gray-200 text-black font-semibold text-sm border border-white/90 shadow-[0_0_10px_rgba(255,255,255,0.35),0_0_5px_rgba(255,255,255,0.25),inset_0_2px_4px_rgba(255,255,255,0.4),0_6px_20px_rgba(0,0,0,0.3)]"
->
-  {plan.button}
-</button>
-
-            </div>
-          </div>
+        <motion.div
+        key={index}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.4 }} // triggers when 40% of the card is in view
+        transition={{
+          duration: 1,
+          ease: 'easeInOut',
+          delay: index * 0.15
+        }}
+        className="relative w-full max-w-sm border-t-[2px] rounded-[32px] border-gray-300/90 bg-[#0d0d12] backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] overflow-hidden"
+      >
+      
+         <motion.img
+           src={lightGlow}
+           alt="card glow"
+           loading="lazy"
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 0.8 }}
+           transition={{ duration: 1.6, ease: 'easeOut' }}
+           className="absolute -top-32 left-1/2 -translate-x-1/2 w-[400px] h-[400px] blur-2xl object-contain pointer-events-none z-[99] mix-blend-screen"
+         />
+       
+         <div
+           className="relative z-40 px-6 py-8 rounded-[32px] h-full flex flex-col"
+           style={{
+             background: 'linear-gradient(180deg, rgba(29,34,53,0.6) 0%, rgba(12,13,16,0.6) 100%)',
+             backdropFilter: 'blur(20px)',
+             WebkitBackdropFilter: 'blur(20px)',
+             border: '1px solid rgba(255, 255, 255, 0.1)'
+           }}
+         >
+           <h3 className="text-3xl text-center font-semibold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent mb-1">
+             {plan.title}
+           </h3>
+       
+           <p className="text-sm text-center mb-6 bg-gradient-to-b from-black to-gray-300 bg-clip-text text-transparent opacity-90">
+             {plan.subtitle}
+           </p>
+       
+           <div className="flex justify-center">
+             <ul className="text-sm space-y-3 text-white mb-6">
+               {plan.features.map((feature, idx) => (
+                 <li key={idx} className="flex items-start">
+                   <span className="text-white mr-2 flex-shrink-0">✓</span>
+                   <span className="text-gray-300">{feature}</span>
+                 </li>
+               ))}
+             </ul>
+           </div>
+       
+           {plan.footer && (
+             <p className="text-sm text-gray-300 mb-6 text-center">{plan.footer}</p>
+           )}
+       
+           <button className="w-full py-3 mt-auto rounded-full bg-gradient-to-b from-white to-gray-200 text-black font-semibold text-sm border border-white/90 shadow-[0_0_10px_rgba(255,255,255,0.35),0_0_5px_rgba(255,255,255,0.25),inset_0_2px_4px_rgba(255,255,255,0.4),0_6px_20px_rgba(0,0,0,0.3)]">
+             {plan.button}
+           </button>
+         </div>
+       </motion.div>
+       
         ))}
       </div>
-    </div>
+      </div>
+ 
   );
 };
 
