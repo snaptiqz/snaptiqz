@@ -1,8 +1,8 @@
 import React from 'react';
-import ticket from '../assets/ticket.png';
-import bgImage from '../assets/org_dashboard.png';
+import ticket from '../assets/ticket.svg';
+import bgImage from '../assets/org_dashboard.svg';
 import BottomNavbar from '../components/BottomNavbar';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.svg';
 import { FaPlus } from 'react-icons/fa';
 
 const Org_dashboard = () => {

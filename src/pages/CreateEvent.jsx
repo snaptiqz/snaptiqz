@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import bgImage from '../assets/org_dashboard.png';
-import defaultPoster from '../assets/default_poster.png';
-import logo from '../assets/logo.png';
+import bgImage from '../assets/org_dashboard.svg';
+import defaultPoster from '../assets/default_poster.svg';
+import logo from '../assets/logo.svg';
 import {
   FaCalendarAlt, FaMapMarkerAlt, FaLink, FaFileAlt, FaTags, FaUsers,
   FaPlus, FaImage, FaClock, FaChevronDown

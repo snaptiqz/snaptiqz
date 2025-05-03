@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import vectorCurve from '../assets/curveVector.png';
-import landingDesktop from '../assets/landing_desktop.png';
-import landingMob from '../assets/Landing_mob.png';
+import vectorCurve from '../assets/curveVector.svg';
+import landingDesktop from '../assets/landing_desktop2.svg';
+import landingMob from '../assets/Landing_nogrid_mob.svg';
 
 const Tagline = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
@@ -69,30 +69,52 @@ const Tagline = () => {
               </span>
             ))}
           </div>
-
+            
           {/* AT 0% */}
-          <h3
-            className="uppercase font-extrabold text-transparent leading-none mt-20"
-            style={{
-              fontSize: 'clamp(3rem, 10vw, 12.5rem)',
-              WebkitTextStroke: '1.5px #ffffffaa',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            AT 0%
-          </h3>
+          <div className="relative mt-20">
+            <h3
+              className="uppercase font-extrabold text-transparent leading-none"
+              style={{
+                fontSize: 'clamp(3rem, 10vw, 12.5rem)',
+                WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.5)', // Reduced opacity of stroke
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)', // Stronger shadow
+                filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))'
+              }}
+            >
+              AT 0%
+            </h3>
+            {/* Black overlay for fading effect */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
+              style={{
+                mixBlendMode: 'multiply' // This creates a dimming effect
+              }}
+            />
+          </div>
 
           {/* COMMISSION */}
-          <h3
-            className="uppercase font-extrabold text-transparent leading-none"
-            style={{
-              fontSize: 'clamp(3rem, 9vw, 12rem)',
-              WebkitTextStroke: '1px #ffffffaa',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            COMMISSION
-          </h3>
+          <div className="relative">
+            <h3
+              className="uppercase font-extrabold text-transparent leading-none"
+              style={{
+                fontSize: 'clamp(3rem, 9vw, 12rem)',
+                WebkitTextStroke: '1px rgba(255, 255, 255, 0.5)', // Reduced opacity of stroke
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)', // Stronger shadow
+                filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))'
+              }}
+            >
+              COMMISSION
+            </h3>
+            {/* Black overlay for fading effect */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
+              style={{
+                mixBlendMode: 'multiply' // This creates a dimming effect
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

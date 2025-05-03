@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../assets/logo.png'; // your Snaptiqz logo
-import avatar from '../assets/avatar.png'; // placeholder avatar image
+import logo from '../assets/logo.svg'; // your Snaptiqz logo
+import avatar from '../assets/avatar.svg'; // placeholder avatar image
 import { FaUserTie, FaUserFriends } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 

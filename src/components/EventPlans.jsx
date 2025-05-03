@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import lightGlow from '../assets/Light_bg_bleu_35.png';
-import greyCurve from '../assets/grey_layers.png';
+import lightGlow from '../assets/Light_bg_bleu_35.svg';
+import greyCurve from '../assets/grey_layers.svg';
 import { motion } from 'framer-motion';
 const EventPlans = () => {
   const [activeTab, setActiveTab] = useState('standard');

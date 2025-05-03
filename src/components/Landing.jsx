@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import mike from '../assets/mike.png';
-import gridBg from '../assets/Grid_mob.png';
-import landingMob2 from '../assets/Landing_mob.png';
-import landingDesktop from '../assets/landing_desktop2.png';
-import landingMob from '../assets/Landing_nogrid_mob.png';
+import mike from '../assets/mike_svg.svg';
+import gridBg from '../assets/Grid_mob.svg';
+import landingDesktop from '../assets/landing_desktop2.svg';
+import landingMob from '../assets/Landing_nogrid_mob.svg';
 import google from "../assets/google_logo.png";
-import curl2 from '../assets/24_mob.png';
-import curl1 from '../assets/25_mob.png';
-import curlDeskLeft from '../assets/26_desk.png';
-import curlDeskRight from '../assets/27_desk.png';
-import logo from '../assets/logo.png';
+import curl2 from '../assets/24_mob.svg';
+import curl1 from '../assets/25_mob.svg';
+import curlDeskLeft from '../assets/26_desk.svg';
+import curlDeskRight from '../assets/27_desk.svg';
+import logo from '../assets/logo.svg';
 import { useNavigate } from 'react-router-dom'; // rename accordingly
 
 import { IoArrowForwardOutline } from 'react-icons/io5';
