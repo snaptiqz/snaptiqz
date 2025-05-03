@@ -4,7 +4,7 @@ import mike from '../assets/mike.png';
 import gridBg from '../assets/Grid_mob.png';
 import landingMob2 from '../assets/Landing_mob.png';
 import landingDesktop from '../assets/landing_desktop2.png';
-import landingMob from '../assets/landing_nogrid_mob.png';
+import landingMob from '../assets/Landing_nogrid_mob.png';
 import google from "../assets/google_logo.png";
 import curl2 from '../assets/24_mob.png';
 import curl1 from '../assets/25_mob.png';
