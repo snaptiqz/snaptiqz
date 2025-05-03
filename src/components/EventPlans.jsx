@@ -60,7 +60,7 @@ const EventPlans = () => {
   return (
     
     <div
-    className="relative text-white font-sans pb-[20vh] sm:pb-[30vh] px-4 overflow-hidden bg-[#020308]"
+    className="relative text-white font-sans  lg:pb-[35vh] md:pb-[20vh] px-4 overflow-hidden bg-[#020308]"
     
   >
   
@@ -90,7 +90,7 @@ const EventPlans = () => {
   initial={{ opacity: 0.4 }}
   animate={{ opacity: [0.4, 0.6, 0.4] }}
   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-  className="hidden sm:block absolute top-[-35%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
+  className="hidden sm:block absolute lg:top-[-35%] md:top-[-15%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
 />
 {/* Purple Glow Layer Behind */}
 
@@ -187,7 +187,8 @@ const EventPlans = () => {
       </div>
 
       {/* Cards Section */}
-      <div className="relative flex flex-col sm:flex-row justify-center items-center sm:items-stretch gap-10 z-40 flex-wrap">
+      <div className=" relative grid gap-9 z-40 px-4 mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center
+">
 
         {standardPlans.map((plan, index) => (
           <div

@@ -23,7 +23,7 @@ const Tagline = () => {
   }, []);
 
   return (
-    <div className="relative w-full text-center px-4 z-30 bg-black overflow-hidden font-sans mb-20">
+    <div className="relative w-full text-center px-4 z-30 bg-black overflow-hidden font-sans ">
       {/* Background Image */}
       <img
         src={windowWidth >= 640 ? landingDesktop : landingMob}
@@ -32,22 +32,27 @@ const Tagline = () => {
       />
 
       {/* Stars */}
-     {/* Stars - rendered once with fixed positions */}
-<div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
-  {starPositions.map((pos, i) => (
-    <div
-      key={i}
-      className="absolute bg-white rounded-full opacity-30 animate-pulse"
-      style={pos}
-    />
-  ))}
-</div>
+      <div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
+        {[...Array(25)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute bg-white rounded-full opacity-30 animate-pulse"
+            style={{
+              width: `${Math.random() * 2 + 1}px`,
+              height: `${Math.random() * 2 + 1}px`,
+              top: `${Math.random() * 80 + 10}%`,
+              left: `${Math.random() * 90 + 5}%`,
+              animationDelay: `${Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Gradient Fade Top */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20" />
 
       {/* Curve and Content */}
-      <div className="relative w-full flex justify-center items-center  sm:mt-20 z-30 min-h-[800px] sm:min-h-[1000px]">
+      <div className="relative w-full flex justify-center items-center  sm:mt-20 z-30 min-h-[800px]   sm:min-h-[800px]">
         {/* Vector Curve */}
         <img
   src={vectorCurve}

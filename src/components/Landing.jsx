@@ -79,7 +79,7 @@ const Landing = () => {
 
   const TopRightNav = () => {
     return (
-      <div className="hidden sm:flex absolute top-0 right-0 z-40 px-4 py-2 rounded-l-md text-white/80 items-center space-x-6 text-sm
+      <div className="hidden sm:flex absolute top-0 right-0 z-40 px-4 py-2 rounded-l-md text-white/80 items-center space-x-6 text-lg
         bg-black/40 backdrop-blur-md border border-white/10 border-r-0
          shadow-[inset_2px_2px_6px_rgba(255,255,255,0.05),inset_-2px_-2px_6px_rgba(0,0,0,0.3)]">
         <div>{time}</div>
@@ -120,29 +120,12 @@ const Landing = () => {
   
 
 
-  const getMikePosition = () => {
-    if (windowWidth < 640) {
-      if (animationState === 'mikeMoving' || animationState === 'showPopup') {
-        return "relative mx-auto w-60 z-30 ";
-      } else if (animationState === 'contentMoving') {
-        return "relative mx-auto w-60 z-30 translate-y-[-200px]";
-      } else {
-        return "relative mx-auto w-60 z-30 ";
-      }
-    } else {
-      if (animationState === 'mikeMoving' || animationState === 'showPopup') {
-        return "relative mx-auto w-40 z-30 mt-10"; // Smaller width for desktop
-      } else if (animationState === 'contentMoving') {
-        return "relative mx-auto w-5 z-30 translate-y-[-200px]";
-      } else {
-        return "relative mx-auto w-54 z-30 mt-6";
-      }
-    }
-  };
+
   
 
   return (
-    <div className="w-full h-screen overflow-y-auto  bg-black text-white font-sans flex items-center justify-center relative">
+<div className="w-full h-screen overflow-y-auto overflow-x-hidden bg-black text-white font-sans flex items-center justify-center relative">
+
       {/* Background Image */}
       <img
         src={windowWidth >= 640 ? landingDesktop : landingMob}
@@ -193,30 +176,30 @@ const Landing = () => {
     opacity: animationState === 'transitioning' ? 0 : 1
   }}
   transition={{ duration: 1.2, ease: 'easeInOut' }}
-  className="absolute top-0 left-0 w-full flex flex-col items-center px-4 z-20 pt-20 sm:pt-20 text-center"
+  className="absolute top-0 left-0 w-full flex flex-col items-center px-4 z-20 pt-20 lg:pt-20 text-center"
 
 >
 
 
 
-        <h1 className="text-xl sm:text-2xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text">
+        <h1 className="text-xl md:text-4xl md:mt-8 lg:text-xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text">
   Start Hosting Your Events.
 </h1>
-<p className="hidden sm:block text-sm sm:text-lg mt-2 leading-relaxed max-w-2xl mx-auto text-white/90">
+<p className="hidden lg:block text-lg lg:text-lg  mt-2 leading-relaxed max-w-2xl mx-auto text-white/90">
   Create and join organizations, Host events and sell tickets to your guests.<br />
   Happy tiqz!
 </p>
 
-<p className="text-sm sm:hidden sm:text-lg mt-2 leading-relaxed max-w-2xl mx-auto text-white/90 ">
+<p className="text-lg lg:hidden lg:text-lg mt-2 md:text-xl md:mt-4 leading-relaxed max-w-2xl mx-auto text-white/90 ">
   Create and join organizations, Host events and sell tickets to your guests. Happy tiqz!
 </p>
 
 
 <button
   onClick={handleGetHosting}
-  className="mt-4 px-8 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-lg relative hover:scale-105 transition-all duration-300"
+  className="lg:mt-4 md:mt-8 lg:px-8 lg:py-2 px-8 py-2 md:px-12 md:py-4 mt-4 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-lg relative hover:scale-105 transition-all duration-300"
 >
-  <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text font-semibold">
+  <span className="bg-gradient-to-b md:text-xl from-white to-gray-400 text-transparent bg-clip-text font-semibold">
     Get Hosting
   </span>
   {/* Top white inner shadow only */}
@@ -244,7 +227,6 @@ const Landing = () => {
   }}
   transition={{ duration: 1.2, ease: 'easeInOut' }}
 />
-
 
 
 
@@ -289,7 +271,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute top-[30%] mr-[20%] w-[25vw] max-w-[800px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[30%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[800px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* Right curl: appears delayed, exits right */}
@@ -301,7 +283,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute top-[30%] ml-[20%] w-[25vw] max-w-[800px] transform translate-x-[20%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[30%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[800px] transform translate-x-[20%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
@@ -314,7 +296,7 @@ const Landing = () => {
       {animationState === 'initial' && (
   <div className="absolute bottom-0 w-full z-30 pointer-events-none">
     <div className="text-center py-6 bg-gradient-to-t from-black/80 to-transparent">
-      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text- sm:text-2xl  tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
+      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text  lg:text-2xl md:text-3xl   tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
         Host Events for Free with Snaptiqs!
       </span>
     </div>
@@ -345,14 +327,14 @@ const Landing = () => {
             <div className="w-full">
               <img src={logo} alt="Logo" className="w-6 h-6 mb-6 mx-auto" />
               <h2 className="text-2xl font-semibold text-center mb-2">Welcome to Snaptiqz</h2>
-              <p className="text-sm text-gray-300 text-center mb-8 px-4">
+              <p className="text-lg text-gray-300 text-center mb-8 px-4">
                 Thank you for signing up. Begin your hosting journey here by creating an account.
               </p>
               <div className="relative w-full max-w-md mx-auto mb-6">
                 <input
                   type="email"
                   placeholder="account email"
-                  className="w-full px-5 py-3 pr-10 bg-[#1e1e1e] rounded-full border border-gray-700 text-white text-sm focus:outline-none"
+                  className="w-full px-5 py-3 pr-10 bg-[#1e1e1e] rounded-full border border-gray-700 text-white text-lg focus:outline-none"
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center">
                   <IoArrowForwardOutline className="text-white text-lg" />
