@@ -21,22 +21,37 @@ const Landing = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showDesktopCurls, setShowDesktopCurls] = useState(false);
   const [curlsExited, setCurlsExited] = useState(false);
-  const [isMicFloated, setIsMicFloated] = useState(false);
   const [showStars, setShowStars] = useState(false);
-
+  const [starPositions] = useState(() =>
+    Array.from({ length: 25 }, () => ({
+      width: `${Math.random() * 2 + 1}px`,
+      height: `${Math.random() * 2 + 1}px`,
+      top: `${Math.random() * 80 + 10}%`,
+      left: `${Math.random() * 90 + 5}%`,
+      animationDelay: `${Math.random() * 2}s`
+    }))
+  );
+  
   const [time, setTime] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showPopup]);
+  
+
   
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowStars(true), 800); // delay to sync with grid if needed
-    return () => clearTimeout(timer);
-  }, []);
-  
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowGrid(false), 2000);
+    const timer = setTimeout(() => setShowGrid(false), 3000);
     const handleResize = () => setWindowWidth(window.innerWidth);
     
     // Set time in GMT+5:30 format
@@ -74,7 +89,8 @@ const Landing = () => {
     );
   };
   
-  
+  // Top of Landing.jsx
+
 
   const handleGetHosting = () => {
     setAnimationState('transitioning');
@@ -95,14 +111,12 @@ const Landing = () => {
   };
   
   useEffect(() => {
-    const showCurlTimer = setTimeout(() => {
-      if (window.innerWidth >= 640) {
-        setShowDesktopCurls(true);
-      }
-    }, 1200); // Delay to sync with grid fade or mic animation
+    if (animationState === 'initial' && window.innerWidth >= 640) {
+      const timer = setTimeout(() => setShowDesktopCurls(true), 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [animationState, window.innerWidth]);
   
-    return () => clearTimeout(showCurlTimer);
-  }, []);
   
 
 
@@ -149,29 +163,24 @@ const Landing = () => {
       )}
 
       {/* Star Animation */}
-      {showStars && (
+      {animationState === 'initial' && (
   <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 1.5 }}
     className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none"
   >
-    {[...Array(25)].map((_, i) => (
+    {starPositions.map((pos, i) => (
       <div
         key={i}
         className="absolute bg-white rounded-full opacity-30 animate-pulse"
         style={{
-          width: `${Math.random() * 2 + 1}px`,
-          height: `${Math.random() * 2 + 1}px`,
-          top: `${Math.random() * 80 + 10}%`,
-          left: `${Math.random() * 90 + 5}%`,
-          animationDelay: `${Math.random() * 2}s`,
+          ...pos
         }}
       />
     ))}
   </motion.div>
 )}
-
 
       {/* Logo */}
       <img src={logo} alt="Logo" className="absolute top-4 left-4 w-6 h-6 z-10" />

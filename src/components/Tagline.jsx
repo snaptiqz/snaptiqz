@@ -5,6 +5,16 @@ import landingMob from '../assets/Landing_nogrid_mob.svg';
 
 const Tagline = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
+  const [starPositions] = useState(() =>
+    Array.from({ length: 25 }, () => ({
+      width: `${Math.random() * 2 + 1}px`,
+      height: `${Math.random() * 2 + 1}px`,
+      top: `${Math.random() * 80 + 10}%`,
+      left: `${Math.random() * 90 + 5}%`,
+      animationDelay: `${Math.random() * 2}s`
+    }))
+  );
+  
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -22,21 +32,16 @@ const Tagline = () => {
       />
 
       {/* Stars */}
-      <div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
-        {[...Array(25)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full opacity-30 animate-pulse"
-            style={{
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`,
-              top: `${Math.random() * 80 + 10}%`,
-              left: `${Math.random() * 90 + 5}%`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          />
-        ))}
-      </div>
+     {/* Stars - rendered once with fixed positions */}
+<div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
+  {starPositions.map((pos, i) => (
+    <div
+      key={i}
+      className="absolute bg-white rounded-full opacity-30 animate-pulse"
+      style={pos}
+    />
+  ))}
+</div>
 
       {/* Gradient Fade Top */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20" />

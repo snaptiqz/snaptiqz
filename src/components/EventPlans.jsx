@@ -60,7 +60,7 @@ const EventPlans = () => {
   return (
     
     <div
-    className="relative text-white font-sans pb-[30vh] px-4 overflow-hidden bg-[#020308]"
+    className="relative text-white font-sans pb-[20vh] sm:pb-[30vh] px-4 overflow-hidden bg-[#020308]"
     
   >
   
@@ -122,7 +122,7 @@ const EventPlans = () => {
 
       {/* HOST Text */}
       <h1
-        className="w-full mt-5 text-[28vw] sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide mb-[20px] z-10"
+        className="w-full  text-[28vw] sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide mb-[20px] z-10"
         style={{
           WebkitTextStroke: '1.5px rgba(160, 160, 160, 1)',
           WebkitTextFillColor: 'transparent',
@@ -146,7 +146,7 @@ const EventPlans = () => {
         <img
           src={lightGlow}
           alt="glow"
-           className="absolute -top-20 left-1/2 -translate-x-1/2  object-contain  z-999 pointer-events-none"
+           className="absolute -top-20 left-1/2 -translate-x-1/2  object-contain  z-40 pointer-events-none"
 
         />
 
