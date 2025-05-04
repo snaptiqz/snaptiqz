@@ -308,7 +308,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[40%] md:top-[20%] md:w-[65vw]  md:ml-[50%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[40%]   md:ml-[50%] md:w-[65vw]  lg:ml-[20%] lg:w-[26vw] lg:max-w-[700px] transform translate-x-[120%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
