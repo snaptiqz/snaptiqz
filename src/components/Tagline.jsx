@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import vectorCurve from '../assets/curveVector.svg';
-import landingDesktop from '../assets/landing_desktop2.svg';
-import landingMob from '../assets/Landing_nogrid_mob.svg';
+import gridBg from '../assets/Grid_mob.svg';
 
 const Tagline = () => {
-  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
   const [starPositions] = useState(() =>
-    Array.from({ length: 25 }, () => ({
+    Array.from({ length: 80 }, () => ({
       width: `${Math.random() * 2 + 1}px`,
       height: `${Math.random() * 2 + 1}px`,
       top: `${Math.random() * 80 + 10}%`,
       left: `${Math.random() * 90 + 5}%`,
-      animationDelay: `${Math.random() * 2}s`
+      animationDelay: `${Math.random() * 2}s`,
     }))
   );
-  
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -23,55 +21,80 @@ const Tagline = () => {
   }, []);
 
   return (
-    <div className="relative w-full text-center px-4 z-30 bg-black overflow-hidden font-sans ">
-      {/* Background Image */}
-      <img
-        src={windowWidth >= 640 ? landingDesktop : landingMob}
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20"
+    <div className="relative  w-full text-center px-4 overflow-hidden font-sans min-h-screen ">
+      {/* Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{ background: 'linear-gradient(to bottom, #020308, black)' }}
       />
 
       {/* Stars */}
       <div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
-        {[...Array(25)].map((_, i) => (
+        {starPositions.map((pos, i) => (
           <div
             key={i}
-            className="absolute bg-white rounded-full opacity-30 animate-pulse"
-            style={{
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`,
-              top: `${Math.random() * 80 + 10}%`,
-              left: `${Math.random() * 90 + 5}%`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
+            className="absolute bg-white rounded-full opacity-50 blur-[0.2px] animate-pulse"
+            style={{ ...pos }}
           />
         ))}
       </div>
 
-      {/* Gradient Fade Top */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-20" />
-
-      {/* Curve and Content */}
-      <div className="relative w-full flex justify-center items-center  sm:mt-20 z-30 min-h-[800px]   sm:min-h-[800px]">
+      {/* Main Content */}
+      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-32 lg:mt-60 z-30 min-h-[100vh] sm:min-h-[110vh] lg:min-h-[130vh]">
         {/* Vector Curve */}
         <img
   src={vectorCurve}
   alt="curve"
-  className="absolute left-1/2 -translate-x-1/2 object-contain pointer-events-none"
-  style={{ width: '800vw' }}
+  className="absolute left-1/2 -translate-x-1/2 
+    mt-20 sm:mt-0
+    h-[80vh] sm:h-[100vh] lg:h-[120vh] 
+    w-[800vw] object-contain pointer-events-none transition-transform duration-1000"
 />
 
 
+        {/* Content Wrapper */}
+        <div className="absolute top-[25%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4 pt-12 space-y-6 max-w-[90%] mx-auto">
 
-        {/* Centered Content */}
-        <div className="absolute top-[20%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4 pt-12 sm:pt-0 space-y-3 sm:space-y-6 max-w-[90%] mx-auto">
-          {/* Tagline */}
-          <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-20">
+          {/* Grid and Header */}
+          <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="absolute inset-0 z-10 flex justify-center items-center">
+              <div className="relative">
+                <div
+                  className="absolute inset-0 blur-[50px] transform scale-100 sm:scale-150"
+                  style={{
+                    background: 'radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 80%)',
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                  }}
+                />
+                <img
+                  src={gridBg}
+                  alt="grid background"
+                  className="relative w-[45vw] sm:w-[30vw] max-w-none h-auto object-contain opacity-50 z-10"
+                />
+              </div>
+            </div>
+
+            <p
+  className="relative z-30 text-md pb-10 sm:text-2xl lg:text-3xl tracking-wide text-transparent bg-clip-text font-instrument"
+  style={{
+    backgroundImage: 'linear-gradient(to bottom, #aaa 0%, #ddd 40%, #f8f8f8 80%, #fff 100%)',
+  }}
+>
+
+              Host your events for free at <span className="font-semibold">Snaptiqz!</span>
+            </p>
+          </div>
+
+          {/* Tagline: Plan. Publish. Engage. */}
+          <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument">
             {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
               <span
                 key={i}
-                className="bg-gradient-to-b from-gray-500 to-white text-transparent bg-clip-text"
+                className="text-transparent bg-clip-text"
                 style={{
+                  backgroundImage:
+                    'linear-gradient(to bottom, #666666 0%, #aaaaaa 60%, #f0f0f0 90%, #ffffff 100%)',
                   fontSize: 'clamp(2rem, 6vw, 5rem)',
                 }}
               >
@@ -79,58 +102,38 @@ const Tagline = () => {
               </span>
             ))}
           </div>
-            
-          {/* AT 0% */}
-          <div className="relative mt-20">
-          <h3
-  className="uppercase font-poppins font-bold text-center tracking-wider"
-  style={{
-    fontSize: windowWidth < 640 ? '3rem' : 'clamp(3rem, 10vw, 12.5rem)',
-    WebkitTextStroke: windowWidth < 640 ? '1.2px rgba(255, 255, 255, 0.5)' : '1px rgba(255, 255, 255, 0.5)',
-    WebkitTextFillColor: 'transparent',
-    color: 'transparent',
-    lineHeight: '1.1',
-    letterSpacing: '0.05em',
-    textShadow: '0 0 2px rgba(0,0,0,0.3)',
-  }}
->
-  AT 0%
-</h3>
 
-            {/* Black overlay for fading effect */}
-            <div 
-              className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
+          {/* AT 0% COMMISSION */}
+          <div className="relative mx-auto mt-10 sm:-translate-y-10 w-full flex flex-col items-center max-w-[400px] sm:max-w-[800px] px-2">
+            <h3
+              className="uppercase font-poppins font-bold tracking-wider text-center"
               style={{
-                mixBlendMode: 'multiply' // This creates a dimming effect
+                fontSize: 'clamp(4.5rem, 13vw, 12rem)',
+                WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+                letterSpacing: '0.05em',
+                lineHeight: '1.1',
               }}
-            />
-          </div>
-
-          {/* COMMISSION */}
-          <div className="relative">
-          <h3
-  className="uppercase font-poppins font-bold text-transparent leading-none text-center tracking-wider"
-  style={{
-    fontSize: 'clamp(3rem, 9vw, 12rem)',
-    WebkitTextStroke: '1px rgba(255, 255, 255, 0.5)',
-    WebkitTextFillColor: 'transparent',
-    color: 'transparent',
-    textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
-    filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
-    lineHeight: '1.1',
-    letterSpacing: '0.05em'
-  }}
->
-  COMMISSION
-</h3>
-
-            {/* Black overlay for fading effect */}
-            <div 
-              className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
-              style={{
-                mixBlendMode: 'multiply' // This creates a dimming effect
-              }}
-            />
+            >
+              AT 0%
+            </h3>
+            <div className="w-full flex justify-center">
+              <h3
+                className="uppercase font-poppins font-bold tracking-wider text-center inline-block"
+                style={{
+                  fontSize: 'clamp(2rem, 6vw, 7rem)',
+                  WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
+                  WebkitTextFillColor: 'transparent',
+                  color: 'transparent',
+                  lineHeight: '1.1',
+                  textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
+                  filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
+                }}
+              >
+                COMMISSION
+              </h3>
+            </div>
           </div>
         </div>
       </div>

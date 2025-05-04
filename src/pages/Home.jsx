@@ -32,11 +32,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-black overflow-x-hidden">
+    <div className="w-full min-h-screen bg-black  overflow-x-hidden">
       <div className="relative z-10">
         <Landing />
       </div>
-      <div className="relative z-20">
+      <div className="">
         <Tagline />
       </div>
       <div className="relative z-30">

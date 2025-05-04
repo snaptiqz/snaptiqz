@@ -5,10 +5,10 @@ import gridBg from '../assets/Grid_mob.svg';
 import landingDesktop from '../assets/landing_desktop2.svg';
 import landingMob from '../assets/Landing_nogrid_mob.svg';
 import google from "../assets/google_logo.png";
-import curl2 from '../assets/24_mob.svg';
-import curl1 from '../assets/25_mob.svg';
-import curlDeskLeft from '../assets/26_desk.svg';
-import curlDeskRight from '../assets/27_desk.svg';
+import curl2 from '../assets/24.png';
+import curl1 from '../assets/25.png';
+import curlDeskLeft from '../assets/26.png';
+import curlDeskRight from '../assets/27.png';
 import logo from '../assets/logo.svg';
 import { useNavigate } from 'react-router-dom'; // rename accordingly
 
@@ -79,15 +79,38 @@ const Landing = () => {
 
   const TopRightNav = () => {
     return (
-      <div className="hidden sm:flex absolute top-0 right-0 z-40 px-4 py-2 rounded-l-md text-white/80 items-center space-x-6 text-lg
-        bg-black/40 backdrop-blur-md border border-white/10 border-r-0
-         shadow-[inset_2px_2px_6px_rgba(255,255,255,0.05),inset_-2px_-2px_6px_rgba(0,0,0,0.3)]">
-        <div>{time}</div>
-        <button className="hover:text-white transition-colors">Explore event</button>
-        <button className="hover:text-white transition-colors">Sign in</button>
+      <div
+        className="hidden sm:flex absolute top-0 right-0 z-40 px-3 py-2 text-white/90 items-center space-x-7 text-sm rounded-bl-xl"
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(3px)',
+          borderLeft: '2px solid rgba(192,192,192,0.4)',
+          borderBottom: '1px solid rgba(192,192,192,0.2)',
+          boxShadow: `
+            inset 1px 1px 3px rgba(0,0,0,0.7),
+            inset -1px -1px 2px rgba(255,255,255,0.1)
+          `
+        }}
+      >
+        <div className="px-3 py-1 rounded-md" >
+          {time}
+        </div>
+        <button className="px-3 py-1 rounded-md hover:text-white transition" >
+          Explore event
+        </button>
+        <button className="px-3 py-1 rounded-md hover:text-white transition" >
+          Sign in
+        </button>
       </div>
     );
   };
+  
+  
+  
+  
+  
+  
+  
   
   // Top of Landing.jsx
 
@@ -189,10 +212,10 @@ const Landing = () => {
 
 
 
-        <h1 className="text-lg md:text-4xl md:mt-8 lg:text-xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
+        <h1 className="text-lg md:text-4xl md:mt-8 lg:text-3xl mt-3 sm:mt-4  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
   Start Hosting Your Events.
 </h1>
-<p className="hidden lg:block  lg:text-lg  mt-2 leading-relaxed max-w-2xl mx-auto text-white/90">
+<p className="hidden lg:block  lg:text-md  mt-6 leading-relaxed max-w-2xl mx-auto text-white/90">
   Create and join organizations, Host events and sell tickets to your guests.<br />
   Happy tiqz!
 </p>
@@ -204,13 +227,13 @@ const Landing = () => {
 
 <button
   onClick={handleGetHosting}
-  className="lg:mt-4 md:mt-8 lg:px-8 lg:py-2 px-8 py-2 md:px-12 md:py-4 mt-4 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-lg relative hover:scale-105 transition-all duration-300"
+  className="lg:mt-8 md:mt-8 lg:px-5 lg:py-3 px-8 py-2 md:px-12 md:py-4 mt-4 rounded-full border-2 border-[#535456] bg-[#212226]  text-lg relative hover:scale-105 transition-all duration-300"
 >
   <span className="bg-gradient-to-b md:text-xl from-white to-gray-400 text-transparent bg-clip-text font-semibold">
     Get Hosting
   </span>
   {/* Top white inner shadow only */}
-  <div className="absolute inset-0 rounded-full pointer-events-none shadow-[inset_0_1px_3px_rgba(255,255,255,0.2)]"></div>
+  
 </button>
 
 
@@ -219,10 +242,10 @@ const Landing = () => {
 
       {/* Mike Image */}
       <motion.img
-  src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"
+  src={"https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-40 mt-5' : 'w-60 lg:mt-20'
+    windowWidth < 640 ? 'w-40 mt-5' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 sm:-pb-40'
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{ y: targetY, opacity: 1 }}
@@ -243,7 +266,7 @@ const Landing = () => {
         ? { x: -500, opacity: 0 }
         : { x: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut' }}
-      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358898/25_mob_ngozw9.svg"
+      src={curl1}
       alt="left-curl"
       className="absolute top-[30%] ml-[3px] left-0 w-[64vw] max-w-[400px] transform -translate-y-1/2 rotate-[60deg] z-10"
     />
@@ -255,7 +278,7 @@ const Landing = () => {
         ? { x: 500, opacity: 0 }
         : { x: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.1 }}
-      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358895/24_mob_o2sqtu.svg"
+      src={curl2}
       alt="right-curl"
       className="absolute top-[30%] right-0 w-[60vw] max-w-[400px] transform -translate-y-1/2 rotate-[120deg] z-10"
     />
@@ -270,7 +293,7 @@ const Landing = () => {
         ? { x: -500, opacity: 0 }
         : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut' }}
-      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358900/26_desk_eg6add.svg"
+      src={curlDeskLeft}
       alt="desktop-left-curl"
       className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
@@ -282,9 +305,9 @@ const Landing = () => {
         ? { x: 500, opacity: 0 }
         : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
-      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358895/27_desk_ytu8se.svg"
+      src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[30%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[30%] md:top-[20%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
@@ -296,13 +319,17 @@ const Landing = () => {
       {/* Bottom Message */}
       {animationState === 'initial' && (
   <div className="absolute bottom-10 sm:bottom-0 w-full z-30 pointer-events-none">
-    <div className="text-center py-6 bg-gradient-to-t from-black/80 to-transparent">
-      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text-lg  lg:text-2xl md:text-3xl   tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
-        Host Events for Free with Snaptiqs!
-      </span>
+    <div
+      className="text-center py-6"
+      style={{
+        background: 'linear-gradient(to top, rgba(2,3,8,0.8), transparent)',
+      }}
+    >
+      {/* Your content here */}
     </div>
   </div>
 )}
+
 
 
 
