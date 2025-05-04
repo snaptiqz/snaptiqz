@@ -122,7 +122,7 @@ const EventPlans = () => {
 
       {/* HOST Text */}
       <h1
-        className="w-full  text-[28vw] sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide mb-[20px] z-10"
+        className="w-full  text-[28vw] sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide mb-[20px] z-10 font-poppins"
         style={{
           WebkitTextStroke: '1.5px rgba(160, 160, 160, 1)',
           WebkitTextFillColor: 'transparent',
@@ -176,7 +176,7 @@ const EventPlans = () => {
       {/* NOW Text */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
         <h1
-          className="w-full text-[26vw] z-30 sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide  sm:pb-0"
+          className="w-full text-[26vw] z-30 sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide  sm:pb-0 font-poppins"
           style={{
             WebkitTextStroke: '2px rgba(255, 255, 255, 0.8)',
             WebkitTextFillColor: 'transparent',

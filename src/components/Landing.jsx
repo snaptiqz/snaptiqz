@@ -272,7 +272,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[800px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* Right curl: appears delayed, exits right */}
@@ -284,7 +284,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[30%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[800px] transform translate-x-[20%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[30%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
@@ -295,20 +295,15 @@ const Landing = () => {
 
       {/* Bottom Message */}
       {animationState === 'initial' && (
-  <motion.div
-    className="absolute bottom-0 w-full z-30 pointer-events-none"
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: 50 }}
-    transition={{ duration: 1, ease: 'easeOut' }}
-  >
+  <div className="absolute bottom-0 w-full z-30 pointer-events-none">
     <div className="text-center py-6 bg-gradient-to-t from-black/80 to-transparent">
-      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text-xl lg:text-2xl md:text-3xl tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
+      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text  lg:text-2xl md:text-3xl   tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
         Host Events for Free with Snaptiqs!
       </span>
     </div>
-  </motion.div>
+  </div>
 )}
+
 
 
 
