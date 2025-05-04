@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         instrument: ['"Instrument Sans"', 'sans-serif'],
+        poppins: ['"Poppins"', 'sans-serif'],
       },
     },
   },

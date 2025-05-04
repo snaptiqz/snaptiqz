@@ -83,19 +83,20 @@ const Tagline = () => {
           {/* AT 0% */}
           <div className="relative mt-20">
           <h3
-        className="uppercase font-extrabold text-center tracking-wider"
-        style={{
-          fontSize: windowWidth < 640 ? '3rem' : 'clamp(3rem, 10vw, 12.5rem)',
-          WebkitTextStroke: '1px rgba(255, 255, 255, 0.5)',
-          WebkitTextFillColor: 'transparent',
-          textShadow: '0px 4px 12px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.7)',
-          letterSpacing: windowWidth < 640 ? '0.05em' : '0.02em',
-          lineHeight: '1.1',
-          maxWidth: '100%',
-        }}
-      >
-        AT 0%
-      </h3>
+  className="uppercase font-poppins font-bold text-center tracking-wider"
+  style={{
+    fontSize: windowWidth < 640 ? '3rem' : 'clamp(3rem, 10vw, 12.5rem)',
+    WebkitTextStroke: windowWidth < 640 ? '1.2px rgba(255, 255, 255, 0.5)' : '1px rgba(255, 255, 255, 0.5)',
+    WebkitTextFillColor: 'transparent',
+    color: 'transparent',
+    lineHeight: '1.1',
+    letterSpacing: '0.05em',
+    textShadow: '0 0 2px rgba(0,0,0,0.3)',
+  }}
+>
+  AT 0%
+</h3>
+
             {/* Black overlay for fading effect */}
             <div 
               className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
@@ -108,23 +109,21 @@ const Tagline = () => {
           {/* COMMISSION */}
           <div className="relative">
           <h3
-        className="uppercase font-extrabold text-center "
-        style={{
-          fontSize: windowWidth < 640 ? '2.5rem' : 'clamp(3rem, 9vw, 12rem)',
-          WebkitTextStroke: windowWidth < 640 ? '0.75px rgba(255, 255, 255, 0.5)' : '1px rgba(255, 255, 255, 0.5)',
-          WebkitTextFillColor: 'transparent',
-          textShadow: windowWidth < 640 
-            ? '0px 3px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.7)'
-            : '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
-          letterSpacing: windowWidth < 640 ? '0.07em' : '0.03em',
-          lineHeight: '1.1',
-          maxWidth: '100%',
-          wordBreak: 'keep-all',
-          overflowWrap: 'normal'
-        }}
-      >
-        COMMISSION
-      </h3>
+  className="uppercase font-poppins font-bold text-transparent leading-none text-center tracking-wider"
+  style={{
+    fontSize: 'clamp(3rem, 9vw, 12rem)',
+    WebkitTextStroke: '1px rgba(255, 255, 255, 0.5)',
+    WebkitTextFillColor: 'transparent',
+    color: 'transparent',
+    textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
+    filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
+    lineHeight: '1.1',
+    letterSpacing: '0.05em'
+  }}
+>
+  COMMISSION
+</h3>
+
             {/* Black overlay for fading effect */}
             <div 
               className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
