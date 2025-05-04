@@ -181,7 +181,7 @@ const Landing = () => {
 
 
 
-        <h1 className="text-xl md:text-4xl md:mt-8 lg:text-xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text">
+        <h1 className="text-xl md:text-4xl md:mt-8 lg:text-xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
   Start Hosting Your Events.
 </h1>
 <p className="hidden lg:block text-lg lg:text-lg  mt-2 leading-relaxed max-w-2xl mx-auto text-white/90">
@@ -214,7 +214,7 @@ const Landing = () => {
   src={mike}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-50 mt-10' : 'w-60 mt-6'
+    windowWidth < 640 ? 'w-40 mt-5' : 'w-60 mt-6'
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{
@@ -243,7 +243,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curl1}
       alt="left-curl"
-      className="absolute top-[22%] left-0 w-[70vw] max-w-[400px] transform -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute top-[30%] ml-[3px] left-0 w-[64vw] max-w-[400px] transform -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* curl2 enters from left (delayed), exits right */}
@@ -255,7 +255,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.1 }}
       src={curl2}
       alt="right-curl"
-      className="absolute top-[22%] right-0 w-[66vw] max-w-[400px] transform -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute top-[30%] right-0 w-[60vw] max-w-[400px] transform -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
@@ -270,7 +270,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute lg:top-[30%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[800px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[800px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* Right curl: appears delayed, exits right */}
@@ -295,7 +295,7 @@ const Landing = () => {
       {animationState === 'initial' && (
   <div className="absolute bottom-0 w-full z-30 pointer-events-none">
     <div className="text-center py-6 bg-gradient-to-t from-black/80 to-transparent">
-      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text  lg:text-2xl md:text-3xl   tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
+      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text-xl   lg:text-2xl md:text-3xl   tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
         Host Events for Free with Snaptiqs!
       </span>
     </div>

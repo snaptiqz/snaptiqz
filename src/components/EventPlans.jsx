@@ -60,7 +60,7 @@ const EventPlans = () => {
   return (
     
     <div
-    className="relative text-white font-sans  lg:pb-[35vh] md:pb-[20vh] px-4 overflow-hidden bg-[#020308]"
+    className="relative text-white font-sans pb-[8vh]  lg:pb-[35vh] md:pb-[20vh] px-4 overflow-hidden bg-[#020308]"
     
   >
   
@@ -176,7 +176,7 @@ const EventPlans = () => {
       {/* NOW Text */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
         <h1
-          className="w-full text-[26vw] z-30 sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-tight pb-10 sm:pb-0"
+          className="w-full text-[26vw] z-30 sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide  sm:pb-0"
           style={{
             WebkitTextStroke: '2px rgba(255, 255, 255, 0.8)',
             WebkitTextFillColor: 'transparent',
