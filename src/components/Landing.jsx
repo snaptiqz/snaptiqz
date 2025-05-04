@@ -219,7 +219,7 @@ const Landing = () => {
 
       {/* Mike Image */}
       <motion.img
-  src={mike}
+  src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"
   alt="mike"
   className={`mx-auto z-30 ${
     windowWidth < 640 ? 'w-40 mt-5' : 'w-60 lg:mt-20'
@@ -243,7 +243,7 @@ const Landing = () => {
         ? { x: -500, opacity: 0 }
         : { x: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut' }}
-      src={curl1}
+      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358898/25_mob_ngozw9.svg"
       alt="left-curl"
       className="absolute top-[30%] ml-[3px] left-0 w-[64vw] max-w-[400px] transform -translate-y-1/2 rotate-[60deg] z-10"
     />
@@ -255,7 +255,7 @@ const Landing = () => {
         ? { x: 500, opacity: 0 }
         : { x: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.1 }}
-      src={curl2}
+      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358895/24_mob_o2sqtu.svg"
       alt="right-curl"
       className="absolute top-[30%] right-0 w-[60vw] max-w-[400px] transform -translate-y-1/2 rotate-[120deg] z-10"
     />
@@ -270,7 +270,7 @@ const Landing = () => {
         ? { x: -500, opacity: 0 }
         : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut' }}
-      src={curlDeskLeft}
+      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358900/26_desk_eg6add.svg"
       alt="desktop-left-curl"
       className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
@@ -282,7 +282,7 @@ const Landing = () => {
         ? { x: 500, opacity: 0 }
         : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
-      src={curlDeskRight}
+      src="https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358895/27_desk_ytu8se.svg"
       alt="desktop-right-curl"
       className="absolute lg:top-[30%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
     />
