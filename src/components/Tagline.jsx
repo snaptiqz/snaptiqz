@@ -87,7 +87,7 @@ const Tagline = () => {
   style={{
     fontSize: 'clamp(3rem, 10vw, 12.5rem)',
     color: 'transparent',
-    WebkitTextStroke: '1px white-90%',
+    WebkitTextStroke: '1.2px white',
     WebkitTextFillColor: 'transparent',
     // fallback effect
    
