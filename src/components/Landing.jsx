@@ -206,22 +206,22 @@ const Landing = () => {
     opacity: animationState === 'transitioning' ? 0 : 1
   }}
   transition={{ duration: 1.2, ease: 'easeInOut' }}
-  className="absolute top-0 left-0 w-full flex flex-col items-center px-4 z-20 pt-32 sm:pt-40 md:pt-20 lg:pt-20 text-center"
+  className="absolute top-0 left-0 w-full flex flex-col items-center px-4 z-20 pt-28 sm:pt-40 md:pt-20 lg:pt-20 text-center"
 
 
 >
 
 
 
-        <h1 className="text-lg md:text-4xl md:mt-10 lg:text-3xl mt-3 sm:mt-4  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
+        <h1 className="text-3xl md:text-4xl md:mt-10 lg:text-3xl mt-3 sm:mt-4  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
   Start Hosting Your Events.
 </h1>
-<p className="hidden lg:block  lg:text-md  mt-6 leading-relaxed max-w-2xl mx-auto text-white/90">
+<p className="hidden lg:block  lg:text-md   leading-relaxed max-w-2xl mx-auto text-white/90">
   Create and join organizations, Host events and sell tickets to your guests.<br />
   Happy tiqz!
 </p>
 
-<p className="text-sm lg:hidden lg:text-lg mt-2 md:text-xl md:mt-4 leading-relaxed max-w-2xl mx-auto text-white/90 ">
+<p className="text-sm lg:hidden lg:text-lg mt-6 md:text-xl md:mt-4 leading-relaxed max-w-2xl mx-auto text-white/90 ">
   Create and join organizations, Host events and sell tickets to your guests. Happy tiqz!
 </p>
 
@@ -245,7 +245,7 @@ const Landing = () => {
   src={"https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-40 mt-5' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 '
+    windowWidth < 640 ? 'w-48 mt-20' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 '
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{ y: targetY, opacity: 1 }}

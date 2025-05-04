@@ -76,7 +76,7 @@ const Tagline = () => {
             </div>
 
             <p
-  className="relative z-30 text-sm pb-10 sm:text-2xl lg:text-3xl tracking-wide text-transparent bg-clip-text font-instrument"
+  className="relative z-30 text-md pb-10 sm:text-2xl lg:text-3xl  text-transparent bg-clip-text "
   style={{
     backgroundImage: 'linear-gradient(to bottom, #aaa 0%, #ddd 40%, #f8f8f8 80%, #fff 100%)',
   }}
