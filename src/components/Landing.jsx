@@ -296,7 +296,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] md:w-[65vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[18%] lg:w-[28vw] md:w-[65vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* Right curl: appears delayed, exits right */}
@@ -308,7 +308,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[30%] md:top-[20%] md:w-[65vw]  md:ml-[50%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[40%] md:top-[20%] md:w-[65vw]  md:ml-[50%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
