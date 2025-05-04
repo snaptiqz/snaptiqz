@@ -23,7 +23,7 @@ const Tagline = () => {
   }, []);
 
   return (
-    <div className="relative w-full text-center px-4 z-30 bg-black overflow-hidden font-sans mt-20 md:mt-5 ">
+    <div className="relative w-full text-center px-4 z-30 bg-black overflow-hidden font-sans ">
       {/* Background Image */}
       <img
         src={windowWidth >= 640 ? landingDesktop : landingMob}
@@ -64,15 +64,15 @@ const Tagline = () => {
 
 
         {/* Centered Content */}
-        <div className="absolute top-[25%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4 pt-12 sm:pt-0 space-y-3 sm:space-y-6 max-w-[90%] mx-auto">
+        <div className="absolute top-[20%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4 pt-12 sm:pt-0 space-y-3 sm:space-y-6 max-w-[90%] mx-auto">
           {/* Tagline */}
           <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-20">
             {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
               <span
                 key={i}
-                className="bg-gradient-to-b  from-gray-500 to-white text-transparent bg-clip-text"
+                className="bg-gradient-to-b from-gray-500 to-white text-transparent bg-clip-text"
                 style={{
-                  fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+                  fontSize: 'clamp(2rem, 6vw, 5rem)',
                 }}
               >
                 {text}
@@ -83,14 +83,13 @@ const Tagline = () => {
           {/* AT 0% */}
           <div className="relative mt-20">
             <h3
-              className="uppercase font-extrabold text-transparent leading-none text-outline"
+              className="uppercase font-extrabold text-transparent leading-none"
               style={{
-                fontSize: 'clamp(3rem, 8vw, 12.5rem)',
-                WebkitTextStroke: window.innerWidth <= 640 ? '1px rgba(255, 255, 255, 0.5)' : '1.5px rgba(255, 255, 255, 0.5)',
+                fontSize: 'clamp(3rem, 10vw, 12.5rem)',
+                WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.5)', // Reduced opacity of stroke
                 WebkitTextFillColor: 'transparent',
-                textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
-                filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
-                wordSpacing: window.innerWidth <= 640 ? '0.1em' : 'normal'
+                textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)', // Stronger shadow
+                filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))'
               }}
             >
               AT 0%
@@ -104,22 +103,21 @@ const Tagline = () => {
             />
           </div>
 
-          /* COMMISSION */                <div className="relative">
-                <h3
-                  className="uppercase font-extrabold text-transparent leading-none"
-                  style={{
-                  fontSize: windowWidth <= 640 ? 'clamp(2rem, 7vw, 8rem)' : 'clamp(3rem, 9vw, 12rem)',
-                  WebkitTextStroke: '1px rgba(255, 255, 255, 0.5)', // Reduced opacity of stroke
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)', // Stronger shadow
-                  filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
-                  wordSpacing: windowWidth <= 640 ? '0.1em' : 'normal',
-                  letterSpacing: windowWidth <= 640 ? '-0.05em' : 'normal'
-                  }}
-                >
-                  COMMISSION
-                </h3>
-             
+          {/* COMMISSION */}
+          <div className="relative">
+            <h3
+              className="uppercase font-extrabold text-transparent leading-none"
+              style={{
+                fontSize: 'clamp(3rem, 9vw, 12rem)',
+                WebkitTextStroke: '1px rgba(255, 255, 255, 0.5)', // Reduced opacity of stroke
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)', // Stronger shadow
+                filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))'
+              }}
+            >
+              COMMISSION
+            </h3>
+            {/* Black overlay for fading effect */}
             <div 
               className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-40 pointer-events-none"
               style={{

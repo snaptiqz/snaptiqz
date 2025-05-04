@@ -117,7 +117,15 @@ const Landing = () => {
     }
   }, [animationState, window.innerWidth]);
   
+  const getTargetY = () => {
+    if (animationState === 'transitioning' || animationState === 'showPopup') {
+      return windowWidth < 640 ? -300 : -200;
+    }
+    return 0;
+  };
   
+  const targetY = getTargetY();
+   
 
 
 
@@ -181,15 +189,15 @@ const Landing = () => {
 
 
 
-        <h1 className="text-xl md:text-4xl md:mt-8 lg:text-xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
+        <h1 className="text-lg md:text-4xl md:mt-8 lg:text-xl mt-3  bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text ">
   Start Hosting Your Events.
 </h1>
-<p className="hidden lg:block text-lg lg:text-lg  mt-2 leading-relaxed max-w-2xl mx-auto text-white/90">
+<p className="hidden lg:block  lg:text-lg  mt-2 leading-relaxed max-w-2xl mx-auto text-white/90">
   Create and join organizations, Host events and sell tickets to your guests.<br />
   Happy tiqz!
 </p>
 
-<p className="text-lg lg:hidden lg:text-lg mt-2 md:text-xl md:mt-4 leading-relaxed max-w-2xl mx-auto text-white/90 ">
+<p className="text-sm lg:hidden lg:text-lg mt-2 md:text-xl md:mt-4 leading-relaxed max-w-2xl mx-auto text-white/90 ">
   Create and join organizations, Host events and sell tickets to your guests. Happy tiqz!
 </p>
 
@@ -214,16 +222,10 @@ const Landing = () => {
   src={mike}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-40 mt-5' : 'w-60 mt-6'
+    windowWidth < 640 ? 'w-40 mt-5' : 'w-60 lg:mt-20'
   }`}
   initial={{ y: -150, opacity: 0 }}
-  animate={{
-    y:
-      animationState === 'transitioning' || animationState === 'showPopup'
-        ? windowWidth < 640 ? -300 : -200
-        : 0,
-    opacity: 1,
-  }}
+  animate={{ y: targetY, opacity: 1 }}
   transition={{ duration: 1.2, ease: 'easeInOut' }}
 />
 
@@ -293,14 +295,21 @@ const Landing = () => {
 
       {/* Bottom Message */}
       {animationState === 'initial' && (
-  <div className="absolute bottom-0 w-full z-30 pointer-events-none">
+  <motion.div
+    className="absolute bottom-0 w-full z-30 pointer-events-none"
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 50 }}
+    transition={{ duration: 1, ease: 'easeOut' }}
+  >
     <div className="text-center py-6 bg-gradient-to-t from-black/80 to-transparent">
-      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text-xl   lg:text-2xl md:text-3xl   tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
+      <span className="bg-gradient-to-b from-white to-gray-400 text-transparent bg-clip-text text-xl lg:text-2xl md:text-3xl tracking-wide drop-shadow-[0_1px_10px_rgba(255,255,255,0.3)]">
         Host Events for Free with Snaptiqs!
       </span>
     </div>
-  </div>
+  </motion.div>
 )}
+
 
 
 {/* Tagline Section */}

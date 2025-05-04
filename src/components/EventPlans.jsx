@@ -195,14 +195,15 @@ const EventPlans = () => {
         {standardPlans.map((plan, index) => (
         <motion.div
         key={index}
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.4 }} // triggers when 40% of the card is in view
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{
-          duration: 1,
-          ease: 'easeInOut',
+          duration: 0.6,
+          ease: 'easeOut',
           delay: index * 0.15
         }}
+        
         className="relative w-full max-w-sm border-t-[2px] rounded-[32px] border-gray-300/90 bg-[#0d0d12] backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] overflow-hidden"
       >
       
