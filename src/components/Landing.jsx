@@ -206,7 +206,8 @@ const Landing = () => {
     opacity: animationState === 'transitioning' ? 0 : 1
   }}
   transition={{ duration: 1.2, ease: 'easeInOut' }}
-  className="absolute top-0 left-0 w-full flex flex-col items-center px-4 z-20 pt-20 lg:pt-20 text-center"
+  className="absolute top-0 left-0 w-full flex flex-col items-center px-4 z-20 pt-32 sm:pt-40 md:pt-20 lg:pt-20 text-center"
+
 
 >
 
@@ -245,7 +246,7 @@ const Landing = () => {
   src={"https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-40 mt-5' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 sm:-pb-40'
+    windowWidth < 640 ? 'w-40 mt-5' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 '
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{ y: targetY, opacity: 1 }}
@@ -295,7 +296,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] md:w-[65vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* Right curl: appears delayed, exits right */}
@@ -307,7 +308,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[30%] md:top-[20%]  md:ml-[45%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[30%] md:top-[20%] md:w-[65vw]  md:ml-[50%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}

@@ -46,7 +46,7 @@ const Tagline = () => {
   src={vectorCurve}
   alt="curve"
   className="absolute left-1/2 -translate-x-1/2 
-    mt-20 sm:mt-0
+    mt-40 sm:mt-0
     h-[80vh] sm:h-[100vh] lg:h-[120vh] 
     w-[800vw] object-contain pointer-events-none transition-transform duration-1000"
 />
@@ -76,13 +76,13 @@ const Tagline = () => {
             </div>
 
             <p
-  className="relative z-30 text-md pb-10 sm:text-2xl lg:text-3xl tracking-wide text-transparent bg-clip-text font-instrument"
+  className="relative z-30 text-sm pb-10 sm:text-2xl lg:text-3xl tracking-wide text-transparent bg-clip-text font-instrument"
   style={{
     backgroundImage: 'linear-gradient(to bottom, #aaa 0%, #ddd 40%, #f8f8f8 80%, #fff 100%)',
   }}
 >
 
-              Host your events for free at <span className="font-semibold">Snaptiqz!</span>
+              Host your events for free at Snaptiqz!
             </p>
           </div>
 
