@@ -112,10 +112,10 @@ const Landing = () => {
   
   useEffect(() => {
     if (animationState === 'initial' && window.innerWidth >= 640) {
-      const timer = setTimeout(() => setShowDesktopCurls(true), 1200);
-      return () => clearTimeout(timer);
+      setShowDesktopCurls(true);
     }
   }, [animationState, window.innerWidth]);
+  
   
   const getTargetY = () => {
     if (animationState === 'transitioning' || animationState === 'showPopup') {
