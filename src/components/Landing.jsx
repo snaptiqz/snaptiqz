@@ -246,7 +246,7 @@ const Landing = () => {
   src={"https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-40 mt-5' : 'sm:w-60 sm:mt-60'
+    windowWidth < 640 ? 'w-40 mt-5' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 '
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{ y: targetY, opacity: 1 }}
@@ -285,38 +285,33 @@ const Landing = () => {
     />
   </>
 )}
-{windowWidth >= 640 && window.innerHeight > 500 && showDesktopCurls && !curlsExited && (
+{windowWidth >= 640 && showDesktopCurls && !curlsExited && (
   <>
-    {/* Left curl */}
+    {/* Left curl: appears with scale, exits left */}
     <motion.img
       initial={{ opacity: 0, scale: 0.95 }}
-      animate={
-        animationState === 'transitioning'
-          ? { x: -500, opacity: 0 }
-          : { opacity: 1, scale: 1 }
-      }
+      animate={animationState === 'transitioning'
+        ? { x: -500, opacity: 0 }
+        : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute lg:top-[40%] md:mr-[45%] lg:mr-[20%] lg:w-[25vw] md:w-[65vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[20%] lg:w-[25vw] md:w-[65vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
-    {/* Right curl */}
+    {/* Right curl: appears delayed, exits right */}
     <motion.img
       initial={{ opacity: 0, scale: 0.95 }}
-      animate={
-        animationState === 'transitioning'
-          ? { x: 500, opacity: 0 }
-          : { opacity: 1, scale: 1 }
-      }
+      animate={animationState === 'transitioning'
+        ? { x: 500, opacity: 0 }
+        : { opacity: 1, scale: 1 }}
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[30%] md:top-[50%] md:w-[65vw] md:ml-[50%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[30%] md:top-[20%] md:w-[65vw]  md:ml-[50%] lg:ml-[20%] lg:w-[25vw] lg:max-w-[700px] transform translate-x-[80%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
-
 
 
     
