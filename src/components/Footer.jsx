@@ -28,7 +28,7 @@ return (
         </div>
 
         {/* Mobile Layout */}
-        <div className="relative z-10 lg:hidden flex flex-col items-center text-center mt-60 ">
+        <div className="relative z-10 lg:hidden flex flex-col items-center text-center mt-60 sm:mt-2 ">
             <div className="flex items-center mb-2">
                 <img src={logo} alt="Snaptiqz Logo" className="h-6 mr-2" />
                 <span className="text-gray-300 font-light">SNAPTIQZ</span>
@@ -71,65 +71,65 @@ return (
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:flex z-10 justify-between px-6 mt-60">
-            {/* Left Section */}
-            <div className="w-1/3 space-y-4">
-                <div className="flex items-center mb-2">
-                    <img src={logo} alt="Snaptiqz Logo" className="h-6 mr-2" />
-                    <span className="text-gray-300 font-light">SNAPTIQZ</span>
-                </div>
-                <p className="text-sm text-gray-300 max-w-sm">
-                    Snaptiqz is a free event hosting platform that empowers anyone to create, manage, and share events effortlessly.
-                </p>
-                <p className="text-xs text-gray-500">
-                    *Payment gateway charges will be applicable
-                </p>
-                <div className="flex space-x-2 pt-2">
-                    {[FaOdnoklassniki, FaVk, FaFacebookF, FaTelegram, FaInstagram].map((Icon, idx) => (
-                        <button key={idx} className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-105 transition">
-                            <Icon className="text-black text-sm" />
-                        </button>
-                    ))}
-                </div>
-            </div>
+        <div className="hidden lg:flex z-10 justify-between px-16 py-16 gap-20">
+  {/* Left Section */}
+  <div className="w-1/3 space-y-6">
+    <div className="flex items-center">
+      <img src={logo} alt="Snaptiqz Logo" className="h-6 mr-2" />
+      <span className="text-gray-300 font-light text-lg">SNAPTIQZ</span>
+    </div>
+    <p className="text-sm text-gray-300 max-w-sm leading-relaxed">
+      Snaptiqz is a free event hosting platform that empowers anyone to create, manage, and share events effortlessly.
+    </p>
+    <p className="text-xs text-gray-500">*Payment gateway charges will be applicable</p>
 
-            {/* Center Links */}
-         
-
-         {/* Right Section */}
-         <div className="w-1/3 flex flex-col items-start text-left space-y-6">
-{/* Top Right Links */}
-<div className="flex space-x-40 text-sm text-gray-300 mb-6">
-    <a href="#">Events.</a>
-    <a href="#">Communities.</a>
+    <div className="grid grid-cols-2 gap-3 pt-4 w-max">
+  {[FaOdnoklassniki, FaVk,  FaFacebookF,FaTelegram, FaInstagram ,].map((Icon, idx) => (
+    <button
+      key={idx}
+      className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition"
+    >
+      <Icon className="text-black text-base" />
+    </button>
+  ))}
 </div>
 
-{/* Contact Section */}
-<div>
-    <h3 className="font-medium text-white text-sm mb-1">Contact Us</h3>
-    <p className="text-gray-300 text-sm">+1 (999) 888-77-66</p>
-    <p className="text-gray-300 text-sm">hello@logoipsum.com</p>
-</div>
 
-{/* Location + Language side-by-side */}
-<div className="flex flex-row space-x-8">
-    {/* Location Section */}
-    <div>
-        <h3 className="font-medium text-white text-sm mb-1">Location</h3>
-        <p className="text-gray-300 text-sm">483920, Moscow</p>
-        <p className="text-gray-300 text-sm">Myasnitskaya 22/2/5, Office 4</p>
+  </div>
+
+  {/* Right Section */}
+  <div className="w-1/3 flex flex-col items-start text-left space-y-10">
+    {/* Top Right Links */}
+    <div className="flex space-x-24 text-sm text-gray-300">
+      <a href="#" className="hover:text-white transition">Events.</a>
+      <a href="#" className="hover:text-white transition">Communities.</a>
     </div>
 
-    {/* Language Selector */}
-    <div className="text-sm text-white mt-4">
-  <span className="font-medium">Languages</span>
-  <div className="mt-1">En &nbsp; Ma &nbsp; Hi &nbsp; Tm</div>
+    {/* Contact Section */}
+    <div>
+      <h3 className="font-semibold text-white text-base mb-1">Contact Us</h3>
+      <p className="text-gray-300 text-sm">+1 (999) 888-77-66</p>
+      <p className="text-gray-300 text-sm">hello@logoipsum.com</p>
+    </div>
+
+    {/* Location + Language side-by-side */}
+    <div className="flex flex-row justify-between w-full space-x-12">
+      {/* Location */}
+      <div>
+        <h3 className="font-semibold text-white text-base mb-1">Location</h3>
+        <p className="text-gray-300 text-sm">483920, Moscow</p>
+        <p className="text-gray-300 text-sm">Myasnitskaya 22/2/5, Office 4</p>
+      </div>
+
+      {/* Language */}
+      <div>
+        <h3 className="font-semibold text-white text-base mb-1">Languages</h3>
+        <p className="text-gray-300 text-sm">En &nbsp; Ma &nbsp; Hi &nbsp; Tm</p>
+      </div>
+    </div>
+  </div>
 </div>
 
-</div>
-</div>
-
-        </div>
 
         <style jsx>{`
             @keyframes pulse {

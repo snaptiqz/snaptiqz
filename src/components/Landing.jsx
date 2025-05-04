@@ -228,14 +228,13 @@ const Landing = () => {
 
 <button
   onClick={handleGetHosting}
-  className="lg:mt-8 md:mt-8 lg:px-5 lg:py-3 px-8 py-2 md:px-12 md:py-4 mt-4 rounded-full border-2 border-[#535456] bg-[#212226]  text-lg relative hover:scale-105 transition-all duration-300"
+  className="lg:mt-8 md:mt-8 lg:px-5 lg:py-3 px-8 py-2 md:px-12 md:py-4 mt-4 rounded-full border-2 border-[#444] bg-[#1a1a1a] text-lg relative hover:scale-105 transition-all duration-300 shadow-[inset_0_4px_6px_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.4)]"
 >
   <span className="bg-gradient-to-b md:text-xl from-white to-gray-400 text-transparent bg-clip-text font-semibold">
     Get Hosting
   </span>
-  {/* Top white inner shadow only */}
-  
 </button>
+
 
 
 
@@ -356,9 +355,9 @@ const Landing = () => {
           </button>
           <div className="w-full h-full px-6 py-10 flex flex-col justify-center items-center">
             <div className="w-full">
-              <img src={logo} alt="Logo" className="w-6 h-6 mb-6 mx-auto" />
-              <h2 className="text-2xl font-semibold text-center mb-2">Welcome to Snaptiqz</h2>
-              <p className="text-lg text-gray-300 text-center mb-8 px-4">
+              <img src={logo} alt="Logo" className="w-8 h-8 mb-6 mx-auto" />
+              <h2 className="text-lg sm:text-2xl  font-semibold text-center mb-2">Welcome to Snaptiqz</h2>
+              <p className=" text-sm sm:text-lg text-gray-300 text-center mb-8 px-4">
                 Thank you for signing up. Begin your hosting journey here by creating an account.
               </p>
               <div className="relative w-full max-w-md mx-auto mb-6">

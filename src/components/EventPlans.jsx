@@ -66,19 +66,20 @@ const EventPlans = () => {
   
         
       {/* Dotted Grid Top Half */}
-      <div className="block sm:block md:block lg:block xl:block 2xl:block">   {/* Dotted Grid Top Half (fades on mobile) */}
-<div
-  className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
-  style={{
-    backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 2px)`,
-    backgroundSize: '20px 20px',
-    WebkitMaskImage:
-      'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 80%)',
-    maskImage:
-      'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 80%)',
-  }}
-/>
+      <div className="block sm:block md:block lg:block xl:block 2xl:block">
+  <div
+    className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
+    style={{
+      backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 2px)`,
+      backgroundSize: '32px 32px', // more gap between dots
+      WebkitMaskImage:
+        'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 80%)',
+      maskImage:
+        'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 80%)',
+    }}
+  />
 </div>
+
 
 
 
@@ -90,7 +91,7 @@ const EventPlans = () => {
   initial={{ opacity: 0.4 }}
   animate={{ opacity: [0.4, 0.6, 0.4] }}
   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-  className="hidden sm:block absolute lg:top-[-35%] md:top-[-15%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
+  className="hidden sm:block absolute lg:top-[-16%] md:top-[-15%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
 />
 {/* Purple Glow Layer Behind */}
 
@@ -117,74 +118,95 @@ const EventPlans = () => {
       </style>
 
       {/* HOST fade shadow */}
-      <div className="absolute top-0 left-0 w-full h-[10%] sm-h[50%] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent)' }} />
+    
+<div className="relative z-20 mt-[200px] sm:mt-[500px] ">
+ 
+    <div className="relative w-full h-[180px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] overflow-hidden flex justify-center items-center">
+     
 
-      {/* HOST Text */}
       <h1
-        className="w-full  text-[28vw] sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide mb-[20px] z-10 font-poppins"
+        className="absolute left-0 right-0 text-[120px]  sm:p-0 sm:text-[500px] md:text-[350px] lg:text-[400px] xl:text-[500px] font-extrabold uppercase text-center leading-none tracking-tight z-10 font-poppins"
         style={{
-          WebkitTextStroke: '1.5px rgba(160, 160, 160, 1)',
+          WebkitTextStroke: '2px rgba(160, 160, 160, 0.8)',
           WebkitTextFillColor: 'transparent',
+          lineHeight: 1,
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%)'
         }}
       >
         HOST
       </h1>
+    </div>
 
-      {/* Title & Subtitle */}
-      <div className="relative text-center z-20 mb-14">
-      <p className="text-2xl sm:text-3xl md:text-6xl font-bold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent sm:mt-4 mb-5">
-  EVENT PLANS
-</p>
+    {/* Title & Subtitle */}
+  <div className="text-center mb-14">
+    <p className="text-3xl sm:text-3xl md:text-6xl font-bold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent sm:mt-4 mb-5">
+      EVENT PLANS
+    </p>
+    <p className="text-lg sm:mt-10  text-gray-300">Choose your plans</p>
+  </div>
 
-        <p className="text-lg text-gray-300">Choose your plans</p>
-      </div>
+  {/* Toggle Buttons */}
+  <div className="flex justify-center mb-20">
+    <img
+      src={lightGlow}
+      alt="glow"
+      className="absolute -top-20 left-1/2 -translate-x-1/2 object-contain z-40 pointer-events-none"
+    />
+   <div
+  className="relative flex gap-2 sm:mt-20 px-2 py-2 rounded-full border border-gray-400/50 backdrop-blur-md shadow-[0_0_12px_rgba(255,255,255,0.12)]"
+  style={{ background: 'linear-gradient(180deg, #1D2235 0%, #0C0D10 100%)' }}
+>
+  <button
+    className={`px-6 py-[6px] rounded-full font-semibold text-sm sm:text-base min-w-[130px] transition-all duration-300 ${
+      activeTab === 'standard'
+        ? 'text-black'
+        : 'text-white hover:bg-white/10'
+    }`}
+    onClick={() => setActiveTab('standard')}
+    style={
+      activeTab === 'standard'
+        ? {
+            background: 'linear-gradient(to bottom, #ffffff, #bcbcbc)',
+            boxShadow: '0 0 10px rgba(255,255,255,0.35), inset 0 2px 4px rgba(255,255,255,0.4)',
+          }
+        : {}
+    }
+  >
+    STANDARD PLANS
+  </button>
 
-      {/* Toggle Buttons */}
-      <div className="relative flex justify-center mb-20 z-20">
-        {/* Mobile Glow Only */}
-        <img
-          src={lightGlow}
-          alt="glow"
-           className="absolute -top-20 left-1/2 -translate-x-1/2  object-contain  z-40 pointer-events-none"
+  <button
+    className={`px-6 py-[6px] rounded-full font-semibold text-sm sm:text-base min-w-[130px] transition-all duration-300 ${
+      activeTab === 'special'
+        ? 'text-black'
+        : 'text-white hover:bg-white/10'
+    }`}
+    onClick={() => setActiveTab('special')}
+    style={
+      activeTab === 'special'
+        ? {
+            background: 'linear-gradient(to bottom, #ffffff, #bcbcbc)',
+            boxShadow: '0 0 10px rgba(255,255,255,0.35), inset 0 2px 4px rgba(255,255,255,0.4)',
+          }
+        : {}
+    }
+  >
+    SPECIAL PLANS
+  </button>
+</div>
 
-        />
+  </div>
+</div>
 
-        <div
-          className="relative flex gap-2 px-2 py-2 rounded-full border border-gray-400/50 backdrop-blur-md shadow-[inset_0_0_5px_rgba(255,255,255,0.1),0_0_30px_rgba(255,255,255,0.15)]"
-          style={{ background: 'linear-gradient(180deg, #1D2235 0%, #0C0D10 100%)' }}
-        >
-          <button
-            className={`px-6 py-2 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 min-w-[130px] ${activeTab === 'standard' ? 'bg-white text-black shadow-inner' : 'text-white bg-transparent hover:bg-white/10'}`}
-            onClick={() => setActiveTab('standard')}
-          >
-            STANDARD PLANS
-          </button>
-          <button
-            className={`px-6 py-2 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 min-w-[130px] ${activeTab === 'special' ? 'bg-white text-black shadow-inner' : 'text-white bg-transparent hover:bg-white/10'}`}
-            onClick={() => setActiveTab('special')}
-          >
-            SPECIAL PLANS
-          </button>
-        </div>
-      </div>
 
       {/* NOW Background Fade */}
       <div className="absolute bottom-0 left-0 w-full h-[10%] z-50 pointer-events-none"
         style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)' }} />
 
-      {/* NOW Text */}
-      <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
-        <h1
-          className="w-full text-[26vw] z-30 sm:text-[20vw] md:text-[16vw] font-extrabold uppercase select-none text-center leading-none tracking-wide  sm:pb-0 font-poppins"
-          style={{
-            WebkitTextStroke: '2px rgba(255, 255, 255, 0.8)',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
-          NOW
-        </h1>
-      </div>
+    
+      
+
 
       {/* Cards Section */}
      
@@ -257,6 +279,30 @@ const EventPlans = () => {
        
         ))}
       </div>
+      <div className="relative z-20   ">
+  
+      <div className="relative w-full h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] overflow-hidden flex justify-center items-center">
+  <div
+    className="absolute bottom-0 left-0 w-full h-full z-40 pointer-events-none"
+    style={{
+      background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 70%)',
+    }}
+  />
+
+  <h1
+    className="absolute left-0 right-0 text-[120px] sm:text-[500px] md:text-[350px] lg:text-[400px] xl:text-[500px] font-extrabold uppercase text-center leading-none tracking-tight z-10 font-poppins"
+    style={{
+      WebkitTextStroke: '2px rgba(160, 160, 160, 0.9)', // Reduced opacity
+      WebkitTextFillColor: 'transparent',
+      lineHeight: 1,
+      maskImage: 'linear-gradient(to bottom, rgba(0,0,0,9) 0%, rgba(0,0,0,0.1) 100%)',
+      WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%)',
+    }}
+  >
+    NOW
+  </h1>
+</div>
+</div>
       </div>
  
   );
