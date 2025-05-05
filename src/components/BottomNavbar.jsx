@@ -40,7 +40,7 @@ const BottomNavbar = () => {
         <NavButton icon={<FaStar className="text-xl" />} path="/favorites" />
         <NavButton icon={<FaPlus className="text-xl" />} path="/create_event" />
         <NavButton icon={<FaBell className="text-xl" />} path="/notifications" />
-        <NavButton icon={<FaUser className="text-xl" />} path="/profile" />
+        <NavButton icon={<FaUser className="text-xl" />} path="/organization_profile" />
       </div>
 
       {/* Optional glowing highlight */}
