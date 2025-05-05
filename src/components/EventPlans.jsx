@@ -63,6 +63,10 @@ const EventPlans = () => {
     className="relative text-white font-sans pb-[8vh]  lg:pb-[35vh] md:pb-[20vh] px-4 overflow-hidden bg-[#020308]"
     
   >
+    {/* Top Black Gradient */}
+<div className="absolute top-0 left-0 w-full h-[10%] z-50 pointer-events-none"
+  style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)' }} />
+
   
         
       {/* Dotted Grid Top Half */}
@@ -148,11 +152,8 @@ const EventPlans = () => {
 
   {/* Toggle Buttons */}
   <div className="flex justify-center mb-20">
-    <img
-      src={lightGlow}
-      alt="glow"
-      className="absolute -top-20 left-1/2 -translate-x-1/2 object-contain z-40 pointer-events-none"
-    />
+ 
+
    <div
   className="relative flex gap-2 sm:mt-20 px-2 py-2 rounded-full border border-gray-400/50 backdrop-blur-md shadow-[0_0_12px_rgba(255,255,255,0.12)]"
   style={{ background: 'linear-gradient(180deg, #1D2235 0%, #0C0D10 100%)' }}
@@ -282,27 +283,27 @@ const EventPlans = () => {
       <div className="relative z-20   ">
   
       <div className="relative w-full h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] overflow-hidden flex justify-center items-center">
-  <div
-    className="absolute bottom-0 left-0 w-full h-full z-40 pointer-events-none"
-    style={{
-      background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 70%)',
-    }}
-  />
-
+ 
   <h1
     className="absolute left-0 right-0 text-[120px] sm:text-[500px] md:text-[350px] lg:text-[400px] xl:text-[500px] font-extrabold uppercase text-center leading-none tracking-tight z-10 font-poppins"
     style={{
       WebkitTextStroke: '2px rgba(160, 160, 160, 0.9)', // Reduced opacity
       WebkitTextFillColor: 'transparent',
       lineHeight: 1,
-      maskImage: 'linear-gradient(to bottom, rgba(0,0,0,9) 0%, rgba(0,0,0,0.1) 100%)',
+      maskImage: 'linear-gradient(to bottom, rgba(0,0,0,6) 0%, rgba(0,0,0,0.1) 60%)',
       WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%)',
     }}
   >
     NOW
   </h1>
 </div>
+{/* Bottom Black Gradient */}
+<div className="absolute bottom-0 left-0 w-full h-[10%] z-50 pointer-events-none"
+  style={{ background: 'linear-gradient(to top, #020308, transparent)' }} />
+
+
 </div>
+
       </div>
  
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import mike from '../assets/mike_svg.svg';
+import mike from '../assets/mike.png';
 import gridBg from '../assets/Grid_mob.svg';
 import landingDesktop from '../assets/landing_desktop2.svg';
 import landingMob from '../assets/Landing_nogrid_mob.svg';
@@ -242,7 +242,7 @@ const Landing = () => {
 
       {/* Mike Image */}
       <motion.img
-  src={"https://res.cloudinary.com/dzzhbgbnp/image/upload/v1746358882/mike_svg_rzzkks.svg"}
+  src={mike}
   alt="mike"
   className={`mx-auto z-30 ${
     windowWidth < 640 ? 'w-48 mt-14' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 '
