@@ -22,6 +22,7 @@ const CreateEvent = () => {
   const [eventVisibility, setEventVisibility] = useState('public');
   const [eventPoster, setEventPoster] = useState(null);
   const [eventPosterPreview, setEventPosterPreview] = useState(defaultPoster);
+  const [showVisibilityDropdown, setShowVisibilityDropdown] = useState(false);
   
   // Tags state
   const [tags, setTags] = useState([]);
@@ -39,6 +40,21 @@ const CreateEvent = () => {
   const formContainerRef = useRef(null);
   const fileInputRef = useRef(null);
   const guestImageInputRef = useRef(null);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowVisibilityDropdown(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Handle scroll with proper styling
   useEffect(() => {
@@ -155,7 +171,7 @@ const CreateEvent = () => {
       {/* Form Container with Scroll */}
       <div 
         ref={formContainerRef}
-        className="relative z-10 w-full max-w-md mx-auto px-6 py-20 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+        className="relative z-10 w-full max-w-md mx-auto px-6 py-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
       >
         <h1 className="text-2xl font-bold mb-6 text-center">Create New Event</h1>
 
@@ -185,40 +201,56 @@ const CreateEvent = () => {
 
         {/* Form Fields - with consistent spacing */}
         <div className="space-y-6">
-          {/* Event Name */}
+          {/* Event Name with Visibility Dropdown */}
           <div className="space-y-2">
             <label className="text-sm text-white/80 block">Event Name*</label>
-            <input
-              type="text"
-              placeholder="Enter your event name"
-              className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40 transition"
-            />
-          </div>
-
-          {/* Event Visibility */}
-          <div className="space-y-2">
-            <label className="text-sm text-white/80 block">Event Visibility*</label>
-            <div className="grid grid-cols-2 gap-4">
-              <button 
-                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm border transition ${
-                  eventVisibility === 'public' 
-                    ? 'border-white bg-white/20' 
-                    : 'border-white/20 bg-white/5 hover:bg-white/10'
-                }`}
-                onClick={() => setEventVisibility('public')}
-              >
-                <FaGlobe /> Public
-              </button>
-              <button 
-                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm border transition ${
-                  eventVisibility === 'private' 
-                    ? 'border-white bg-white/20' 
-                    : 'border-white/20 bg-white/5 hover:bg-white/10'
-                }`}
-                onClick={() => setEventVisibility('private')}
-              >
-                <FaLock /> Private
-              </button>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="Enter your event name"
+                className="flex-1 px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40 transition"
+              />
+              <div className="relative" ref={dropdownRef}>
+                <button 
+                  className="h-full px-4 py-3 bg-black bg-opacity-40 backdrop-blur-sm border border-white/20 rounded-lg flex items-center gap-2 text-sm hover:bg-opacity-50 transition"
+                  onClick={() => setShowVisibilityDropdown(!showVisibilityDropdown)}
+                >
+                  {eventVisibility === 'public' ? (
+                    <>
+                      <FaGlobe size={14} /> Public
+                    </>
+                  ) : (
+                    <>
+                      <FaLock size={14} /> Private
+                    </>
+                  )}
+                  <FaChevronDown size={12} className="ml-1" />
+                </button>
+                
+                {/* Dropdown Menu */}
+                {showVisibilityDropdown && (
+                  <div className="absolute right-0 top-full mt-1 bg-gray-900 border border-white/20 rounded-lg shadow-lg overflow-hidden z-20 w-40">
+                    <button 
+                      className="w-full px-4 py-2 text-left hover:bg-white/10 flex items-center gap-2 text-sm transition"
+                      onClick={() => {
+                        setEventVisibility('public');
+                        setShowVisibilityDropdown(false);
+                      }}
+                    >
+                      <FaGlobe size={14} /> Public
+                    </button>
+                    <button 
+                      className="w-full px-4 py-2 text-left hover:bg-white/10 flex items-center gap-2 text-sm transition"
+                      onClick={() => {
+                        setEventVisibility('private');
+                        setShowVisibilityDropdown(false);
+                      }}
+                    >
+                      <FaLock size={14} /> Private
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -492,7 +524,7 @@ const CreateEvent = () => {
           </div>
 
           {/* Create Button */}
-          <button className="w-full py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition mt-8 mb-8">
+          <button className="w-full py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition  mb-18">
             Create Event
           </button>
         </div>
@@ -531,7 +563,7 @@ const CreateEvent = () => {
                   className="absolute bottom-0 right-0 bg-white/20 p-1 rounded-full hover:bg-white/30 transition"
                   onClick={() => guestImageInputRef.current.click()}
                 >
-                  <FaCamera size={14} />
+                  <FaImage size={14} />
                 </button>
                 <input
                   type="file"
