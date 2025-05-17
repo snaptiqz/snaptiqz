@@ -11,41 +11,37 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import BottomNavbar from './components/BottomNavbar.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { LoadScript } from '@react-google-maps/api';
 
 const App = () => {
   const location = useLocation();
-
-  // 👇 Only show BottomNavbar if not on '/' or '/welcome'
   const hideNavbarRoutes = ['/', '/welcome'];
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
+
   return (
-    <div>
-      {shouldShowNavbar && <BottomNavbar />}
+   <LoadScript
+  googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+  libraries={['places']}
+  version="beta" 
+>
 
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/welcome' element={<Welcome />} />
+      <div>
+        {shouldShowNavbar && <BottomNavbar />}
 
-        <Route path='/dashboard' element={
-          <ProtectedRoute><Dashboard /></ProtectedRoute>
-        } />
-        <Route path='/delegate_dashboard' element={
-          <ProtectedRoute><Delegate_dashboard /></ProtectedRoute>
-        } />
-        <Route path='/create_event' element={
-          <ProtectedRoute><CreateEvent /></ProtectedRoute>
-        } />
-        <Route path='/organization_profile' element={
-          <ProtectedRoute><Organization_profile /></ProtectedRoute>
-        } />
-        <Route path='/history' element={
-          <ProtectedRoute><History /></ProtectedRoute>
-        } />
-      </Routes>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/welcome' element={<Welcome />} />
+          <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path='/delegate_dashboard' element={<ProtectedRoute><Delegate_dashboard /></ProtectedRoute>} />
+          <Route path='/create_event' element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
+          <Route path='/organization_profile' element={<ProtectedRoute><Organization_profile /></ProtectedRoute>} />
+          <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
+        </Routes>
 
-      <ToastContainer />
-    </div>
+        <ToastContainer />
+      </div>
+    </LoadScript>
   );
 };
 

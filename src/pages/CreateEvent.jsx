@@ -2,10 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
 import defaultPoster from '../assets/default_poster.svg';
 import logo from '../assets/logo.svg';
+import avatar from '../assets/avatar.svg';
 import avatarImage from '../assets/avatar.svg';
 import DatePicker from "react-datepicker";
 import { format, parseISO } from "date-fns";
+import Select from 'react-select';
+import timezoneList from '../data/timezones.json'; 
 import "react-datepicker/dist/react-datepicker.css";
+import LocationAutocomplete from '../components/LocationAutocomplete';
 import {
   Calendar,
   MapPin,
@@ -34,37 +38,23 @@ import {
 import BottomNavbar from '../components/BottomNavbar';
 
 const CreateEvent = () => {
-  const [ticketType, setTicketType] = useState("Free");
-const [ticketPrice, setTicketPrice] = useState("");
-const [approval, setApproval] = useState(true);
-const [capacity, setCapacity] = useState("");
-const [editingPrice, setEditingPrice] = useState(false);
-const [editingCapacity, setEditingCapacity] = useState(false);
-const [showPriceModal, setShowPriceModal] = useState(false);
-const [showCapacityModal, setShowCapacityModal] = useState(false);
-
-
-  const [isMultiDay, setIsMultiDay] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [ticketPrice, setTicketPrice] = useState("");
+  const [approval, setApproval] = useState(true);
+  const [capacity, setCapacity] = useState("");
+  const [showPriceModal, setShowPriceModal] = useState(false);
+  const [showCapacityModal, setShowCapacityModal] = useState(false);
+  const [timezone, setTimezone] = useState("Asia/Kolkata");
   const [eventVisibility, setEventVisibility] = useState('public');
   const [eventPoster, setEventPoster] = useState(null);
-  
   const [eventPosterPreview, setEventPosterPreview] = useState(defaultPoster);
   const [showVisibilityDropdown, setShowVisibilityDropdown] = useState(false);
-  const [eventName, setEventName] = useState("Event Name");
-const [isEditingEventName, setIsEditingEventName] = useState(false);
-const [showPicker, setShowPicker] = useState(false);
-const [dateRange, setDateRange] = useState([null, null]);
-const [start, end] = dateRange;
-const [timeRange, setTimeRange] = useState({ start: "", end: "" });
-
-
+  const [showPicker, setShowPicker] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [start, end] = dateRange;
+  const [timeRange, setTimeRange] = useState({ start: "", end: "" });
 const [selectedOrganizer, setSelectedOrganizer] = useState("Organizer (Me)");
 const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
-  
+  const [location, setLocation] = useState('');
   // Tags state
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
@@ -78,12 +68,49 @@ const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
   const [guestImage, setGuestImage] = useState(null);
   const [guestImagePreview, setGuestImagePreview] = useState(null);
   const [isVirtual, setIsVirtual] = useState(false);
+  const [showAddOrgPopup, setShowAddOrgPopup] = useState(false);
+const [newOrgName, setNewOrgName] = useState('');
+const [orgImage, setOrgImage] = useState(null);
+const [previewUrl, setPreviewUrl] = useState(null);
 
   const formContainerRef = useRef(null);
   const fileInputRef = useRef(null);
   const guestImageInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const organizerDropdownRef = useRef(null);
+
+  const customStyles = {
+  control: (base) => ({
+    ...base,
+    backgroundColor: '#1e1e1e',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    color: '#fff',
+    padding: '4px 8px',
+    borderRadius: '8px',
+    fontSize: '0.875rem',
+  }),
+  menu: (base) => ({
+    ...base,
+    backgroundColor: '#1e1e1e',
+    color: '#fff',
+    borderRadius: '8px',
+    zIndex: 50,
+  }),
+  option: (base, state) => ({
+    ...base,
+    backgroundColor: state.isFocused ? '#333' : '#1e1e1e',
+    color: '#fff',
+    cursor: 'pointer',
+  }),
+  singleValue: (base) => ({
+    ...base,
+    color: '#fff',
+  }),
+  input: (base) => ({
+    ...base,
+    color: '#fff',
+  }),
+};
 
 useEffect(() => {
   const handleClickOutside = (event) => {
@@ -187,6 +214,9 @@ useEffect(() => {
     }
   };
 
+
+
+
   const removeGuest = (guestId) => {
     setGuests(guests.filter(guest => guest.id !== guestId));
   };
@@ -247,9 +277,8 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Form Fields - with consistent spacing */}
+       
         <div className="space-y-6">
-          {/* Organizer and Visibility Row */}
           <div className="flex gap-3 mb-6">
   {/* Organizer Dropdown */}
   <div className="flex-1 relative" ref={organizerDropdownRef}>
@@ -268,7 +297,7 @@ useEffect(() => {
     </button>
 
     {showOrganizerDropdown && (
-      <div className="absolute left-0 mt-2 w-full bg-black border border-white/20 rounded-xl shadow-xl z-30 text-sm">
+      <div className="absolute left-0 mt-2 w-full bg-[#2b2b2b] border border-white/20 rounded-xl shadow-xl z-30 text-sm">
         <button
           onClick={() => {
             setSelectedOrganizer("Organizer (Me)");
@@ -279,6 +308,7 @@ useEffect(() => {
           <ScanFace size={18} />
           Organizer (Me)
         </button>
+          <div className="border-t border-white/30 " />
         <button
           onClick={() => {
             setSelectedOrganizer("Organization Name");
@@ -289,90 +319,70 @@ useEffect(() => {
           <ScanFace size={18} />
           Organization Name
         </button>
-        <button
-          onClick={() => {
-            setShowOrganizerDropdown(false);
-          }}
-          className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
-        >
-          <Plus size={18} />
-          Add New Organization
-        </button>
+          <div className="border-t border-white/30 " />
+     <button
+  onClick={() => {
+    setShowOrganizerDropdown(false);
+    setTimeout(() => setShowAddOrgPopup(true), 0); 
+  }}
+  className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
+>
+  <Plus size={18} />
+  Add New Organization
+</button>
+
+
+
       </div>
     )}
   </div>
 
-  {/* Visibility Dropdown */}
-  <div className="flex-1 relative" ref={dropdownRef}>
+
+    <div className="flex-1 relative" ref={dropdownRef}>
+      <button
+        onClick={() => setShowVisibilityDropdown(!showVisibilityDropdown)}
+        className="w-full h-[64px] px-4 py-2 bg-[#2b2b2b] border border-white/20 rounded-xl flex items-center justify-between text-sm text-white"
+      >
+        <div className="flex items-center gap-3">
+          {eventVisibility === 'public' ? <Earth size={20} /> : <Lock size={20} />}
+          <span className="text-sm font-medium">{eventVisibility === 'public' ? 'Public' : 'Private'}</span>
+        </div>
+        <ChevronDown size={16} />
+      </button>
+
+     {showVisibilityDropdown && (
+  <div className="absolute right-0 mt-2 w-full bg-[#2b2b2b] border border-white/20 rounded-xl shadow-lg z-30 text-sm">
     <button
-      onClick={() => setShowVisibilityDropdown(!showVisibilityDropdown)}
-      className="w-full h-[64px] px-4 py-2 bg-[#2b2b2b] border border-white/20 rounded-xl flex items-center justify-between text-sm text-white"
+      onClick={() => {
+        setEventVisibility("public");
+        setShowVisibilityDropdown(false);
+      }}
+      className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
     >
-      <div className="flex items-center gap-3">
-        {eventVisibility === 'public' ? <Earth size={20} /> : <Lock size={20} />}
-        <span className="text-sm font-medium">{eventVisibility === 'public' ? 'Public' : 'Private'}</span>
-      </div>
-      <ChevronDown size={16} />
+      <Earth size={16} /> Public
     </button>
 
-    {showVisibilityDropdown && (
-      <div className="absolute right-0 mt-2 w-full bg-black border border-white/20 rounded-xl shadow-lg z-30 text-sm">
-        <button
-          onClick={() => {
-            setEventVisibility("public");
-            setShowVisibilityDropdown(false);
-          }}
-          className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
-        >
-          <Earth size={16} /> Public
-        </button>
-        <button
-          onClick={() => {
-            setEventVisibility("private");
-            setShowVisibilityDropdown(false);
-          }}
-          className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
-        >
-          <Lock size={16} /> Private
-        </button>
-      </div>
-    )}
+    {/* Divider */}
+    <div className="border-t border-white/30 " />
+
+    <button
+      onClick={() => {
+        setEventVisibility("private");
+        setShowVisibilityDropdown(false);
+      }}
+      className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
+    >
+      <Lock size={16} /> Private
+    </button>
+  </div>
+)}
+    </div>
   </div>
 
 
-          </div>
-         <div className="flex items-center gap-3 mb-4 max-w-full px-2">
-  {isEditingEventName ? (
-    <>
-      <input
-        type="text"
-        value={eventName}
-        onChange={(e) => setEventName(e.target.value)}
-        autoFocus
-        className="text-3xl font-semibold bg-transparent border-b border-white/30 outline-none focus:border-white/70 transition w-full max-w-[250px]"
-      />
-      <Check
-        size={22}
-        className="text-white cursor-pointer hover:text-green-500 transition"
-        onClick={() => setIsEditingEventName(false)}
-      />
-    </>
-  ) : (
-    <>
-      <h1 className="text-3xl font-semibold truncate max-w-[250px]">{eventName}</h1>
-      <Pen
-        size={24}
-        className="text-white/70 cursor-pointer"
-        onClick={() => setIsEditingEventName(true)}
-      />
-    </>
-  )}
-</div>
 
 
-
-
-          {/* Date & Time Section */}
+            {/* Date & Time Section */}
         <div className="space-y-2">
  
 
@@ -443,7 +453,25 @@ useEffect(() => {
             className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm text-white"
             placeholder="End Time"
           />
+          {/* Timezone Selector */}
+
+
+
+
+
+
         </div>
+        <div className="mt-4">
+  <label className="block text-white/70 text-sm mb-2">Select Timezone</label>
+  <Select
+    options={timezoneList}
+    value={timezoneList.find((tz) => tz.value === timezone)}
+    onChange={(selected) => setTimezone(selected.value)}
+    styles={customStyles}
+    placeholder="Search or select timezone"
+    isSearchable
+  />
+</div>
       </div>
 
       {/* Done Button */}
@@ -464,7 +492,7 @@ useEffect(() => {
 
           {/* Location Section */}
          <div className="space-y-3">
-  <label className="text-sm text-white/80 block">Location</label>
+
 
   {/* Toggle Button Group */}
   <div className="flex gap-0 bg-[#2b2b2b] overflow-hidden rounded-xl border border-white/20 w-full">
@@ -506,25 +534,25 @@ useEffect(() => {
   </div>
 
   {/* Input Field */}
-  {isVirtual ? (
-    <div className="relative">
-      <LaptopMinimal className="absolute left-3 top-1/2 -translate-y-1/2 text-white" size={16} />
-      <input
-        type="url"
-        placeholder="Enter Virtual Link"
-        className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
-      />
-    </div>
-  ) : (
-    <div className="relative">
-      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" size={16} />
-      <input
-        type="text"
-        placeholder="Enter Offline Location"
-        className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
-      />
-    </div>
-  )}
+ {isVirtual ? (
+  <div className="relative">
+    <LaptopMinimal className="absolute left-3 top-1/2 -translate-y-1/2 text-white" size={16} />
+    <input
+      type="url"
+      placeholder="Enter Virtual Link"
+      className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
+    />
+  </div>
+) : (
+  <div className="relative">
+
+
+    <LocationAutocomplete location={location} setLocation={setLocation} />
+
+</div>
+
+)}
+
 </div>
 
 
@@ -548,7 +576,7 @@ useEffect(() => {
            
             
             {/* Tag Input Field */}
-            {showTagInput ? (
+           {showTagInput ? (
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-white">
@@ -651,6 +679,7 @@ useEffect(() => {
               </div>
             )}
           </div>
+          
 
           {/* Ticket Type */}
         <div className="space-y-4">
@@ -880,6 +909,76 @@ useEffect(() => {
     </div>
   </div>
 )}
+{showAddOrgPopup && (
+  <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/60">
+    <div className="bg-[#1e1e1e] p-6 rounded-xl w-[90%] max-w-sm border border-white/20 text-white space-y-4">
+      <h2 className="text-lg font-semibold">Add New Organization</h2>
+
+      {/* Image Upload */}
+      <div className="flex flex-col items-center gap-2">
+        <img
+          src={previewUrl || avatar}
+          alt="Organization Logo"
+          className="w-20 h-20 object-cover rounded-full border border-white/20"
+        />
+        <label className="text-xs cursor-pointer text-white hover:underline">
+          Upload Logo
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                setOrgImage(file);
+                setPreviewUrl(URL.createObjectURL(file));
+              }
+            }}
+          />
+        </label>
+      </div>
+
+      {/* Organization Name Input */}
+      <input
+        type="text"
+        value={newOrgName}
+        onChange={(e) => setNewOrgName(e.target.value)}
+        placeholder="Organization Name"
+        className="w-full px-4 py-2 rounded-lg bg-[#2b2b2b] border border-white/20 focus:outline-none text-sm"
+      />
+
+      {/* Buttons */}
+      <div className="flex justify-center gap-2">
+        <button
+          onClick={() => {
+            setShowAddOrgPopup(false);
+            setNewOrgName('');
+            setPreviewUrl(null);
+            setOrgImage(null);
+          }}
+          className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={() => {
+            if (newOrgName.trim()) {
+              setSelectedOrganizer(newOrgName);
+              setShowAddOrgPopup(false);
+              setNewOrgName('');
+              setPreviewUrl(null);
+              setOrgImage(null);
+            }
+          }}
+          className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       
     </div>

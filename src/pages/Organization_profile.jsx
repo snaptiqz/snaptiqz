@@ -12,7 +12,7 @@ const Organization_profile = () => {
 
 return (
     <div
-        className="min-h-screen w-full bg-cover bg-center text-white relative flex flex-col"
+        className="min-h-screen w-full bg-cover bg-center text-white relative flex flex-col overflow-hidden"
         style={{ backgroundImage: `url(${bgImage})`, backgroundColor: '#020308' }}
     >
          <div className="absolute inset-0 z-10 pointer-events-none">
