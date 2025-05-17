@@ -107,7 +107,7 @@ const toggleCollapse = () => {
           <div className="flex justify-center items-center">
             <button
               onClick={toggleCollapse}
-              className="text-white hover:bg-white/10 p-1 rounded-sm transition [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.5))] hover:[filter:drop-shadow(0_0_12px_rgba(255,255,255,0.7))]"
+              className="text-white  p-1 rounded-sm transition [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.5))] hover:[filter:drop-shadow(0_0_12px_rgba(255,255,255,0.7))]"
             >
               {collapsed ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
             </button>
