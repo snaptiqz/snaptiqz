@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
-import { FaUserTie, FaUserFriends } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AuthContext } from '../context/Authcontext';
 
 const Welcome = () => {
   const [showSplash, setShowSplash] = useState(true);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 2500);
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+
+      // Delay navigation just a bit to allow splash fade-out
+      setTimeout(() => {
+        navigate('/Dashboard');
+      }, 500); // adjust if needed
+    }, 2500);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -48,9 +57,9 @@ const Welcome = () => {
         `}
       </style>
 
-      {/* Splash and Role Selection Logic */}
+      {/* Splash only */}
       <AnimatePresence mode="wait">
-        {showSplash ? (
+        {showSplash && (
           <motion.div
             key="splash"
             initial={{ opacity: 0 }}
@@ -69,51 +78,9 @@ const Welcome = () => {
               transition={{ duration: 0.6 }}
               style={{ boxShadow: '0 0 40px white' }}
             />
-            <h2 className="text-xl font-semibold">Hey User!</h2>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="roles"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col items-center z-10 max-w-md w-full space-y-6"
-          >
-            <img src={logo} alt="Snaptiqz Logo" className="w-6 h-6 mb-6" />
-            <img
-              src={avatar}
-              alt="User"
-              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl"
-              style={{ boxShadow: '0 0 30px white' }}
-            />
-            <h2 className="text-xl font-semibold mt-4">Hey User!</h2>
-            <p className="text-sm text-gray-300">Who are you operating as today?</p>
-
-            <div className="w-full space-y-4 mt-2">
-              <button
-                onClick={() => navigate('/org_dashboard')}
-                className="w-full flex items-center gap-4 p-4 border border-white rounded-lg bg-white/5 hover:bg-white/10 transition"
-              >
-                <FaUserTie className="text-white text-xl" />
-                <div className="text-left">
-                  <p className="font-semibold text-white">As an organizer</p>
-                  <p className="text-xs text-gray-300">Create Events, Invite people, Assign Volunteers and more for free</p>
-                </div>
-              </button>
-
-              <button
-                onClick={() => navigate('/delegate_dashboard')}
-                className="w-full flex items-center gap-4 p-4 border border-white rounded-lg bg-white/5 hover:bg-white/10 transition"
-              >
-                <FaUserFriends className="text-white text-xl" />
-                <div className="text-left">
-                  <p className="font-semibold text-white">As a delegate</p>
-                  <p className="text-xs text-gray-300">Join Events, Get assigned as Volunteer, Collect Certificates and more</p>
-                </div>
-              </button>
-            </div>
-
-            <p className="text-xs text-gray-400 mt-4">⚙️ You can switch role options later from the setting menu.</p>
+            <h2 className="text-xl font-semibold">
+              Hey {user?.name?.split(' ')[0] || 'there'}!
+            </h2>
           </motion.div>
         )}
       </AnimatePresence>

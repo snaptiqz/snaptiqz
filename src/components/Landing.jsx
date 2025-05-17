@@ -10,9 +10,8 @@ import curl1 from '../assets/25.png';
 import curlDeskLeft from '../assets/26.png';
 import curlDeskRight from '../assets/27.png';
 import logo from '../assets/logo.svg';
-import { useNavigate } from 'react-router-dom'; // rename accordingly
-
-import { IoArrowForwardOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import SignupPopup from './SignupPopup';
 
 const Landing = () => {
   const [showGrid, setShowGrid] = useState(true);
@@ -21,7 +20,8 @@ const Landing = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showDesktopCurls, setShowDesktopCurls] = useState(false);
   const [curlsExited, setCurlsExited] = useState(false);
-  const [showStars, setShowStars] = useState(false);
+   const [time, setTime] = useState('');
+
   const [starPositions] = useState(() =>
     Array.from({ length: 25 }, () => ({
       width: `${Math.random() * 2 + 1}px`,
@@ -32,7 +32,9 @@ const Landing = () => {
     }))
   );
   
-  const [time, setTime] = useState('');
+ 
+ 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -105,15 +107,6 @@ const Landing = () => {
     );
   };
   
-  
-  
-  
-  
-  
-  
-  
-  // Top of Landing.jsx
-
 
   const handleGetHosting = () => {
     setAnimationState('transitioning');
@@ -125,14 +118,16 @@ const Landing = () => {
   };
   
   const handleClosePopup = () => {
-    setShowPopup(false);
-    setAnimationState('transitioning'); // Reuse same transition logic
-    setTimeout(() => {
-      setCurlsExited(false); // bring curls back if needed
-      setAnimationState('initial');
-    }, 500);
-  };
-  
+  setShowPopup(false);
+  setAnimationState('transitioning'); // fade elements out
+
+  // Restore the landing page after transition
+  setTimeout(() => {
+    setCurlsExited(false);
+    setAnimationState('initial');
+  }, 500); // 800ms for smoother transition
+};
+
   useEffect(() => {
     if (animationState === 'initial' && window.innerWidth >= 640) {
       setShowDesktopCurls(true);
@@ -312,76 +307,12 @@ const Landing = () => {
   </>
 )}
 
-
-    
-    
-
-      {/* Bottom Message */}
-      {animationState === 'initial' && (
-  <div className="absolute bottom-10 sm:bottom-0 w-full z-30 pointer-events-none">
-    <div
-      className="text-center py-6"
-      style={{
-        background: 'linear-gradient(to top, rgba(2,3,8,0.8), transparent)',
-      }}
-    >
-      {/* Your content here */}
-    </div>
-  </div>
+{showPopup && (
+  <SignupPopup onClose={handleClosePopup} />
 )}
 
 
 
-
-
-{/* Tagline Section */}
-
-
-
-
-      {/* Popup */}
-      {showPopup && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md text-white flex flex-col justify-center items-center w-full h-full"
-        >
-          <button
-            onClick={handleClosePopup}
-            className="absolute top-4 right-4 w-10 h-10 text-2xl text-gray-400 z-50"
-          >
-            ×
-          </button>
-          <div className="w-full h-full px-6 py-10 flex flex-col justify-center items-center">
-            <div className="w-full">
-              <img src={logo} alt="Logo" className="w-8 h-8 mb-6 mx-auto" />
-              <h2 className="text-lg sm:text-2xl  font-semibold text-center mb-2">Welcome to Snaptiqz</h2>
-              <p className=" text-sm sm:text-lg text-gray-300 text-center mb-8 px-4">
-                Thank you for signing up. Begin your hosting journey here by creating an account.
-              </p>
-              <div className="relative w-full max-w-md mx-auto mb-6">
-                <input
-                  type="email"
-                  placeholder="account email"
-                  className="w-full px-5 py-3 pr-10 bg-[#1e1e1e] rounded-full border border-gray-700 text-white text-lg focus:outline-none"
-                />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center">
-                  <IoArrowForwardOutline className="text-white text-lg" />
-                </div>
-              </div>
-              <button
-  onClick={() => navigate('/welcome')}
-  className="w-full max-w-md mx-auto flex items-center justify-center gap-2 bg-black text-white rounded-full py-3 font-medium border border-gray-800 hover:bg-gray-700 transition"
->
-  <img src={google} alt="G" className="w-5 h-5" />
-  Sign Up with Google
-</button>
-
-            </div>
-          </div>
-        </motion.div>
-      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import BottomNavbar from '../components/BottomNavbar';
 import logo from '../assets/logo.svg';
 import { FaPlus } from 'react-icons/fa';
 
-const Org_dashboard = () => {
+const Dashboard = () => {
   return (
     <div className="relative min-h-screen w-full text-white font-sans overflow-hidden bg-black">
       {/* Background Image */}
@@ -66,8 +66,7 @@ const Org_dashboard = () => {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <BottomNavbar />
+     
 
       {/* Twinkle Animation Keyframes */}
       <style>{`
@@ -83,4 +82,4 @@ const Org_dashboard = () => {
   );
 };
 
-export default Org_dashboard;
+export default Dashboard;

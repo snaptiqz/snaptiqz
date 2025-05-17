@@ -623,7 +623,7 @@ const CreateEvent = () => {
         </div>
       )}
       
-      <BottomNavbar />
+      
     </div>
   );
 };
