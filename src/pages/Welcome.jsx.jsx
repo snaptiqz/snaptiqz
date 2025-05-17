@@ -16,7 +16,7 @@ const Welcome = () => {
 
       // Delay navigation just a bit to allow splash fade-out
       setTimeout(() => {
-        navigate('/Dashboard');
+        navigate('/suggestion');
       }, 500); // adjust if needed
     }, 2500);
 

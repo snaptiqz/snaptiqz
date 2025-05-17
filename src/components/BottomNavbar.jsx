@@ -84,7 +84,8 @@ const toggleCollapse = () => {
         <div
           ref={navbarRef}
           className={`h-16 flex items-center border border-white/10 shadow-lg
-            bg-[#1a1a1a] backdrop-blur-md transition-all duration-300 overflow-hidden
+            bg-[#1a1a1a]/60 backdrop-blur-lg backdrop-saturate-150 backdrop-brightness-110
+            transition-all duration-300 overflow-hidden
             ${collapsed ? 'justify-end rounded-l-2xl rounded-tr-md rounded-br-md ml-auto'
                     : 'w-full max-w-md justify-center rounded-3xl'}
           `}
@@ -107,7 +108,7 @@ const toggleCollapse = () => {
           <div className="flex justify-center items-center">
             <button
               onClick={toggleCollapse}
-              className="text-white  p-1 rounded-sm transition [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.5))] hover:[filter:drop-shadow(0_0_12px_rgba(255,255,255,0.7))]"
+              className="text-white p-1 rounded-sm transition [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.5))] hover:[filter:drop-shadow(0_0_12px_rgba(255,255,255,0.7))]"
             >
               {collapsed ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
             </button>

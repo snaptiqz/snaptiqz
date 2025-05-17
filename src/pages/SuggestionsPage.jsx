@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
 import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
+import { useNavigate } from 'react-router-dom';
 
-const Delegate_dashboard = () => {
+const SuggestionsPage = () => {
   const [step, setStep] = useState(1);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -62,7 +64,13 @@ const Delegate_dashboard = () => {
         <div className="w-full max-w-md px-6 mt-6 flex flex-col gap-6 mb-10">
           <div className="flex justify-between items-center">
             <p className="text-base ">Choose The Types of Events you're Interested in</p>
-            <button className="text-sm border border-zinc-50 rounded-lg px-5 py-1 text-gray-400" onClick={() => setStep(3)}>Skip</button>
+            <button
+  className="text-sm border border-zinc-50 rounded-lg px-5 py-1 text-gray-400"
+  onClick={() => navigate('/dashboard')}
+>
+  Skip
+</button>
+
           </div>
 
           <div className="grid grid-cols-3 gap-3">
@@ -117,4 +125,4 @@ const Delegate_dashboard = () => {
   );
 };
 
-export default Delegate_dashboard;
+export default SuggestionsPage;
