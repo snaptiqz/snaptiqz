@@ -3,7 +3,7 @@ import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AuthContext } from '../context/Authcontext';
+import { AuthContext } from '../context/AuthContext.jsx';
 
 const Welcome = () => {
   const [showSplash, setShowSplash] = useState(true);

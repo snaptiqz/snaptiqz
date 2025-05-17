@@ -8,7 +8,7 @@ import {
   ChevronLeft,
 } from 'lucide-react';
 import { useNavigate,useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/Authcontext';
+import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import avatar from '../assets/avatar.svg';
 
