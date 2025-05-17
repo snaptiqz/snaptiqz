@@ -222,13 +222,16 @@ useEffect(() => {
   };
 
   return (
-    <div className="relative min-h-screen w-full text-white font-sans overflow-hidden bg-black">
+  <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden">
+
+
       {/* Background Image with Stars */}
       <img
-        src={bgImage}
-        alt="Background"
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
-      />
+  src={bgImage}
+  alt="Background"
+  className="fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-80"
+/>
+
 
       {/* Stars Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -250,7 +253,7 @@ useEffect(() => {
       {/* Form Container with Scroll */}
       <div 
         ref={formContainerRef}
-        className="relative z-10 w-full max-w-md mx-auto px-6 py-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+        className="relative z-10 w-full max-w-md mx-auto px-6 py-24 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent scrollbar-hide"
       >
         
         {/* Poster */}

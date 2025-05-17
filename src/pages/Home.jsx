@@ -32,7 +32,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-black  overflow-x-hidden">
+   <div className="w-full min-h-screen bg-black overflow-y-scroll scrollbar-hide">
+
+
       <div className="relative z-10">
         <Landing />
       </div>

@@ -21,7 +21,8 @@ const Tagline = () => {
   }, []);
 
   return (
-    <div className="relative  w-full text-center px-4 overflow-hidden font-sans min-h-screen ">
+    <div className="relative w-full text-center px-4 overflow-y-auto overflow-x-hidden font-sans min-h-screen scrollbar-hide">
+
       {/* Background */}
       <div
         className="absolute inset-0 z-0"
@@ -42,14 +43,15 @@ const Tagline = () => {
       {/* Main Content */}
       <div className="relative w-full flex justify-center items-center mt-20 sm:mt-32 lg:mt-60 z-30 min-h-[100vh] sm:min-h-[110vh] lg:min-h-[130vh]">
         {/* Vector Curve */}
-        <img
+      <img
   src={vectorCurve}
   alt="curve"
   className="absolute left-1/2 -translate-x-1/2 
     mt-40 sm:mt-0
     h-[80vh] sm:h-[100vh] lg:h-[120vh] 
-    w-[800vw] object-contain pointer-events-none transition-transform duration-1000"
+    w-[100vw] max-w-none object-contain pointer-events-none transition-transform duration-1000"
 />
+
 
 
         {/* Content Wrapper */}

@@ -10,9 +10,13 @@ const SuggestionsPage = () => {
 
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center text-white font-sans"
-      style={{ backgroundImage: `url(${bgImage})`, backgroundColor: '#020308' }}
-    >
+  className="h-screen w-screen bg-cover bg-center flex flex-col items-center text-white font-sans overflow-x-hidden scrollbar-hide relative"
+  style={{
+    backgroundImage: `url(${bgImage})`,
+    backgroundColor: '#020308',
+  }}
+>
+
       <img src={logo} alt="Logo" className="w-8 h-8 mt-6 self-start ml-6" />
 
       <div className="absolute inset-0 z-10 pointer-events-none">
@@ -88,7 +92,9 @@ const SuggestionsPage = () => {
 
           <div>
             <p className="text-white text-sm font-semibold mb-2">Trending Right Now</p>
-            <div className="flex gap-4 overflow-x-auto">
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide -mx-4 px-4 cursor-grab active:cursor-grabbing">
+
+
               {[1, 2].map((item) => (
                 <div key={item} className="bg-[#0d0d12] rounded-lg p-4 w-48 flex-shrink-0">
                   <img src={avatar} className="rounded-full mx-auto mb-2" alt="Org" />

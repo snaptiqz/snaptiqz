@@ -24,7 +24,11 @@ const Welcome = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#020308] text-white font-sans relative overflow-hidden px-4">
+   <div
+  className="h-screen w-full flex items-center justify-center bg-[#020308] text-white font-sans relative overflow-hidden px-4"
+  style={{ overflow: 'hidden' }}
+>
+
       
       {/* Stars */}
       <div className="absolute inset-0 z-0 pointer-events-none">

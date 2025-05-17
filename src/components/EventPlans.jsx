@@ -59,10 +59,10 @@ const EventPlans = () => {
 
   return (
     
-    <div
-    className="relative text-white font-sans pb-[8vh]  lg:pb-[35vh] md:pb-[20vh] px-4 overflow-hidden bg-[#020308]"
-    
-  >
+   <div
+  className="relative text-white font-sans pb-[8vh] lg:pb-[35vh] md:pb-[20vh] px-4 bg-[#020308] overflow-y-auto overflow-x-hidden scrollbar-hide"
+>
+
     {/* Top Black Gradient */}
 <div className="absolute top-0 left-0 w-full h-[10%] z-50 pointer-events-none"
   style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)' }} />

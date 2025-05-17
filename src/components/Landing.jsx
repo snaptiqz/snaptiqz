@@ -150,7 +150,8 @@ const Landing = () => {
   
 
   return (
-<div className="w-full h-screen overflow-y-auto overflow-x-hidden bg-black text-white font-sans flex items-center justify-center relative">
+<div className="w-full h-screen overflow-y-scroll overflow-x-hidden bg-black text-white font-sans flex items-center justify-center relative scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+
 
       {/* Background Image */}
       <img
