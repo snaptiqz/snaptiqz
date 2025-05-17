@@ -3,11 +3,16 @@ import ticket from '../assets/ticket.svg';
 import bgImage from '../assets/org_dashboard.svg';
 import BottomNavbar from '../components/BottomNavbar';
 import logo from '../assets/logo.svg';
-import { FaPlus } from 'react-icons/fa';
+import { Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Dashboard = () => {
+
+  const navigate = useNavigate();
+
   return (
-    <div className="relative min-h-screen w-full text-white font-sans overflow-hidden bg-black">
+    <div className="relative min-h-screen w-full text-white font-sans  bg-black overflow-hidden">
       {/* Background Image */}
       <img
         src={bgImage}
@@ -59,10 +64,13 @@ const Dashboard = () => {
         <p className="text-sm text-gray-500 mb-6">Let’s create your first</p>
 
         <div className="flex justify-center w-full">
-          <button className="px-6 py-2 rounded-full bg-white/10 border border-white text-white text-sm hover:bg-white/20 transition flex items-center gap-2">
-            <FaPlus className="text-white text-sm" />
-            Create Event
-          </button>
+          <button
+  onClick={() => navigate('/create_event')}
+  className="px-6 py-2 rounded-full bg-white/10 border border-white text-white text-sm hover:bg-white/20 transition flex items-center gap-2"
+>
+  <Plus className="text-white text-sm" />
+  Create Event
+</button>
         </div>
       </div>
 

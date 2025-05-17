@@ -8,8 +8,8 @@ import DatePicker from "react-datepicker";
 import { format, parseISO } from "date-fns";
 import Select from 'react-select';
 import timezoneList from '../data/timezones.json'; 
+import PhotonLocationInput from '../components/PhotonLocationInput';
 import "react-datepicker/dist/react-datepicker.css";
-import LocationAutocomplete from '../components/LocationAutocomplete';
 import {
   Calendar,
   MapPin,
@@ -534,25 +534,20 @@ useEffect(() => {
   </div>
 
   {/* Input Field */}
- {isVirtual ? (
-  <div className="relative">
-    <LaptopMinimal className="absolute left-3 top-1/2 -translate-y-1/2 text-white" size={16} />
-    <input
-      type="url"
-      placeholder="Enter Virtual Link"
-      className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
-    />
-  </div>
-) : (
-  <div className="relative">
-
-
-    <LocationAutocomplete location={location} setLocation={setLocation} />
-
-</div>
-
-)}
-
+  {isVirtual ? (
+    <div className="relative">
+      <LaptopMinimal className="absolute left-3 top-1/2 -translate-y-1/2 text-white" size={16} />
+      <input
+        type="url"
+        placeholder="Enter Virtual Link"
+        className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
+      />
+    </div>
+  ) : (
+    <div className="relative">
+      <PhotonLocationInput location={location} setLocation={setLocation} />
+    </div>
+  )}
 </div>
 
 
