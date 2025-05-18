@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash, FaTimes } from 'react-icons/fa';
 import logo from '../assets/logo.svg';
 import google from '../assets/google_logo.png';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPopup = ({ onClose }) => {
   const { register, login } = useContext(AuthContext);
@@ -22,6 +23,8 @@ const SignupPopup = ({ onClose }) => {
   const hasUpperCase = /[A-Z]/.test(password);
   const hasNumber = /\d/.test(password);
   const hasSpecial = /[!@#$%^&*]/.test(password);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setError('');
@@ -83,63 +86,89 @@ const SignupPopup = ({ onClose }) => {
             <div className="text-xs text-green-400 text-center mb-4">Password is strong</div>
           ))}
 
-        <input
-          type="email"
-          placeholder="Your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-5 py-3 mb-4 bg-[#1e1e1e] rounded-full border border-gray-700 text-white"
-        />
-
-        <div className="relative mb-4">
+        {/* ✅ Wrapped in a form */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
           <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-5 py-3 pr-10 bg-[#1e1e1e] rounded-full border border-gray-700 text-white"
+            type="email"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-5 py-3 mb-4 bg-[#1e1e1e] rounded-full border border-gray-700 text-white"
           />
-          <div
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </div>
-        </div>
 
-        {mode === 'signup' && (
           <div className="relative mb-4">
             <input
-              type={showConfirmPassword ? 'text' : 'password'}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-5 py-3 pr-10 bg-[#1e1e1e] rounded-full border border-gray-700 text-white"
             />
             <div
               className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              onClick={() => setShowPassword(!showPassword)}
             >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </div>
           </div>
-        )}
 
-        {error && <p className="text-red-400 text-sm text-center mb-3">{error}</p>}
+        
 
-        <button
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-          className="w-full bg-white text-black py-3 rounded-full font-semibold mb-4"
-        >
-          {isSubmitting
-            ? mode === 'signup'
-              ? 'Signing up...'
-              : 'Signing in...'
-            : mode === 'signup'
-            ? 'Sign Up'
-            : 'Sign In'}
-        </button>
+          {mode === 'signup' && (
+            <div className="relative mb-4">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-5 py-3 pr-10 bg-[#1e1e1e] rounded-full border border-gray-700 text-white"
+              />
+              <div
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
+          )}
+
+          {error && <p className="text-red-400 text-sm text-center mb-3">{error}</p>}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-white text-black py-3 rounded-full font-semibold mb-4"
+          >
+            {isSubmitting
+              ? mode === 'signup'
+                ? 'Signing up...'
+                : 'Signing in...'
+              : mode === 'signup'
+              ? 'Sign Up'
+              : 'Sign In'}
+          </button>
+           {mode === 'signin' && (
+    <div
+      onClick={() => navigate('/forgotpassword')} // ⬅️ navigate on click
+      className="text-center text-xs text-white mb-4 cursor-pointer hover:underline"
+    >
+      Forgot Your Password?
+    </div>
+  )}
+
+        </form>
+
+        <div className="flex items-center gap-2 text-gray-500 text-sm my-4">
+          <div className="flex-grow h-px bg-gray-700" />
+          <span className="text-white/60">OR</span>
+          <div className="flex-grow h-px bg-gray-700" />
+        </div>
+
 
         <button
           onClick={() => alert('Google login not yet implemented')}

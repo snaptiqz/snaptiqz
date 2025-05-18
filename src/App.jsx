@@ -22,14 +22,18 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    const timeout = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timeout);
+    if (location.pathname === '/') {
+      setLoading(true);
+      const timeout = setTimeout(() => setLoading(false), 1500);
+      return () => clearTimeout(timeout);
+    } else {
+      setLoading(false); // immediately remove spinner for other routes
+    }
   }, [location.pathname]);
 
   return (
     <div className="relative">
-      {/* Spinner overlay */}
+      {/* Spinner only shown for '/' */}
       {loading && <Spinner />}
 
       {/* Conditional Navbars */}
@@ -40,18 +44,16 @@ const App = () => {
         </>
       )}
 
-      {/* Routes only render when not loading */}
-      {!loading && (
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/welcome' element={<Welcome />} />
-          <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path='/suggestion' element={<ProtectedRoute><SuggestionsPage /></ProtectedRoute>} />
-          <Route path='/create_event' element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
-          <Route path='/organization_profile' element={<ProtectedRoute><Organization_profile /></ProtectedRoute>} />
-          <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
-        </Routes>
-      )}
+      {/* Only delay Home rendering on `/`, all others load instantly */}
+      <Routes>
+        <Route path='/' element={loading ? null : <Home />} />
+        <Route path='/welcome' element={<Welcome />} />
+        <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path='/suggestion' element={<ProtectedRoute><SuggestionsPage /></ProtectedRoute>} />
+        <Route path='/create_event' element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
+        <Route path='/organization_profile' element={<ProtectedRoute><Organization_profile /></ProtectedRoute>} />
+        <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
+      </Routes>
 
       <ToastContainer />
     </div>

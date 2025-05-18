@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect,useMemo } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
 import defaultPoster from '../assets/default_poster.svg';
 import logo from '../assets/logo.svg';
@@ -297,6 +297,17 @@ useEffect(() => {
     setIsSubmitting(false);
   }
 };
+const stars = useMemo(() => {
+  return [...Array(30)].map((_, i) => ({
+    id: i,
+    size: Math.random() * 2 + 1,
+    top: `${Math.random() * 100}%`,
+    left: `${Math.random() * 100}%`,
+    opacity: Math.random() * 0.5 + 0.2,
+    delay: `${Math.random() * 2}s`,
+  }));
+}, []);
+
 
 
   return (
@@ -313,20 +324,22 @@ useEffect(() => {
 
       {/* Stars Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full opacity-20 animate-pulse"
-            style={{
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          />
-        ))}
-      </div>
+      {stars.map((star) => (
+        <div
+          key={star.id}
+          className="absolute bg-white rounded-full opacity-20 animate-pulse"
+          style={{
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            top: star.top,
+            left: star.left,
+            opacity: star.opacity,
+            animationDelay: star.delay,
+          }}
+        />
+      ))}
+    </div>
+
 
       {/* Form Container with Scroll */}
       <div 
@@ -337,10 +350,11 @@ useEffect(() => {
         {/* Poster */}
         <div className="relative w-full rounded-xl overflow-hidden bg-white/5 border border-white/20 mb-8 group hover:border-white/40 transition">
           <img 
-            src={eventPosterPreview} 
-            alt="Event Poster" 
-            className="w-full object-cover h-48" 
-          />
+  src={eventPosterPreview} 
+  alt="Event Poster" 
+  className="w-full h-28 object-contain bg-black" 
+/>
+
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
             <input
               type="file"
