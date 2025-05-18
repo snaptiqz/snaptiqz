@@ -21,13 +21,14 @@ const Tagline = () => {
   }, []);
 
   return (
-    <div className="relative w-full text-center px-4 overflow-y-auto overflow-x-hidden font-sans min-h-screen scrollbar-hide">
+    <div className="relative w-full text-center px-4 overflow-y-auto overflow-x-hidden font-sans min-h-screen scrollbar-hide bg-[#010205] z-50" style={{
+       
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}>
 
       {/* Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{ background: 'linear-gradient(to bottom, #020308, black)' }}
-      />
+     
 
       {/* Stars */}
       <div className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
@@ -41,21 +42,21 @@ const Tagline = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-32 lg:mt-60 z-30 min-h-[100vh] sm:min-h-[110vh] lg:min-h-[130vh]">
+      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-32 lg:mt-60 z-30 min-h-screen sm:min-h-[180vh] lg:min-h-[130vh]">
         {/* Vector Curve */}
       <img
   src={vectorCurve}
   alt="curve"
   className="absolute left-1/2 -translate-x-1/2 
-    mt-40 sm:mt-0
-    h-[80vh] sm:h-[100vh] lg:h-[120vh] 
+     mt-[360px] sm:mt-0
+    h-[40vh] sm:h-[100vh] lg:h-[120vh] 
     w-[100vw] max-w-none object-contain pointer-events-none transition-transform duration-1000"
 />
 
 
 
         {/* Content Wrapper */}
-        <div className="absolute top-[25%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4 pt-12 space-y-6 max-w-[90%] mx-auto">
+        <div className="absolute top-[30%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4  space-y-6 max-w-[90%] mx-auto">
 
           {/* Grid and Header */}
           <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,7 +79,7 @@ const Tagline = () => {
             </div>
 
             <p
-  className="relative z-30 text-md pb-10 sm:text-2xl lg:text-3xl  text-transparent bg-clip-text "
+  className="relative z-30 text-xl pb-10 sm:text-2xl lg:text-3xl  text-transparent bg-clip-text "
   style={{
     backgroundImage: 'linear-gradient(to bottom, #aaa 0%, #ddd 40%, #f8f8f8 80%, #fff 100%)',
   }}
@@ -97,7 +98,7 @@ const Tagline = () => {
                 style={{
                   backgroundImage:
                     'linear-gradient(to bottom, #666666 0%, #aaaaaa 60%, #f0f0f0 90%, #ffffff 100%)',
-                  fontSize: 'clamp(2rem, 6vw, 5rem)',
+                  fontSize: 'clamp(4rem, 6vw, 5rem)',
                 }}
               >
                 {text}
@@ -106,7 +107,7 @@ const Tagline = () => {
           </div>
 
           {/* AT 0% COMMISSION */}
-          <div className="relative mx-auto mt-10 sm:-translate-y-10 w-full flex flex-col items-center max-w-[400px] sm:max-w-[800px] px-2">
+          <div className="relative mx-auto  sm:-translate-y-10 w-full flex flex-col items-center max-w-[400px] sm:max-w-[800px] px-2">
             <h3
               className="uppercase font-poppins font-bold tracking-wider text-center"
               style={{
@@ -124,7 +125,7 @@ const Tagline = () => {
               <h3
                 className="uppercase font-poppins font-bold tracking-wider text-center inline-block"
                 style={{
-                  fontSize: 'clamp(2rem, 6vw, 7rem)',
+                  fontSize: 'clamp(3rem, 6vw, 7rem)',
                   WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
                   WebkitTextFillColor: 'transparent',
                   color: 'transparent',

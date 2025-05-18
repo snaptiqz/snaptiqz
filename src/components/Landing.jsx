@@ -23,7 +23,7 @@ const Landing = () => {
    const [time, setTime] = useState('');
 
   const [starPositions] = useState(() =>
-    Array.from({ length: 25 }, () => ({
+    Array.from({ length: 90 }, () => ({
       width: `${Math.random() * 2 + 1}px`,
       height: `${Math.random() * 2 + 1}px`,
       top: `${Math.random() * 80 + 10}%`,
@@ -82,7 +82,7 @@ const Landing = () => {
   const TopRightNav = () => {
     return (
       <div
-        className="hidden sm:flex absolute top-0 right-0 z-40 px-3 py-2 text-white/90 items-center space-x-7 text-sm rounded-bl-xl"
+        className="hidden sm:flex absolute top-0 right-0 z-40 px-3 py-2 text-white/90 items-center space-x-7 text-lg rounded-bl-xl"
         style={{
           backgroundColor: 'rgba(0,0,0,0.4)',
           backdropFilter: 'blur(3px)',
@@ -150,15 +150,26 @@ const Landing = () => {
   
 
   return (
-<div className="w-full h-screen overflow-y-scroll overflow-x-hidden bg-black text-white font-sans flex items-center justify-center relative scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+<div
+  className="w-full h-screen overflow-y-scroll overflow-x-hidden text-white font-sans flex items-center justify-center relative scrollbar-hide"
+  style={{
+    scrollbarWidth: 'none',
+    backgroundColor: '#010205',
+    backgroundImage: 'radial-gradient(circle at top, rgba(255,255,255,0.2) 0%, transparent 40%)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }}
+>
+<img
+  src={gridBg}
+  alt="grid background"
+  className="hidden sm:block absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[120vw] sm:w-[28vw] max-w-none pointer-events-none z-0"
+/>
+
 
 
       {/* Background Image */}
-      <img
-        src={windowWidth >= 640 ? landingDesktop : landingMob}
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
+      
           <TopRightNav />
       {/* Grid Overlay */}
       {showGrid && (

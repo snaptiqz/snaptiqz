@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import lightGlow from '../assets/Light_bg_bleu_35.svg';
 import greyCurve from '../assets/grey_layers.svg';
 import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 const EventPlans = () => {
   const [activeTab, setActiveTab] = useState('standard');
 
@@ -60,7 +61,7 @@ const EventPlans = () => {
   return (
     
    <div
-  className="relative text-white font-sans pb-[8vh] lg:pb-[35vh] md:pb-[20vh] px-4 bg-[#020308] overflow-y-auto overflow-x-hidden scrollbar-hide"
+  className="relative text-white font-sans pb-[8vh] lg:pb-[80vh] md:pb-[20vh] px-4 bg-[#020308] overflow-y-auto overflow-x-hidden scrollbar-hide"
 >
 
     {/* Top Black Gradient */}
@@ -72,10 +73,10 @@ const EventPlans = () => {
       {/* Dotted Grid Top Half */}
       <div className="block sm:block md:block lg:block xl:block 2xl:block">
   <div
-    className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
+    className="absolute  top-0 left-0 w-full sm:h-1/2 h-2/4 z-0 pointer-events-none"
     style={{
       backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 2px)`,
-      backgroundSize: '32px 32px', // more gap between dots
+      backgroundSize: '24px 24px', // more gap between dots
       WebkitMaskImage:
         'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 80%)',
       maskImage:
@@ -95,7 +96,7 @@ const EventPlans = () => {
   initial={{ opacity: 0.4 }}
   animate={{ opacity: [0.4, 0.6, 0.4] }}
   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-  className="hidden sm:block absolute lg:top-[-16%] md:top-[-15%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
+  className="hidden sm:block absolute lg:top-[-20%] md:top-[-15%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
 />
 {/* Purple Glow Layer Behind */}
 
@@ -103,8 +104,8 @@ const EventPlans = () => {
 
 
       {/* Stars Bottom Half */}
-      <div className="absolute bottom-0 left-0 w-full h-[40%] z-0 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
+      <div className="absolute bottom-0 left-0 w-full h-[50%] z-0 pointer-events-none">
+        {[...Array(90)].map((_, i) => (
           <div
             key={i}
             className="absolute w-[2px] h-[2px] bg-white opacity-20 rounded-full"
@@ -123,9 +124,9 @@ const EventPlans = () => {
 
       {/* HOST fade shadow */}
     
-<div className="relative z-20 mt-[200px] sm:mt-[500px] ">
+<div className="relative z-20 mt-[200px] sm:mt-[300px] ">
  
-    <div className="relative w-full h-[180px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] overflow-hidden flex justify-center items-center">
+    <div className="relative w-full h-[180px] sm:h-[300px] md:h-[400px] lg:h-[400px] xl:h-[400px] overflow-hidden flex justify-center items-center">
      
 
       <h1
@@ -143,19 +144,19 @@ const EventPlans = () => {
     </div>
 
     {/* Title & Subtitle */}
-  <div className="text-center mb-14">
-    <p className="text-3xl sm:text-3xl md:text-6xl font-bold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent sm:mt-4 mb-5">
+  <div className="text-center ">
+    <p className="text-3xl sm:text-4xl md:text-6xl font-bold bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent  mb-5">
       EVENT PLANS
     </p>
-    <p className="text-lg sm:mt-10  text-gray-300">Choose your plans</p>
+    <p className="text-lg sm:text-xl md:text-2xl mb-4   text-gray-300">Choose your plans</p>
   </div>
 
   {/* Toggle Buttons */}
-  <div className="flex justify-center mb-20">
+  <div className="flex justify-center mb-20 sm:mb-10">
  
 
    <div
-  className="relative flex gap-2 sm:mt-20 px-2 py-2 rounded-full border border-gray-400/50 backdrop-blur-md shadow-[0_0_12px_rgba(255,255,255,0.12)]"
+  className="relative flex gap-2  px-2 py-2 rounded-full border border-gray-400/50 backdrop-blur-md shadow-[0_0_12px_rgba(255,255,255,0.12)]"
   style={{ background: 'linear-gradient(180deg, #1D2235 0%, #0C0D10 100%)' }}
 >
   <button
@@ -216,19 +217,27 @@ const EventPlans = () => {
 ">
 
         {standardPlans.map((plan, index) => (
-        <motion.div
-        key={index}
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{
-          duration: 0.6,
-          ease: 'easeOut',
-          delay: index * 0.15
-        }}
-        
-        className="relative w-full max-w-sm border-t-[2px] rounded-[32px] border-gray-300/90 bg-[#0d0d12] backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] overflow-hidden"
-      >
+       <motion.div
+  key={index}
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 0.8, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{
+    duration: 0.6,
+    ease: 'easeOut',
+    delay: index * 0.15
+  }}
+  className="relative w-full max-w-sm overflow-hidden border-t-[2px] rounded-[52px] border-gray-300/90 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-2xl"
+  style={{
+    background: 'linear-gradient(135deg, rgba(29,34,53,0.5) 20%, rgba(12,13,16,0.5) 80%)',
+
+   
+    boxShadow: '0 4px 40px rgba(255, 255, 255, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.03) inset',
+  }}
+>
+
+
+
       
          <motion.img
            src={lightGlow}
@@ -241,11 +250,11 @@ const EventPlans = () => {
          />
        
          <div
-           className="relative z-40 px-6 py-8 rounded-[32px] h-full flex flex-col"
+           className="relative z-60 px-6 py-8 rounded-[32px] h-full flex flex-col"
            style={{
-             background: 'linear-gradient(180deg, rgba(29,34,53,0.6) 0%, rgba(12,13,16,0.6) 100%)',
+             background: 'linear-gradient(180deg, rgba(29,34,53,0.8) 10%, rgba(12,13,16,0.8) 100%)',
              backdropFilter: 'blur(20px)',
-             WebkitBackdropFilter: 'blur(20px)',
+             WebkitBackdropFilter: 'blur(40px)',
              border: '1px solid rgba(255, 255, 255, 0.1)'
            }}
          >
@@ -253,7 +262,7 @@ const EventPlans = () => {
              {plan.title}
            </h3>
        
-           <p className="text-sm text-center mb-6 bg-gradient-to-b from-black to-gray-300 bg-clip-text text-transparent opacity-90">
+           <p className="text-sm text-center mb-6 bg-gradient-to-b from-black to-gray-300 bg-clip-text text-transparent ">
              {plan.subtitle}
            </p>
        
@@ -261,9 +270,10 @@ const EventPlans = () => {
              <ul className="text-sm space-y-3 text-white mb-6">
                {plan.features.map((feature, idx) => (
                  <li key={idx} className="flex items-start">
-                   <span className="text-white mr-2 flex-shrink-0">✓</span>
-                   <span className="text-gray-300">{feature}</span>
-                 </li>
+  <Check size={16} className="text-white mt-[2px] mr-2 flex-shrink-0" />
+  <span className="text-gray-300">{feature}</span>
+</li>
+
                ))}
              </ul>
            </div>
