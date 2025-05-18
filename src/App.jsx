@@ -61,38 +61,39 @@ const App = () => {
       </Routes>
 
       <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar
-        closeOnClick
-        pauseOnHover
-        draggable={false}
-        closeButton={true}
-        theme="colored"
-        transition={CustomTransition}
-        toastClassName={({ type }) => {
-          const base =
-            "relative overflow-hidden pointer-events-auto w-[280px] max-w-md sm:max-w-lg " +
-            "backdrop-blur-xl rounded-xl shadow-2xl mr-2   px-4 py-4 sm:mx-24 sm:mr-6 my-3 sm:my-4 " +
-            "text-sm sm:text-base transition-colors " +
-            "after:pointer-events-none after:absolute after:inset-0 after:-translate-x-full " +
-            "after:animate-[shimmer_2s_infinite] after:bg-gradient-to-r " +
-            "after:from-transparent after:via-white/10 after:to-transparent ";
+  position="top-right"
+  autoClose={2000} // ⬅️ Slightly longer
+  hideProgressBar
+  closeOnClick
+  pauseOnHover={false} // ⬅️ Important fix for mobile
+  draggable={false}
+  closeButton={true}
+  theme="colored"
+  transition={CustomTransition} // or try Slide/Zoom to isolate issue
+  toastClassName={({ type }) => {
+    const base =
+      "relative pointer-events-auto w-[280px] max-w-md sm:max-w-lg " +
+      "backdrop-blur-xl rounded-xl shadow-2xl mr-2 px-4 py-4 sm:mx-24 sm:mr-6 my-3 sm:my-4 " +
+      "text-sm sm:text-base transition-colors " +
+      "after:pointer-events-none after:absolute after:inset-0 after:-translate-x-full " +
+     
+      "after:from-transparent after:via-white/10 after:to-transparent ";
 
-          const typeStyles = {
-            success:
-              "bg-green-600/10 border border-green-500/30 text-white hover:bg-green-600/20",
-            error:
-              "bg-red-600/10 border border-red-500/30 text-white hover:bg-red-600/20",
-            default:
-              "bg-white/10 border border-white/20 text-white hover:bg-white/20",
-          };
+    const typeStyles = {
+      success:
+        "bg-green-600/10 border border-green-500/30 text-white hover:bg-green-600/20",
+      error:
+        "bg-red-600/10 border border-red-500/30 text-white hover:bg-red-600/20",
+      default:
+        "bg-white/10 border border-white/20 text-white hover:bg-white/20",
+    };
 
-          return base + (typeStyles[type] || typeStyles.default);
-        }}
-        bodyClassName="text-sm font-medium relative z-10"
-        className="z-50"
-      />
+    return base + (typeStyles[type] || typeStyles.default);
+  }}
+  bodyClassName="text-sm font-medium relative z-10"
+  className="z-50"
+/>
+
     </div>
   );
 };
