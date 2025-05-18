@@ -10,9 +10,9 @@ import Select from 'react-select';
 import timezoneList from '../data/timezones.json'; 
 import PhotonLocationInput from '../components/PhotonLocationInput';
 import "react-datepicker/dist/react-datepicker.css";
-import { Calendar, MapPin, Link, LaptopMinimal, FileText, Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
-import { useContext } from 'react';
-import { EventContext } from '../context/EventContext';
+import {  MapPin,  LaptopMinimal,  Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const CreateEvent = () => {
   const [ticketPrice, setTicketPrice] = useState("");
@@ -24,6 +24,7 @@ const CreateEvent = () => {
   const [eventVisibility, setEventVisibility] = useState('public');
   const [eventPoster, setEventPoster] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingDraft, setIsSubmittingDraft] = useState(false);
   const [eventPosterPreview, setEventPosterPreview] = useState(defaultPoster);
   const [eventName, setEventName] = useState('Event Name');
   const [isEditingEventName, setIsEditingEventName] = useState(false);
@@ -61,7 +62,6 @@ const [previewUrl, setPreviewUrl] = useState(null);
   const guestImageInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const organizerDropdownRef = useRef(null);
-  const { eventData, handleChange, handleTicketChange, createEvent } = useContext(EventContext);
 
 
   const customStyles = {
@@ -237,6 +237,67 @@ useEffect(() => {
   const removeGuest = (guestId) => {
     setGuests(guests.filter(guest => guest.id !== guestId));
   };
+
+  const handleSubmit = async (status = "PUBLISHED") => {
+  setIsSubmitting(true);
+
+  try {
+    const combinedStart = buildISODateTime(start, timeRange.start) || new Date().toISOString();
+    const combinedEnd = buildISODateTime(end, timeRange.end) || new Date().toISOString();
+    const safeCapacity = capacity && !isNaN(parseInt(capacity)) ? parseInt(capacity) : null;
+
+    const payload = {
+      name: eventName || "",
+      description: eventDescription || "",
+      status,
+      image: eventPoster || "", // base64 string
+      isRegistrationOpen: true,
+      showGuestList: true,
+      organizationId: "zj7e63pbtcmbrwg3s9jej73z", // hardcoded or dynamic
+      eventType: isVirtual ? "online" : "offline",
+      eventUrl: null,
+      virtualLink: isVirtual ? virtualLink || "" : null,
+      location: !isVirtual ? location || "" : null,
+      timezone: timezone || "",
+      tags: tags.length ? tags : [""],
+      isPublic: eventVisibility === "public",
+      hosts: selectedOrganizer || "",
+      startDate: combinedStart,
+      endDate: combinedEnd,
+      maxAttendees: safeCapacity,
+      tickets: [
+        {
+          name: "General",
+          description: "",
+          price: ticketPrice ? Number(ticketPrice) : 0,
+          currency: "INR",
+          isPaid: !!ticketPrice,
+          quantity: safeCapacity,
+          isActive: true,
+          isApprovalRequired: approval,
+          saleStartTime: null,
+          saleEndTime: null,
+          metadata: "",
+          benefits: [""],
+        },
+      ],
+      formFields: [],
+      teamMembers: [],
+    };
+
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/events/create`, payload);
+    console.log("✅ Event created:", res.data);
+
+    toast.success("Event created successfully!");
+    resetForm();
+  } catch (error) {
+    console.error("❌ Event creation failed:", error.response?.data || error.message);
+    toast.error("Failed to create event.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
   <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden">
@@ -799,82 +860,28 @@ useEffect(() => {
 
   {/* Action Buttons */}
   <div className="space-y-2 pt-2">
-  <button
+ <button
   className={`w-full py-3 rounded-xl font-semibold transition ${
     isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-white text-black hover:bg-gray-100'
   }`}
   disabled={isSubmitting}
-  onClick={async () => {
-    setIsSubmitting(true);
-
-    try {
-      const combinedStart = buildISODateTime(start, timeRange.start) || new Date().toISOString();
-      const combinedEnd = buildISODateTime(end, timeRange.end) || new Date().toISOString();
-      const safeCapacity = capacity && !isNaN(parseInt(capacity)) ? parseInt(capacity) : null;
-
-      const finalData = {
-        name: eventName || "",
-        description: eventDescription || "",
-        status: "PUBLISHED",
-        image: eventPoster || "", // base64 string
-        isRegistrationOpen: true,
-        showGuestList: true,
-        organizationId: "zj7e63pbtcmbrwg3s9jej73z",
-        eventType: isVirtual ? "online" : "offline",
-        eventUrl: null,
-        virtualLink: isVirtual ? virtualLink || "" : null,
-        location: !isVirtual ? location || "" : null,
-        timezone: timezone || "",
-        tags: tags.length ? tags : [""],
-        isPublic: eventVisibility === "public",
-        hosts: selectedOrganizer || "",
-        startDate: combinedStart,
-        endDate: combinedEnd,
-        maxAttendees: safeCapacity,
-        tickets: [
-          {
-            name: "General",
-            description: "",
-            price: ticketPrice ? Number(ticketPrice) : 0,
-            currency: "INR",
-            isPaid: !!ticketPrice,
-            quantity: safeCapacity,
-            isActive: true,
-            isApprovalRequired: approval,
-            saleStartTime: null,
-            saleEndTime: null,
-            metadata: "",
-            benefits: [""],
-          },
-        ],
-        formFields: [],
-        teamMembers: []
-      };
-
-      console.log("✅ Final Payload:", finalData);
-
-      await createEvent(finalData); // pass to context function
-      resetForm();
-    } finally {
-      setIsSubmitting(false);
-    }
-  }}
+  onClick={() => handleSubmit("PUBLISHED")}
 >
   {isSubmitting ? "Creating..." : "Create and Publish"}
 </button>
 
-
-
-  <button
-  className="w-full py-3 bg-[#2b2b2b] border border-white/20 text-white rounded-xl font-medium hover:bg-white/10 transition"
-  onClick={async () => {
-    handleChange("status", "DRAFT");
-    await createEvent();
-    resetForm();
-  }}
+<button
+  className={`w-full py-3 rounded-xl font-medium transition ${
+    isSubmittingDraft
+      ? 'bg-gray-400 text-white/50 cursor-not-allowed'
+      : 'bg-[#2b2b2b] text-white border border-white/20 hover:bg-white/10'
+  }`}
+  disabled={isSubmittingDraft}
+  onClick={() => handleSubmit("DRAFT")}
 >
-  Save as Draft
+  {isSubmittingDraft ? "Saving..." : "Save as Draft"}
 </button>
+
 
   </div>
 </div>
