@@ -4,7 +4,7 @@ const StarryBackground = ({ count = 30 }) => {
   const stars = useMemo(() => {
     return [...Array(count)].map((_, i) => ({
       id: i,
-      size: Math.random() * 2 + 1,
+      size: Math.random() * 2 ,
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
       opacity: Math.random() * 0.5 + 0.2,

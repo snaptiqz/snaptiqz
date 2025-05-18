@@ -32,7 +32,7 @@ const Dashboard = () => {
       
       <TopNavbar /> 
       {/* Stars Layer */}
-       <StarryBackground count={60}/>
+       <StarryBackground count={80}/>
 
       
      

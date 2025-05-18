@@ -37,7 +37,7 @@ const Organization_profile = () => {
             alt="grid background"
             className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[120vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
           />
-      <StarryBackground count={60} />
+      <StarryBackground count={80} />
 
       <div className="max-w-sm mx-auto px-6 py-6 relative z-10">
         {/* Back + Title */}

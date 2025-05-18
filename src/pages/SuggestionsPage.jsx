@@ -4,6 +4,7 @@ import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
+import StarryBackground from '../components/StarryBackground.jsx';
 
 const SuggestionsPage = () => {
   const [step, setStep] = useState(1);
@@ -29,23 +30,7 @@ const SuggestionsPage = () => {
 
       <img src={logo} alt="Logo" className="w-8 h-8 mt-6 self-start ml-6" />
 
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(60)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full animate-twinkle"
-            style={{
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5 + 0.2,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 3 + 2}s`,
-            }}
-          />
-        ))}
-      </div>
+     <StarryBackground count={80} />
 
       {step === 1 && (
         <div className="flex flex-col items-center mt-20">

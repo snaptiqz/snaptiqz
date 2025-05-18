@@ -5,6 +5,7 @@ import gridBg from "../assets/Grid_mob.svg"
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext.jsx';
+import StarryBackground from '../components/StarryBackground.jsx';
 
 const Welcome = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -46,23 +47,7 @@ const Welcome = () => {
 
       
       {/* Stars */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full animate-twinkle"
-            style={{
-              width: `${Math.random() * 1.5 + 0.5}px`,
-              height: `${Math.random() * 1.5 + 0.5}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: `${Math.random() * 0.4 + 0.2}`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 4 + 2}s`,
-            }}
-          />
-        ))}
-      </div>
+        <StarryBackground count={80} />
 
       <style>
         {`
