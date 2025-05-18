@@ -33,4 +33,15 @@ body {
   display: none; /* Chrome, Safari */
 }
 
- 
+ .gradient-bg {
+  background-color: #010205;
+  background-image: radial-gradient(circle at top, rgba(255, 255, 255, 0.2) 0%, transparent 40%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 640px) {
+  .gradient-bg {
+    background-image: radial-gradient(circle at top, rgba(255,255,255,0.2) 0%, transparent 35%);
+  }
+}

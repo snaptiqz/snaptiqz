@@ -150,16 +150,8 @@ const Landing = () => {
   
 
   return (
-<div
-  className="w-full h-screen overflow-y-scroll overflow-x-hidden text-white font-sans flex items-center justify-center relative scrollbar-hide"
-  style={{
-    scrollbarWidth: 'none',
-    backgroundColor: '#010205',
-    backgroundImage: 'radial-gradient(circle at top, rgba(255,255,255,0.2) 0%, transparent 40%)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  }}
->
+<div className="gradient-bg w-full h-screen overflow-y-scroll overflow-x-hidden text-white font-sans flex items-center justify-center relative scrollbar-hide">
+
 <img
   src={gridBg}
   alt="grid background"
