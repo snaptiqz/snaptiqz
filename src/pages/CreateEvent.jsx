@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect,useMemo } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
 import defaultPoster from '../assets/default_poster.svg';
-import logo from '../assets/logo.svg';
+import gridBg from '../assets/Grid_mob.svg';
 import avatar from '../assets/avatar.svg';
 import avatarImage from '../assets/avatar.svg';
 import DatePicker from "react-datepicker";
@@ -14,6 +14,8 @@ import {  MapPin,  LaptopMinimal,  Tags, Users, Earth, Plus, Image as ImageIcon,
 import axios from "axios";
 import { CheckCircle, XCircle } from 'lucide-react';
 import { toast } from "react-toastify";
+import TopNavbar from '../components/TopNavbar';
+import StarryBackground from '../components/StarryBackground';
 
 const CreateEvent = () => {
   const [ticketPrice, setTicketPrice] = useState("");
@@ -298,49 +300,39 @@ useEffect(() => {
     setIsSubmitting(false);
   }
 };
-const stars = useMemo(() => {
-  return [...Array(30)].map((_, i) => ({
-    id: i,
-    size: Math.random() * 2 + 1,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    opacity: Math.random() * 0.5 + 0.2,
-    delay: `${Math.random() * 2}s`,
-  }));
-}, []);
 
 
 
   return (
-  <div className="relative min-h-screen w-full bg-black text-white overflow-x-hidden">
 
 
+<div
+      className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden"
+      style={{
+        backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}
+    >
+      {/* Grid Background */}
+      <img
+        src={gridBg}
+        alt="grid background"
+        className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[120vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
+      />
+
+    
+  
       {/* Background Image with Stars */}
       <img
   src={bgImage}
   alt="Background"
   className="fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-80"
 />
+  <TopNavbar scrollRef={formContainerRef} />
 
 
-      {/* Stars Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-      {stars.map((star) => (
-        <div
-          key={star.id}
-          className="absolute bg-white rounded-full opacity-20 animate-pulse"
-          style={{
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            top: star.top,
-            left: star.left,
-            opacity: star.opacity,
-            animationDelay: star.delay,
-          }}
-        />
-      ))}
-    </div>
-
+      <StarryBackground count={60}/>
 
       {/* Form Container with Scroll */}
       <div 

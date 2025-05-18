@@ -20,6 +20,10 @@ body {
   -ms-overflow-style: none;     /* IE and Edge */
 }
 
+.bg-grid {
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;                /* Chrome, Safari */

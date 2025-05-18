@@ -1,43 +1,38 @@
-import React from 'react';
+import React,{useMemo} from 'react';
 import ticket from '../assets/ticket.svg';
-import bgImage from '../assets/org_dashboard.svg';
+import gridBg from '../assets/Grid_mob.svg';
 import BottomNavbar from '../components/BottomNavbar';
 import logo from '../assets/logo.svg';
 import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import TopNavbar from '../components/TopNavbar';
+import StarryBackground from '../components/StarryBackground';
 
 
 const Dashboard = () => {
 
   const navigate = useNavigate();
+  
 
   return (
-    <div className="relative min-h-screen w-full text-white font-sans  bg-black overflow-hidden">
-      {/* Background Image */}
+   <div
+      className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden"
+      style={{
+        backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}
+    >
       <img
-        src={bgImage}
-        alt="dashboard background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
-
+              src={gridBg}
+              alt="grid background"
+              className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[120vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
+            />
+      
+      
+      <TopNavbar /> 
       {/* Stars Layer */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(40)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full animate-twinkle"
-            style={{
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5 + 0.2,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 3 + 2}s`,
-            }}
-          />
-        ))}
-      </div>
+       <StarryBackground count={60}/>
 
       
      

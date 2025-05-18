@@ -45,7 +45,8 @@ const App = () => {
       {/* Conditional Navbars */}
       {shouldShowNavbar && (
         <>
-          <TopNavbar />
+        
+         
           <BottomNavbar />
         </>
       )}

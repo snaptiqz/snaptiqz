@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
+  const [justSignedUp, setJustSignedUp] = useState(false);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState('');
 
@@ -28,24 +28,26 @@ export const AuthProvider = ({ children }) => {
 
   // ✅ Signup
   const register = async ({ email, password, name, imageUrl }) => {
-    try {
-      const res = await axios.post(`${backendUrl}/auth/sign-up/email`, {
-        email,
-        password,
-        name,
-        imageUrl,
-      });
+  try {
+    const res = await axios.post(`${backendUrl}/auth/sign-up/email`, {
+      email,
+      password,
+      name,
+      imageUrl,
+    });
 
-      if (res.data.accessToken) {
-        setToken(res.data.accessToken);
-        setUser(res.data.user);
-        toast.success("Signup successful!",{ icon: false });
-        navigate("/welcome");
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Signup failed.",{ icon: false });
+    if (res.data.accessToken) {
+      setToken(res.data.accessToken);
+      setUser(res.data.user);
+      toast.success("Signup successful!", { icon: false });
+      setJustSignedUp(true);
+      navigate("/welcome");
     }
-  };
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Signup failed.", { icon: false });
+  }
+};
+
 
   // ✅ Login
   const login = async ({ email, password }) => {
@@ -87,7 +89,7 @@ export const AuthProvider = ({ children }) => {
       console.warn("Sign-out request failed, clearing session locally.");
     } finally {
       setUser(null);
-      setToken(null);
+      setToken("");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       navigate("/login");
@@ -105,6 +107,8 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         fetchSession,
+        justSignedUp,
+        setJustSignedUp,
       }}
     >
       {children}

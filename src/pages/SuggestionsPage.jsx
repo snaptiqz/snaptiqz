@@ -1,5 +1,5 @@
 import React, { useState,useContext } from 'react';
-import bgImage from '../assets/org_dashboard.svg';
+import gridBg from "../assets/Grid_mob.svg";
 import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +11,21 @@ const SuggestionsPage = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div
-  className="h-screen w-screen bg-cover bg-center flex flex-col items-center text-white font-sans overflow-x-hidden scrollbar-hide relative"
-  style={{
-    backgroundImage: `url(${bgImage})`,
-    backgroundColor: '#020308',
-  }}
->
+     <div
+            className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden"
+            style={{
+              backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+            }}
+          >
+            {/* Grid Background */}
+            <img
+              src={gridBg}
+              alt="grid background"
+              className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[100vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
+            />
+    
 
       <img src={logo} alt="Logo" className="w-8 h-8 mt-6 self-start ml-6" />
 
