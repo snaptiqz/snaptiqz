@@ -12,10 +12,11 @@ import PhotonLocationInput from '../components/PhotonLocationInput';
 import "react-datepicker/dist/react-datepicker.css";
 import {  MapPin,  LaptopMinimal,  Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
 import axios from "axios";
-import { CheckCircle, XCircle } from 'lucide-react';
 import { toast } from "react-toastify";
 import TopNavbar from '../components/TopNavbar';
 import StarryBackground from '../components/StarryBackground';
+import { useNavigate } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 const CreateEvent = () => {
   const [ticketPrice, setTicketPrice] = useState("");
@@ -54,6 +55,8 @@ const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
   const [guestImagePreview, setGuestImagePreview] = useState(null);
   const [isVirtual, setIsVirtual] = useState(false);
   const [virtualLink, setVirtualLink] = useState('');
+  const [showSpinner, setShowSpinner] = useState(false);
+const navigate = useNavigate();
 
   const [showAddOrgPopup, setShowAddOrgPopup] = useState(false);
 const [newOrgName, setNewOrgName] = useState('');
@@ -298,12 +301,18 @@ useEffect(() => {
     console.error("❌ Event creation failed:", error.response?.data || error.message);
     toast.error("Failed to create event.",{ icon: false });
   } finally {
-    isDraft ? setIsSubmittingDraft(false) : setIsSubmitting(false);
+  isDraft ? setIsSubmittingDraft(false) : setIsSubmitting(false);
+  if (!isDraft) {
+    setShowSpinner(true);
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 2500);
   }
+}
 };
 
 
-
+ if (showSpinner) return <Spinner />;
   return (
 
 
@@ -1121,6 +1130,8 @@ useEffect(() => {
 
       
     </div>
+   
+
   );
 };
 
