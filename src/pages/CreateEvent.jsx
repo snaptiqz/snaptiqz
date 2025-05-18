@@ -143,18 +143,27 @@ useEffect(() => {
     }
   }, []);
 
+  const buildISODateTime = (date, time) => {
+  if (!date || !time) return null;
+  const [hours, minutes] = time.split(":");
+  const result = new Date(date);
+  result.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+  return result.toISOString();
+};
+
   // Handle event poster upload
-  const handlePosterUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setEventPoster(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setEventPosterPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+ const handlePosterUpload = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setEventPoster(reader.result); // Base64 string
+      setEventPosterPreview(reader.result);
+    };
+    reader.readAsDataURL(file); // converts to base64 string
+  }
+};
+
 
   // Handle guest image upload
   const handleGuestImageUpload = (e) => {
@@ -790,7 +799,7 @@ useEffect(() => {
 
   {/* Action Buttons */}
   <div className="space-y-2 pt-2">
-    <button
+  <button
   className={`w-full py-3 rounded-xl font-semibold transition ${
     isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-white text-black hover:bg-gray-100'
   }`}
@@ -799,47 +808,52 @@ useEffect(() => {
     setIsSubmitting(true);
 
     try {
-      handleChange("name", eventName || null);
-      handleChange("description", eventDescription || null);
-      handleChange("image", eventPoster || null);
-      handleChange("status", "PUBLISHED");
-      handleChange("isRegistrationOpen", true);
-      handleChange("showGuestList", true);
-      handleChange("organizationId", "zj7e63pbtcmbrwg3s9jej73z");
-      handleChange("eventType", isVirtual ? "online" : "offline");
-      handleChange("eventUrl", null);
-      handleChange("virtualLink", isVirtual ? virtualLink || null : null);
-      handleChange("location", !isVirtual ? location || null : null);
-      handleChange("timezone", timezone || null);
-      handleChange("tags", tags.length ? tags : [""]);
-      handleChange("isPublic", eventVisibility === "public");
-      handleChange("hosts", selectedOrganizer || null);
-      handleChange("startDate", start ? start.toISOString() : new Date().toISOString());
-      handleChange("endDate", end ? end.toISOString() : new Date().toISOString());
-
+      const combinedStart = buildISODateTime(start, timeRange.start) || new Date().toISOString();
+      const combinedEnd = buildISODateTime(end, timeRange.end) || new Date().toISOString();
       const safeCapacity = capacity && !isNaN(parseInt(capacity)) ? parseInt(capacity) : null;
 
-      handleChange("maxAttendees", safeCapacity);
-      handleChange("tickets", [
-        {
-          name: "General",
-          description: "",
-          price: ticketPrice ? Number(ticketPrice) : 0,
-          currency: "INR",
-          isPaid: !!ticketPrice,
-          quantity: safeCapacity,
-          isActive: true,
-          isApprovalRequired: approval,
-          saleStartTime: null,
-          saleEndTime: null,
-          metadata: "",
-          benefits: [""],
-        },
-      ]);
-      handleChange("formFields", []);
-      handleChange("teamMembers", []);
+      const finalData = {
+        name: eventName || "",
+        description: eventDescription || "",
+        status: "PUBLISHED",
+        image: eventPoster || "", // base64 string
+        isRegistrationOpen: true,
+        showGuestList: true,
+        organizationId: "zj7e63pbtcmbrwg3s9jej73z",
+        eventType: isVirtual ? "online" : "offline",
+        eventUrl: null,
+        virtualLink: isVirtual ? virtualLink || "" : null,
+        location: !isVirtual ? location || "" : null,
+        timezone: timezone || "",
+        tags: tags.length ? tags : [""],
+        isPublic: eventVisibility === "public",
+        hosts: selectedOrganizer || "",
+        startDate: combinedStart,
+        endDate: combinedEnd,
+        maxAttendees: safeCapacity,
+        tickets: [
+          {
+            name: "General",
+            description: "",
+            price: ticketPrice ? Number(ticketPrice) : 0,
+            currency: "INR",
+            isPaid: !!ticketPrice,
+            quantity: safeCapacity,
+            isActive: true,
+            isApprovalRequired: approval,
+            saleStartTime: null,
+            saleEndTime: null,
+            metadata: "",
+            benefits: [""],
+          },
+        ],
+        formFields: [],
+        teamMembers: []
+      };
 
-      await createEvent();
+      console.log("✅ Final Payload:", finalData);
+
+      await createEvent(finalData); // pass to context function
       resetForm();
     } finally {
       setIsSubmitting(false);
@@ -848,6 +862,7 @@ useEffect(() => {
 >
   {isSubmitting ? "Creating..." : "Create and Publish"}
 </button>
+
 
 
   <button

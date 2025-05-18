@@ -8,10 +8,10 @@ const EventContextProvider = ({ children }) => {
   const [eventData, setEventData] = useState({
     name: "",
     description: "",
-    status: "DRAFT",
-    maxAttendees: 1,
-    startDate: null,
-    endDate: null,
+    status: "",
+    maxAttendees: "",
+    startDate: "",
+    endDate: "",
     timezone: "",
     eventType: "",
     eventUrl: "",
@@ -40,22 +40,23 @@ const EventContextProvider = ({ children }) => {
     });
   };
 
-  const createEvent = async () => {
-    try {
-      const payload = { ...eventData };
-      console.log("Payload to send:", payload);
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/events/create`,
-        payload
-      );
+const createEvent = async (customData) => {
+  try {
+    const payload = customData || { ...eventData };
+    console.log("🚀 Sending payload:", payload);
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/events/create`,
+      payload
+    );
 
-      toast.success("Event created successfully!");
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to create event.");
-    }
-  };
+    toast.success("Event created successfully!");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to create event.");
+  }
+};
+
 
   return (
     <EventContext.Provider
