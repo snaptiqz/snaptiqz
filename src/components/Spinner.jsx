@@ -35,7 +35,11 @@ const Spinner = () => {
   }, []);
   
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-[#010205] z-50" style={{
+        backgroundImage: `radial-gradient(circle at top, rgba(255,255,255,0.1) 0%, transparent 30%)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}>
       {/* Star background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {stars.map(star => (
@@ -61,11 +65,26 @@ const Spinner = () => {
           transition: 'transform 0.2s ease-out',
         }}
       >
-        <div style={{ transform: 'rotate(-48deg)' }}>
-          <Rocket size={48} strokeWidth={1} color="white" />
-        </div>
+        <div
+  style={{
+    transform: 'rotate(-48deg)',
+    perspective: '500px',
+  }}
+  className="shadow-xl drop-shadow-[0_4px_10px_rgba(0,255,255,0.2)]"
+>
+  <div
+    className="transition-transform"
+    style={{
+      transform: 'rotateX(10deg) rotateY(6deg)',
+      filter: 'drop-shadow(0 4px 8px rgba(0, 255, 255, 0.4))',
+    }}
+  >
+  <Rocket size={48} strokeWidth={0.8} color="rgba(255,255,255,0.8)" />
+
+  </div>
+</div>
+
         
-        {/* Improved flame effect with tapered beams */}
        {/* Improved flame effect with tapered beams */}
 <div className="flex gap-1 " style={{ transform: 'translateX(-4px)' }}>
 
