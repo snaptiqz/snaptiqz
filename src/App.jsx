@@ -11,7 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import BottomNavbar from './components/BottomNavbar.jsx';
 import TopNavbar from './components/TopNavbar.jsx';
 import Spinner from './components/Spinner.jsx';
-import { ToastContainer, cssTransition } from 'react-toastify';
+import { ToastContainer, cssTransition,Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -62,14 +62,14 @@ const App = () => {
 
       <ToastContainer
   position="top-right"
-  autoClose={2000} // ⬅️ Slightly longer
+  autoClose={3000} // ⬅️ Slightly longer
   hideProgressBar
   closeOnClick
   pauseOnHover={false} // ⬅️ Important fix for mobile
   draggable={false}
   closeButton={true}
   theme="colored"
-  transition={CustomTransition} // or try Slide/Zoom to isolate issue
+  transition={Slide} // or try Slide/Zoom to isolate issue
   toastClassName={({ type }) => {
     const base =
       "relative pointer-events-auto w-[280px] max-w-md sm:max-w-lg " +
