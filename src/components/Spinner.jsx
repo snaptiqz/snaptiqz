@@ -1,31 +1,107 @@
-// src/components/Spinner.jsx
-import React from 'react';
-import img13 from '../assets/13.svg';
-import img22 from '../assets/22.svg';
-import img23 from '../assets/23.svg';
+import React, { useEffect, useState, useRef } from 'react';
+import { Rocket } from 'lucide-react';
 
 const Spinner = () => {
+  const animationRef = useRef(null);
+  const [offsetY, setOffsetY] = useState(0);
+  const [scale, setScale] = useState(1);
+  
+  // Generate stars
+  const stars = Array.from({ length: 40 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 2 + 1,
+    top: Math.random() * 100 + '%',
+    left: Math.random() * 100 + '%',
+    opacity: Math.random() * 0.6 + 0.3,
+  }));
+  
+  useEffect(() => {
+    let startTime;
+    const animate = (time) => {
+      if (!startTime) startTime = time;
+      const elapsed = time - startTime;
+      
+      const breathe = 1 + Math.sin(elapsed / 800) * 0.03;
+      const offset = Math.sin(elapsed / 1000) * 8;
+      
+      setScale(breathe);
+      setOffsetY(offset);
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationRef.current);
+  }, []);
+  
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
-      <div className="relative w-24 h-24">
-        <img
-          src={img13}
-          alt="outer"
-          className="absolute inset-0 w-full h-full animate-spin-slow"
-          style={{ animationDuration: '6s' }}
-        />
-        <img
-          src={img22}
-          alt="middle"
-          className="absolute inset-[12.5%] w-[75%] h-[75%] animate-spin-reverse"
-          style={{ animationDuration: '4s' }}
-        />
-        <img
-          src={img23}
-          alt="inner"
-          className="absolute inset-[25%] w-[50%] h-[50%] animate-spin-slow"
-          style={{ animationDuration: '3s' }}
-        />
+    <div className="fixed inset-0 flex items-center justify-center bg-black z-50">
+      {/* Star background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {stars.map(star => (
+          <div
+            key={star.id}
+            className="absolute rounded-full bg-white animate-pulse"
+            style={{
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              top: star.top,
+              left: star.left,
+              opacity: star.opacity,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Rocket + Flame */}
+      <div 
+        className="relative z-10 flex flex-col items-center"
+        style={{
+          transform: `translateY(${offsetY}px) scale(${scale})`,
+          transition: 'transform 0.2s ease-out',
+        }}
+      >
+        <div style={{ transform: 'rotate(-48deg)' }}>
+          <Rocket size={48} strokeWidth={1.5} color="white" />
+        </div>
+        
+        {/* Improved flame effect with tapered beams */}
+       {/* Improved flame effect with tapered beams */}
+<div className="flex gap-1 " style={{ transform: 'translateX(-4px)' }}>
+
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="relative h-12 animate-pulse"
+              style={{
+                animationDelay: `${i * 0.1}s`,
+              }}
+            >
+              {/* Gradient flame beam with tapered bottom */}
+              <div 
+                className="absolute w-2 bg-gradient-to-t from-transparent to-cyan-400 blur-sm opacity-70"
+                style={{
+                  height: `${16 + Math.random() * 16}px`,
+                  borderRadius: '0 0 12px 12px',
+                  animation: 'flicker 0.5s ease-in-out infinite alternate',
+                }}
+              ></div>
+              
+              {/* Brighter inner core */}
+              <div 
+                className="absolute w-[2px] bg-gradient-to-t from-transparent to-white blur-sm opacity-90"
+                style={{
+                  left: '4px',
+                height: `${28 + Math.random() * 8}px`,
+
+
+                  borderRadius: '0 0 8px 8px',
+                  animation: 'flicker 0.3s ease-in-out infinite alternate',
+                }}
+              ></div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
