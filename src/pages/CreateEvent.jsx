@@ -242,7 +242,8 @@ useEffect(() => {
   };
 
   const handleSubmit = async (status = "PUBLISHED") => {
-  setIsSubmitting(true);
+  const isDraft = status === "DRAFT";
+  isDraft ? setIsSubmittingDraft(true) : setIsSubmitting(true);
 
   try {
     const combinedStart = buildISODateTime(start, timeRange.start) || new Date().toISOString();
@@ -297,7 +298,7 @@ useEffect(() => {
     console.error("❌ Event creation failed:", error.response?.data || error.message);
     toast.error("Failed to create event.",{ icon: false });
   } finally {
-    setIsSubmitting(false);
+    isDraft ? setIsSubmittingDraft(false) : setIsSubmitting(false);
   }
 };
 
