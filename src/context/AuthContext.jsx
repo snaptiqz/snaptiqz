@@ -39,11 +39,11 @@ export const AuthProvider = ({ children }) => {
       if (res.data.accessToken) {
         setToken(res.data.accessToken);
         setUser(res.data.user);
-        toast.success("Signup successful!");
+        toast.success("Signup successful!",{ icon: false });
         navigate("/welcome");
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Signup failed.");
+      toast.error(err.response?.data?.message || "Signup failed.",{ icon: false });
     }
   };
 
@@ -58,11 +58,11 @@ export const AuthProvider = ({ children }) => {
       if (res.data.accessToken) {
         setToken(res.data.accessToken);
         setUser(res.data.user);
-        toast.success("Login successful!");
+        toast.success("Login successful!",{ icon: false });
         navigate("/welcome");
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed.");
+      toast.error(err.response?.data?.message || "Login failed.",{ icon: false });
     }
   };
 

@@ -12,6 +12,7 @@ import PhotonLocationInput from '../components/PhotonLocationInput';
 import "react-datepicker/dist/react-datepicker.css";
 import {  MapPin,  LaptopMinimal,  Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
 import axios from "axios";
+import { CheckCircle, XCircle } from 'lucide-react';
 import { toast } from "react-toastify";
 
 const CreateEvent = () => {
@@ -288,11 +289,11 @@ useEffect(() => {
     const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/events/create`, payload);
     console.log("✅ Event created:", res.data);
 
-    toast.success("Event created successfully!");
+    toast.success("Event created successfully!",{ icon: false });
     resetForm();
   } catch (error) {
     console.error("❌ Event creation failed:", error.response?.data || error.message);
-    toast.error("Failed to create event.");
+    toast.error("Failed to create event.",{ icon: false });
   } finally {
     setIsSubmitting(false);
   }

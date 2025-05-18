@@ -11,15 +11,21 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import BottomNavbar from './components/BottomNavbar.jsx';
 import TopNavbar from './components/TopNavbar.jsx';
 import Spinner from './components/Spinner.jsx';
+import { ToastContainer, cssTransition } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   const location = useLocation();
   const hideNavbarRoutes = ['/', '/welcome'];
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
-
   const [loading, setLoading] = useState(false);
+
+  // Custom toast transition
+  const CustomTransition = cssTransition({
+    enter: 'animate-fadeInUp',
+    exit: 'animate-fadeOutDown',
+    duration: [300, 200],
+  });
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -44,7 +50,6 @@ const App = () => {
         </>
       )}
 
-      {/* Only delay Home rendering on `/`, all others load instantly */}
       <Routes>
         <Route path='/' element={loading ? null : <Home />} />
         <Route path='/welcome' element={<Welcome />} />
@@ -55,7 +60,39 @@ const App = () => {
         <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
       </Routes>
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar
+        closeOnClick
+        pauseOnHover
+        draggable={false}
+        closeButton={true}
+        theme="colored"
+        transition={CustomTransition}
+        toastClassName={({ type }) => {
+          const base =
+            "relative overflow-hidden pointer-events-auto w-[280px] max-w-md sm:max-w-lg " +
+            "backdrop-blur-xl rounded-xl shadow-2xl mr-2   px-4 py-4 sm:mx-24 sm:mr-6 my-3 sm:my-4 " +
+            "text-sm sm:text-base transition-colors " +
+            "after:pointer-events-none after:absolute after:inset-0 after:-translate-x-full " +
+            "after:animate-[shimmer_2s_infinite] after:bg-gradient-to-r " +
+            "after:from-transparent after:via-white/10 after:to-transparent ";
+
+          const typeStyles = {
+            success:
+              "bg-green-600/10 border border-green-500/30 text-white hover:bg-green-600/20",
+            error:
+              "bg-red-600/10 border border-red-500/30 text-white hover:bg-red-600/20",
+            default:
+              "bg-white/10 border border-white/20 text-white hover:bg-white/20",
+          };
+
+          return base + (typeStyles[type] || typeStyles.default);
+        }}
+        bodyClassName="text-sm font-medium relative z-10"
+        className="z-50"
+      />
     </div>
   );
 };
