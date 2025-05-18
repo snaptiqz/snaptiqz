@@ -35,9 +35,9 @@ const BottomNavbar = () => {
     {
       icon: (
         <img
-          src={user?.imageUrl || avatar}
+          src={user?.image || avatar}
           alt="Profile"
-          className="w-8 h-8 rounded-full object-cover"
+          className="w-8 h-8 rounded-full object-cover border-2 border-white"
         />
       ),
       path: '/organization_profile',
@@ -97,7 +97,7 @@ const toggleCollapse = () => {
                   key={idx}
                   onClick={() => navigate(path)}
                   className={`text-white hover:scale-110 transition p-2 rounded-full flex-shrink-0
-                    ${location.pathname === path ? '[filter:drop-shadow(0_0_8px_rgba(255,255,255,0.5))]' : ''}
+                    ${location.pathname === path ? '[filter:drop-shadow(0_0_12px_rgba(255,255,255,0.5))]' : ''}
                     hover:[filter:drop-shadow(0_0_8px_rgba(255,255,255,0.7))]`}
                 >
                   {icon}

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './context/AuthContext.jsx';
+import EventContextProvider from './context/EventContext.jsx'; // or wherever your EventContext file is
 import 'leaflet/dist/leaflet.css';
 
 
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <EventContextProvider>
+          <App />
+        </EventContextProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -74,7 +74,7 @@ const Welcome = () => {
           >
             <img src={logo} alt="Snaptiqz Logo" className="w-8 h-8 mb-8" />
             <motion.img
-              src={avatar}
+              src={user?.image || avatar}
               alt="User"
               className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-xl mb-6"
               initial={{ scale: 0.7 }}

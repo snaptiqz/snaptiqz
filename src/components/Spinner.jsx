@@ -62,7 +62,7 @@ const Spinner = () => {
         }}
       >
         <div style={{ transform: 'rotate(-48deg)' }}>
-          <Rocket size={48} strokeWidth={1.5} color="white" />
+          <Rocket size={48} strokeWidth={1} color="white" />
         </div>
         
         {/* Improved flame effect with tapered beams */}

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
 import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext.jsx';
 
 const SuggestionsPage = () => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   return (
     <div
@@ -42,7 +44,7 @@ const SuggestionsPage = () => {
           <p className="text-xl sm:text-2xl mb-6">Let’s Set up your Profile</p>
           <div className="relative w-24 h-24 mb-4">
             <img
-              src={avatar}
+              src={user?.image || avatar}
               alt="Avatar"
               className="rounded-full w-full h-full object-cover"
             />
@@ -52,7 +54,7 @@ const SuggestionsPage = () => {
           </div>
           <input
             type="text"
-            placeholder="My Username"
+            placeholder="My Name"
             className="bg-transparent border border-gray-500 rounded-lg px-4 py-2 mb-6 w-64 text-center placeholder-gray-400"
           />
           <button

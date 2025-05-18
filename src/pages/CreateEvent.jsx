@@ -10,32 +10,9 @@ import Select from 'react-select';
 import timezoneList from '../data/timezones.json'; 
 import PhotonLocationInput from '../components/PhotonLocationInput';
 import "react-datepicker/dist/react-datepicker.css";
-import {
-  Calendar,
-  MapPin,
-  Link,
-  LaptopMinimal,
-  FileText,
-  Tags,
-  Users,
-  Earth,
-  Plus,
-  Image as ImageIcon,
-  Clock,
-  ChevronDown,
-  ChevronRight,
-  LogIn,
-  Globe,
-  Text,
-  ScanFace,
-  Lock,
-  X,
-  Check,
-  Upload,
-  UserPlus,
-  Pen,Ticket
-} from 'lucide-react';
-import BottomNavbar from '../components/BottomNavbar';
+import { Calendar, MapPin, Link, LaptopMinimal, FileText, Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
+import { useContext } from 'react';
+import { EventContext } from '../context/EventContext';
 
 const CreateEvent = () => {
   const [ticketPrice, setTicketPrice] = useState("");
@@ -46,7 +23,11 @@ const CreateEvent = () => {
   const [timezone, setTimezone] = useState("Asia/Kolkata");
   const [eventVisibility, setEventVisibility] = useState('public');
   const [eventPoster, setEventPoster] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [eventPosterPreview, setEventPosterPreview] = useState(defaultPoster);
+  const [eventName, setEventName] = useState('Event Name');
+  const [isEditingEventName, setIsEditingEventName] = useState(false);
+const [eventDescription, setEventDescription] = useState('');
   const [showVisibilityDropdown, setShowVisibilityDropdown] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
@@ -68,6 +49,8 @@ const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
   const [guestImage, setGuestImage] = useState(null);
   const [guestImagePreview, setGuestImagePreview] = useState(null);
   const [isVirtual, setIsVirtual] = useState(false);
+  const [virtualLink, setVirtualLink] = useState('');
+
   const [showAddOrgPopup, setShowAddOrgPopup] = useState(false);
 const [newOrgName, setNewOrgName] = useState('');
 const [orgImage, setOrgImage] = useState(null);
@@ -78,6 +61,8 @@ const [previewUrl, setPreviewUrl] = useState(null);
   const guestImageInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const organizerDropdownRef = useRef(null);
+  const { eventData, handleChange, handleTicketChange, createEvent } = useContext(EventContext);
+
 
   const customStyles = {
   control: (base) => ({
@@ -191,6 +176,29 @@ useEffect(() => {
       setTagInput('');
     }
   };
+
+  const resetForm = () => {
+  setEventName('Event Name');
+  setEventDescription('');
+  setEventPoster(null);
+  setEventPosterPreview(defaultPoster);
+  setDateRange([null, null]);
+  setTimeRange({ start: '', end: '' });
+  setTimezone('Asia/Kolkata');
+  setIsVirtual(false);
+  setLocation('');
+  setVirtualLink('');
+  setCapacity('');
+  setTicketPrice('');
+  setApproval(true);
+  setGuests([]);
+  setTags([]);
+  setTagInput('');
+  setShowTagInput(false);
+  setSelectedOrganizer('Organizer (Me)');
+  setEventVisibility('public');
+};
+
 
   const removeTag = (tagToRemove) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
@@ -383,7 +391,33 @@ useEffect(() => {
   </div>
 
 
-
+         <div className="flex items-center gap-3 mb-4 max-w-full px-2">
+  {isEditingEventName ? (
+    <>
+      <input
+        type="text"
+        value={eventName}
+        onChange={(e) => setEventName(e.target.value)}
+        autoFocus
+        className="text-3xl font-semibold bg-transparent border-b border-white/30 outline-none focus:border-white/70 transition w-full max-w-[250px]"
+      />
+      <Check
+        size={22}
+        className="text-white cursor-pointer hover:text-green-500 transition"
+        onClick={() => setIsEditingEventName(false)}
+      />
+    </>
+  ) : (
+    <>
+      <h1 className="text-3xl font-semibold truncate max-w-[250px]">{eventName}</h1>
+      <Pen
+        size={24}
+        className="text-white/70 cursor-pointer"
+        onClick={() => setIsEditingEventName(true)}
+      />
+    </>
+  )}
+</div>
 
             {/* Date & Time Section */}
         <div className="space-y-2">
@@ -420,16 +454,22 @@ useEffect(() => {
       </div>
 
       {/* Date Picker */}
-      <div className="mb-4 text-center rounded-lg overflow-hidden">
-        <DatePicker
-          selected={start}
-          onChange={(update) => setDateRange(update)}
-          startDate={start}
-          endDate={end}
-          selectsRange
-          inline
-        />
-      </div>
+      <DatePicker
+  selected={start}
+  onChange={(update) => {
+    if (Array.isArray(update)) {
+      const [startDate, endDate] = update;
+      setDateRange([
+        startDate,
+        endDate ?? startDate  // 👈 if end is null, use start as end
+      ]);
+    }
+  }}
+  startDate={start}
+  endDate={end}
+  selectsRange
+  inline
+/>
 
       {/* Time Inputs */}
       <div className="grid grid-cols-2 gap-3">
@@ -541,10 +581,13 @@ useEffect(() => {
     <div className="relative">
       <LaptopMinimal className="absolute left-3 top-1/2 -translate-y-1/2 text-white" size={16} />
       <input
-        type="url"
-        placeholder="Enter Virtual Link"
-        className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
-      />
+  type="url"
+  placeholder="Enter Virtual Link"
+  value={virtualLink}
+  onChange={(e) => setVirtualLink(e.target.value)}
+  className="pl-10 pr-4 py-3 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm text-white focus:outline-none focus:border-white/40"
+/>
+
     </div>
   ) : (
     <div className="relative">
@@ -560,11 +603,14 @@ useEffect(() => {
     <div className="absolute left-3 top-2.5 text-white">
       <Text size={16} />
     </div>
-    <textarea
-      rows={4} // Reduced from 4
-      placeholder="Add a description about the event"
-      className="pl-10 pr-3 py-2 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40 resize-none text-white"
-    />
+   <textarea
+  rows={4}
+  placeholder="Add a description about the event"
+  value={eventDescription}
+  onChange={(e) => setEventDescription(e.target.value)}
+  className="pl-10 pr-3 py-2 w-full bg-[#2b2b2b] border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40 resize-none text-white"
+/>
+
   </div>
 </div>
 
@@ -744,18 +790,83 @@ useEffect(() => {
 
   {/* Action Buttons */}
   <div className="space-y-2 pt-2">
-    <button className="w-full py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition">
-      Create and Publish
-    </button>
-    <button className="w-full py-3 bg-[#2b2b2b] border border-white/20 text-white rounded-xl font-medium hover:bg-white/10 transition">
-      Save as Draft
-    </button>
+    <button
+  className={`w-full py-3 rounded-xl font-semibold transition ${
+    isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-white text-black hover:bg-gray-100'
+  }`}
+  disabled={isSubmitting}
+  onClick={async () => {
+    setIsSubmitting(true);
+
+    try {
+      handleChange("name", eventName || null);
+      handleChange("description", eventDescription || null);
+      handleChange("image", eventPoster || null);
+      handleChange("status", "PUBLISHED");
+      handleChange("isRegistrationOpen", true);
+      handleChange("showGuestList", true);
+      handleChange("organizationId", "zj7e63pbtcmbrwg3s9jej73z");
+      handleChange("eventType", isVirtual ? "online" : "offline");
+      handleChange("eventUrl", null);
+      handleChange("virtualLink", isVirtual ? virtualLink || null : null);
+      handleChange("location", !isVirtual ? location || null : null);
+      handleChange("timezone", timezone || null);
+      handleChange("tags", tags.length ? tags : [""]);
+      handleChange("isPublic", eventVisibility === "public");
+      handleChange("hosts", selectedOrganizer || null);
+      handleChange("startDate", start ? start.toISOString() : new Date().toISOString());
+      handleChange("endDate", end ? end.toISOString() : new Date().toISOString());
+
+      const safeCapacity = capacity && !isNaN(parseInt(capacity)) ? parseInt(capacity) : null;
+
+      handleChange("maxAttendees", safeCapacity);
+      handleChange("tickets", [
+        {
+          name: "General",
+          description: "",
+          price: ticketPrice ? Number(ticketPrice) : 0,
+          currency: "INR",
+          isPaid: !!ticketPrice,
+          quantity: safeCapacity,
+          isActive: true,
+          isApprovalRequired: approval,
+          saleStartTime: null,
+          saleEndTime: null,
+          metadata: "",
+          benefits: [""],
+        },
+      ]);
+      handleChange("formFields", []);
+      handleChange("teamMembers", []);
+
+      await createEvent();
+      resetForm();
+    } finally {
+      setIsSubmitting(false);
+    }
+  }}
+>
+  {isSubmitting ? "Creating..." : "Create and Publish"}
+</button>
+
+
+  <button
+  className="w-full py-3 bg-[#2b2b2b] border border-white/20 text-white rounded-xl font-medium hover:bg-white/10 transition"
+  onClick={async () => {
+    handleChange("status", "DRAFT");
+    await createEvent();
+    resetForm();
+  }}
+>
+  Save as Draft
+</button>
+
   </div>
 </div>
 
         </div>
       </div>
-
+  
       {/* Guest Modal */}
       {showGuestModal && (
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/70">
