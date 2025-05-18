@@ -23,8 +23,8 @@ const Landing = () => {
    const [time, setTime] = useState('');
 
   const [starPositions] = useState(() =>
-    Array.from({ length: 90 }, () => ({
-      width: `${Math.random() * 2 + 1}px`,
+    Array.from({ length: 60 }, () => ({
+      width: `${Math.random() * 2 }px`,
       height: `${Math.random() * 2 + 1}px`,
       top: `${Math.random() * 80 + 10}%`,
       left: `${Math.random() * 90 + 5}%`,
