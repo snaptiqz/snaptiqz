@@ -5,10 +5,8 @@ import { FaTelegram, FaInstagram, FaFacebookF, FaVk, FaOdnoklassniki } from 'rea
 const Footer = () => {
 return (
     <footer
-        className="relative w-full text-white font-sans overflow-hidden px-6 py-8"
-        style={{
-            background: 'linear-gradient(to bottom, #000000 0%, #020308 100%)',
-        }}
+        className="relative w-full text-white font-sans bg-[#010205] overflow-hidden px-6 py-8"
+        
     >
         {/* Stars background */}
         <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
@@ -28,7 +26,7 @@ return (
         </div>
 
         {/* Mobile Layout */}
-        <div className="relative z-10 lg:hidden flex flex-col items-center text-center mt-60 sm:mt-2 ">
+        <div className="relative bg-[#010205] z-10 lg:hidden flex flex-col items-center text-center mt-60 gap-4 sm:gap-2  ">
             <div className="flex items-center mb-2">
                 <img src={logo} alt="Snaptiqz Logo" className="h-6 mr-2" />
                 <span className="text-gray-300 font-light">SNAPTIQZ</span>
@@ -71,7 +69,7 @@ return (
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:flex z-10 justify-between px-16 py-16 gap-20">
+        <div className="hidden bg-[#010205] lg:flex z-10 justify-between px-16 py-16 gap-20">
   {/* Left Section */}
   <div className="w-1/3 space-y-6">
     <div className="flex items-center">

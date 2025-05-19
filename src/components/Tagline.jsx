@@ -49,8 +49,8 @@ const Tagline = () => {
   alt="curve"
   className="absolute left-1/2 -translate-x-1/2 
      mt-[360px] sm:mt-0
-    h-[40vh] sm:h-[100vh] lg:h-[120vh] 
-    w-[100vw] max-w-none object-contain pointer-events-none transition-transform duration-1000"
+    h-[60vh] sm:h-[100vh] lg:h-[120vh] 
+    w-[100vw] max-w-none object-contain pointer-events-none transition-transform duration-1000 opacity-40"
 />
 
 
@@ -63,9 +63,9 @@ const Tagline = () => {
             <div className="absolute inset-0 z-10 flex justify-center items-center">
               <div className="relative">
                 <div
-                  className="absolute inset-0 blur-[50px] transform scale-100 sm:scale-150"
+                  className="absolute inset-0 blur-[20px] transform scale-80 sm:scale-150"
                   style={{
-                    background: 'radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 80%)',
+                    background: 'radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 60%)',
                     zIndex: 0,
                     pointerEvents: 'none',
                   }}
@@ -73,13 +73,13 @@ const Tagline = () => {
                 <img
                   src={gridBg}
                   alt="grid background"
-                  className="relative w-[45vw] sm:w-[30vw] max-w-none h-auto object-contain opacity-50 z-10"
+                  className="relative w-[24vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
                 />
               </div>
             </div>
 
             <p
-  className="relative z-30 text-xl pb-10 sm:text-2xl lg:text-3xl  text-transparent bg-clip-text "
+  className="relative z-30 text-lg pb-10 sm:text-2xl lg:text-3xl  text-transparent bg-clip-text "
   style={{
     backgroundImage: 'linear-gradient(to bottom, #aaa 0%, #ddd 40%, #f8f8f8 80%, #fff 100%)',
   }}

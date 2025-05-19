@@ -61,22 +61,20 @@ const EventPlans = () => {
   return (
     
    <div
-  className="relative text-white font-sans pb-[8vh] lg:pb-[80vh] md:pb-[20vh] px-4 bg-[#020308] overflow-y-auto overflow-x-hidden scrollbar-hide"
+  className="relative text-white font-sans pb-[8vh] lg:pb-[80vh] md:pb-[20vh] px-4 bg-[#010205] overflow-y-auto overflow-x-hidden scrollbar-hide"
 >
 
-    {/* Top Black Gradient */}
-<div className="absolute top-0 left-0 w-full h-[10%] z-50 pointer-events-none"
-  style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)' }} />
+
 
   
         
       {/* Dotted Grid Top Half */}
-      <div className="block sm:block md:block lg:block xl:block 2xl:block">
+     <div className="block sm:block md:block lg:block xl:block 2xl:block">
   <div
-    className="absolute  top-0 left-0 w-full sm:h-1/2 h-2/4 z-0 pointer-events-none"
+    className="absolute top-0 left-0 w-full sm:h-1/2 h-2/4 z-0 pointer-events-none bg-[#010205]"
     style={{
       backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 2px)`,
-      backgroundSize: '24px 24px', // more gap between dots
+      backgroundSize: '24px 24px',
       WebkitMaskImage:
         'linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 80%)',
       maskImage:
@@ -96,7 +94,7 @@ const EventPlans = () => {
   initial={{ opacity: 0.4 }}
   animate={{ opacity: [0.4, 0.6, 0.4] }}
   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-  className="hidden sm:block absolute lg:top-[-20%] md:top-[-15%] left-[-20%] w-[200vw] max-w-[2050px] z-40 pointer-events-none"
+  className="hidden sm:block absolute lg:top-[-15%] md:top-[-15%] left-[-15%] w-[300vw] max-w-[2050px] z-40 pointer-events-none"
 />
 {/* Purple Glow Layer Behind */}
 
@@ -202,9 +200,7 @@ const EventPlans = () => {
 </div>
 
 
-      {/* NOW Background Fade */}
-      <div className="absolute bottom-0 left-0 w-full h-[10%] z-50 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)' }} />
+    
 
     
       
@@ -252,7 +248,7 @@ const EventPlans = () => {
          <div
            className="relative z-60 px-6 py-8 rounded-[32px] h-full flex flex-col"
            style={{
-             background: 'linear-gradient(180deg, rgba(29,34,53,0.8) 10%, rgba(12,13,16,0.8) 100%)',
+             background: 'linear-gradient(180deg, rgba(29,34,53,0.4) 10%, rgba(12,13,16,0.4) 20%)',
              backdropFilter: 'blur(20px)',
              WebkitBackdropFilter: 'blur(40px)',
              border: '1px solid rgba(255, 255, 255, 0.1)'
@@ -307,9 +303,8 @@ const EventPlans = () => {
     NOW
   </h1>
 </div>
-{/* Bottom Black Gradient */}
-<div className="absolute bottom-0 left-0 w-full h-[10%] z-50 pointer-events-none"
-  style={{ background: 'linear-gradient(to top, #020308, transparent)' }} />
+
+
 
 
 </div>

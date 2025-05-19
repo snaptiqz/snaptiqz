@@ -42,6 +42,7 @@ body {
 
 @media (max-width: 640px) {
   .gradient-bg {
-    background-image: radial-gradient(circle at top, rgba(255,255,255,0.2) 0%, transparent 30%);
+    background-image: radial-gradient(circle at top, rgba(255,255,255,0.2) 0%, transparent 20%);
   }
 }
+
