@@ -16,6 +16,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const { eventList, loading, fetchMyEvents } = useContext(EventContext);
+   
 
   useEffect(() => {
     if (user?.id) {
@@ -133,7 +134,7 @@ const Dashboard = () => {
         {/* Event Cards */}
         <div className="flex flex-col gap-6 mt-4">
           {events.map((event) => (
-            <div key={event._id} className="relative">
+            <div key={event.id} className="relative">
               <div className="relative z-10">
                  
                 <EventCard event={event} className="z-20" />
