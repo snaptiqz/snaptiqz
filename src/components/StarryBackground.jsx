@@ -13,7 +13,7 @@ const StarryBackground = ({ count = 30 }) => {
   }, [count]);
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none">
+    <div className="absolute inset-0 z-0 pointer-events-none mb-20">
       {stars.map((star) => (
         <div
           key={star.id}

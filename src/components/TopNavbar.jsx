@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { Search, Compass } from 'lucide-react';
 import logo from '../assets/logo.svg';
 
-const TopNavbar = ({ scrollRef }) => {
+const TopNavbar = ({ }) => {
   const [visible, setVisible] = useState(true);
-  let lastScrollY = 0;
+    const lastScrollY = useRef(0);
 
-  useEffect(() => {
-    const scrollElement = scrollRef?.current;
+useEffect(() => {
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
 
-    if (!scrollElement) return;
+    if (scrollY < 50) {
+      setVisible(true); // Near top — show navbar
+    } else if (scrollY > lastScrollY.current) {
+      setVisible(false); // Scrolling down — hide navbar
+    } else if (scrollY < lastScrollY.current) {
+      setVisible(true); // Scrolling up — show navbar
+    }
 
-    const handleScroll = () => {
-      const currentScrollY = scrollElement.scrollTop;
+    lastScrollY.current = scrollY;
+  };
 
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setVisible(false);
-      } else {
-        setVisible(true);
-      }
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
 
-      lastScrollY = currentScrollY;
-    };
 
-    scrollElement.addEventListener('scroll', handleScroll);
-
-    return () => scrollElement.removeEventListener('scroll', handleScroll);
-  }, [scrollRef]);
 
   return (
-    <div
-      className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ease-in-out ${
-       visible ? 'opacity-100' : 'opacity-0'
-      } bg-transparent flex justify-between items-center px-4 py-4`}
-    >
+  <div
+  className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ease-in-out
+  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'}
+  bg-transparent flex justify-between items-center px-4 py-4`}
+
+>
+
       <img src={logo} alt="Snaptiqz Logo" className="h-5" />
       <div className="flex gap-4 text-white/80">
         <button className="flex items-center gap-1 hover:text-white transition text-sm">

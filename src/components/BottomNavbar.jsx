@@ -46,16 +46,26 @@ const BottomNavbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const nearBottom =
-        window.innerHeight + scrollY >= document.body.offsetHeight - 200;
+  const scrollY = window.scrollY;
+  const nearBottom =
+    window.innerHeight + scrollY >= document.body.offsetHeight - 200;
 
-      if (nearBottom) setVisible(true);
-      else if (scrollY > lastScrollY.current) setVisible(false);
-      else setVisible(true);
+  if (nearBottom) {
+    setVisible(true);
+    setCollapsed(false); // ⬅️ always expand at bottom
+  } else if (scrollY > lastScrollY.current) {
+    // Scrolling down
+    setVisible(true);     // Don't hide it
+    setCollapsed(true);   // Collapse instead of hide
+  } else {
+    // Scrolling up
+    setVisible(true);
+    setCollapsed(false);  // Uncollapse when scrolling up
+  }
 
-      lastScrollY.current = scrollY;
-    };
+  lastScrollY.current = scrollY;
+};
+
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);

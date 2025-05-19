@@ -344,7 +344,7 @@ useEffect(() => {
   alt="Background"
   className="fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-80"
 />
-  <TopNavbar scrollRef={formContainerRef} />
+  <TopNavbar  />
 
 
       <StarryBackground count={60}/>
