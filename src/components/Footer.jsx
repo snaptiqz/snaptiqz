@@ -26,49 +26,49 @@ return (
         </div>
 
         {/* Mobile Layout */}
-        <div className="relative bg-[#010205] z-10 lg:hidden flex flex-col items-center text-center mt-60 gap-4 sm:gap-2  ">
-            <div className="flex items-center mb-2">
-                <img src={logo} alt="Snaptiqz Logo" className="h-6 mr-2" />
-                <span className="text-gray-300 font-light">SNAPTIQZ</span>
-            </div>
-            <p className="text-md text-gray-300 max-w-xs mb-1">
-                Snaptiqz is a free event hosting platform that empowers anyone to create, manage, and share events effortlessly.
-            </p>
-            <p className="text-sm text-gray-500 mb-6">
-                *Payment gateway charges will be applicable
-            </p>
-            <hr className="border-gray-800 w-full mb-4" />
+          <div className="relative bg-[#010205] z-10 lg:hidden flex flex-col items-center text-center mt-60 gap-4 sm:gap-2  ">
+              <div className="flex items-center mb-2">
+            <img src={logo} alt="Snaptiqz Logo" className="h-6 mr-2" />
+            <span className="text-gray-300 font-light">SNAPTIQZ</span>
+              </div>
+              <p className="text-md text-gray-300 max-w-xs mb-1">
+            Snaptiqz is a free event hosting platform that empowers anyone to create, manage, and share events effortlessly.
+              </p>
+              <p className="text-sm text-gray-500 mb-6">
+            *Payment gateway charges will be applicable
+              </p>
+              <hr className="border-gray-800 w-full mb-4" />
 
-            <div className="flex justify-between text-md text-gray-300 w-full max-w-xs mb-6 space-x-4">
-                <a href="#">Events.</a>
-                <a href="#">Communities.</a>
-            </div>
+              <div className="flex justify-between text-md text-gray-300 w-full max-w-xs mb-6 space-x-4">
+            <a href="#">Events.</a>
+            <a href="#">Communities.</a>
+              </div>
 
-            <div className="mb-4">
-                <h3 className="text-white text-base mb-1">Contact Us</h3>
-                <p className="text-gray-300 text-md">+1 (999) 888-77-66</p>
-                <p className="text-gray-300 text-md">hello@logoipsum.com</p>
-            </div>
+              <div className="mb-4">
+            <h3 className="text-white text-base mb-1">Contact Us</h3>
+            <p className="text-gray-300 text-md">+1 (999) 888-77-66</p>
+            <p className="text-gray-300 text-md">hello@logoipsum.com</p>
+              </div>
 
-            <div className="mb-6">
-                <h3 className="text-white text-base mb-1">Location</h3>
-                <p className="text-gray-300 text-md">483920, Moscow</p>
-                <p className="text-gray-300 text-md">Myasnitskaya 22/2/5, Office 4</p>
-            </div>
+              <div className="mb-6">
+            <h3 className="text-white text-base mb-1">Location</h3>
+            <p className="text-gray-300 text-md">483920, Moscow</p>
+            <p className="text-gray-300 text-md">Myasnitskaya 22/2/5, Office 4</p>
+              </div>
 
-            <div className="flex justify-center space-x-3 mb-4">
-                {[FaTelegram, FaInstagram, FaFacebookF, FaVk, FaOdnoklassniki].map((Icon, idx) => (
-                    <button key={idx} className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <Icon className="text-black text-md" />
-                    </button>
-                ))}
-            </div>
+              <div className="flex justify-center space-x-3 mb-4">
+            {[FaTelegram, FaInstagram, FaFacebookF, FaVk, FaOdnoklassniki].map((Icon, idx) => (
+                <button key={idx} className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
+              <Icon className="text-black text-md" />
+                </button>
+            ))}
+              </div>
 
-            <p className="text-sm text-gray-400">© 2025 — Copyright All Rights reserved</p>
-            <p className="text-sm text-gray-400 mt-1">Privacy & terms</p>
-        </div>
+              <p className="text-sm text-gray-400">© {new Date().getFullYear()} — Copyright All Rights reserved</p>
+              <p className="text-sm text-gray-400 mt-1">Privacy & terms</p>
+          </div>
 
-        {/* Desktop Layout */}
+          {/* Desktop Layout */}
         <div className="hidden bg-[#010205] lg:flex z-10 justify-between px-16 py-16 gap-20">
   {/* Left Section */}
   <div className="w-1/3 space-y-6">
