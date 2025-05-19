@@ -18,7 +18,9 @@ const Welcome = () => {
     setTimeout(() => {
       if (justSignedUp) {
         navigate('/suggestion');
-        setJustSignedUp(false); // ✅ reset to prevent reuse
+        setJustSignedUp(false);
+sessionStorage.removeItem("justSignedUp");
+
       } else {
         navigate('/dashboard');
       }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Calendar,
   Clock,
@@ -7,13 +7,19 @@ import {
   Eye,
   Copy,
   Settings2,
+  Globe,
+  Lock,
+  Tag,
+  UsersRound,
+  CalendarDays,DollarSign,
+  Earth
 } from "lucide-react";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext"; // Adjust path as needed
+import { AuthContext } from "../context/AuthContext";
+import defaultPoster from "../assets/default_poster.svg";
 
 const EventCard = ({ event }) => {
   const { user } = useContext(AuthContext);
-  const authUserId = user?._id;
+  const authUserId = user?.id;
 
   const {
     name,
@@ -28,76 +34,103 @@ const EventCard = ({ event }) => {
     isPublic,
     tickets = [],
     createdBy,
+    guests = [],
+    tags = [],
   } = event;
 
   const isPrivate = !isPublic;
   const isPaid = tickets.some(ticket => ticket.isPaid);
   const isOwner = authUserId === createdBy;
 
-  const formattedDate = startDate ? new Date(startDate).toLocaleDateString() : "TBD";
-  const startTime = startDate ? new Date(startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "TBD";
-  const endTime = endDate ? new Date(endDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "TBD";
+  const formattedDate = startDate
+    ? new Date(startDate).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })
+    : "TBD";
+
+  const startTime = startDate
+    ? new Date(startDate).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : "TBD";
+
+  const endTime = endDate
+    ? new Date(endDate).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : "TBD";
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-white space-y-3">
-      <div className="flex justify-between items-center">
-        <h3 className="text-base font-semibold">{name || "Untitled Event"}</h3>
-        <span className="text-xs font-medium bg-white/10 px-2 py-1 rounded-full">
-          {isPublic ? "Public Event" : "Private Event"}
-        </span>
-      </div>
-
-      <div className="space-y-1 text-sm text-white/80">
-        <div className="flex items-center gap-2">
-          <Calendar size={16} />
-          <span>{formattedDate}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Clock size={16} />
-          <span>{startTime} to {endTime}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <MapPin size={16} />
-          <span>{eventType === "online" ? virtualLink || "Online" : location || "Venue TBD"}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Users size={16} />
-          <span>{isPaid ? "Paid Ticketed Event" : "Free Entry"}</span>
+    <div className="bg-[#1e1e1e] p-2 rounded-lg mb-4 text-white">
+      {/* Header: Title + Privacy */}
+      <div className="flex justify-between items-center mb-2">
+        <p className="font-semibold text-2xl line-clamp-1">{name || "Untitled Event"}</p>
+        <div className="flex items-center gap-2 text-sm text-white bg-[#2e2e2e] px-2 py-1 rounded-md">
+          {isPublic ? (
+            <>
+              <Earth size={14} /> Public Event
+            </>
+          ) : (
+            <>
+              <Lock size={14} /> Private Event
+            </>
+          )}
         </div>
       </div>
 
-      <div className="flex gap-4 mt-3">
-        <img
-          src={image || "/default-poster.jpg"}
-          alt="Event Poster"
-          className="w-20 h-14 object-cover rounded-md border border-white/10"
-        />
-        <p className="text-xs text-white/60 line-clamp-3">{description || "No description provided."}</p>
+      {/* Body: Details + Image side-by-side */}
+      <div className="flex justify-between items-start gap-4">
+        <div className="flex flex-col gap-1 text-xs text-white flex-1">
+           <div className="flex items-center gap-2">
+            <CalendarDays size={14} />
+            <span>{formattedDate}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock size={14} />
+            <span>{startTime} to {endTime}</span>
+          </div>
+         
+          <div className="flex items-center gap-2">
+            <MapPin size={14} />
+            <span>{eventType === "online" ? (virtualLink || "Online") : (location || "To be announced")}</span>
+          </div>
+           <div className="flex items-center gap-2">
+            <DollarSign size={14} />
+            <span>{isPaid ? "Paid" : "Free"}</span>
+          </div>
+        </div>
+
+        <div className="w-32 h-20 rounded overflow-hidden border border-white/10 shrink-0">
+          <img
+            src={image || defaultPoster}
+            alt="Event Poster"
+            className="object-cover w-full h-full"
+          />
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 mt-4 text-xs">
-        {isOwner ? (
-          <>
-            {(status === "DRAFT" || status === "PUBLISHED") && (
-              <button className="btn-action">
-                <Settings2 size={14} /> Manage Event
-              </button>
-            )}
-            {isPrivate && (
-              <button className="btn-action">
-                <Users size={14} /> Private Invites
-              </button>
-            )}
-            <button className="btn-action">
-              <Copy size={14} /> Clone
-            </button>
-          </>
-        ) : (
-          <button className="btn-action">
-            <Eye size={14} /> View
-          </button>
-        )}
-      </div>
+      {/* Guests */}
+      
+      {guests.length > 0 ? (
+  <div className="flex items-center gap-2 text-xs text-white">
+    <UsersRound size={14} className="shrink-0" />
+    <p className="font-medium">Special Guests:</p>
+    <p className="line-clamp-1 truncate">{guests.join(", ")}</p>
+  </div>
+) : (
+  <p className="text-xs text-white line-clamp-2 mt-2">
+    {description || "No description provided."}
+  </p>
+)}
+
+
+     
+
+      {/* Tags */}
+      {tags.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-2 text-xs text-white">
+          {tags.map((tag, idx) => (
+            <span key={idx} className="px-2 py-1 bg-[#1A1A1A] rounded-full flex items-center gap-1">
+              <Tag size={12} />
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
