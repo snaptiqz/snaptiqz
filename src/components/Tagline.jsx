@@ -73,7 +73,7 @@ const Tagline = () => {
                 <img
                   src={gridBg}
                   alt="grid background"
-                  className="relative w-[24vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
+                  className="relative w-[28vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
                 />
               </div>
             </div>
@@ -107,37 +107,38 @@ const Tagline = () => {
           </div>
 
           {/* AT 0% COMMISSION */}
-          <div className="relative mx-auto  sm:-translate-y-10 w-full flex flex-col items-center max-w-[400px] sm:max-w-[800px] px-2">
-            <h3
-              className="uppercase font-poppins font-bold tracking-wider text-center"
-              style={{
-                fontSize: 'clamp(4.5rem, 13vw, 12rem)',
-                WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
-                WebkitTextFillColor: 'transparent',
-                color: 'transparent',
-                letterSpacing: '0.05em',
-                lineHeight: '1.1',
-              }}
-            >
-              AT 0%
-            </h3>
-            <div className="w-full flex justify-center">
-              <h3
-                className="uppercase font-poppins font-bold tracking-wider text-center inline-block"
-                style={{
-                  fontSize: 'clamp(3rem, 6vw, 7rem)',
-                  WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
-                  WebkitTextFillColor: 'transparent',
-                  color: 'transparent',
-                  lineHeight: '1.1',
-                  textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
-                  filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
-                }}
-              >
-                COMMISSION
-              </h3>
-            </div>
-          </div>
+         <div className="relative mx-auto sm:-translate-y-10 w-full flex flex-col items-center max-w-[800px] sm:max-w-[1000px] px-2">
+  <div className="w-full max-w-full text-center">
+    <h3
+      className="uppercase font-poppins font-bold tracking-wider w-full"
+      style={{
+        fontSize: 'clamp(4.5rem, 13vw, 12rem)',
+        WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+        WebkitTextFillColor: 'transparent',
+        color: 'transparent',
+        letterSpacing: '0.05em',
+        lineHeight: '1.1',
+      }}
+    >
+      AT 0%
+    </h3>
+    <h3
+      className="uppercase font-poppins font-bold tracking-wider w-full"
+      style={{
+        fontSize: 'clamp(2rem, 6vw, 12rem)', // match AT 0%
+        WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+        WebkitTextFillColor: 'transparent',
+        color: 'transparent',
+        lineHeight: '1.1',
+        textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
+        filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
+      }}
+    >
+      COMMISSION
+    </h3>
+  </div>
+</div>
+
         </div>
       </div>
     </div>
