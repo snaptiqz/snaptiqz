@@ -1,48 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ================================
+   Fonts
+================================= */
 html, body, * {
   font-family: 'Instrument Sans', sans-serif;
 }
 
+/* ================================
+   Scrollbar Hide (Global)
+================================= */
 
+/* Firefox */
 body {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;   /* ✅ Allow vertical scroll */
+  overflow-x: hidden;
 }
-/* Hide scrollbars but allow scrolling */
+
+/* WebKit-based (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
+/* Utility: hide scrollbars on elements that should scroll */
 .scrollbar-hide {
-  scrollbar-width: none;        /* Firefox */
-  -ms-overflow-style: none;     /* IE and Edge */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ================================
+   Background Utility Classes
+================================= */
 
 .bg-grid {
-  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;                /* Chrome, Safari */
-}
-
- body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
-
- .gradient-bg {
+.gradient-bg {
   background-color: #010205;
   background-image: radial-gradient(circle at top, rgba(255, 255, 255, 0.2) 0%, transparent 40%);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
+/* Mobile-specific gradient tweak */
 @media (max-width: 640px) {
   .gradient-bg {
-    background-image: radial-gradient(circle at top, rgba(255,255,255,0.2) 0%, transparent 20%);
+    background-image: radial-gradient(circle at top, rgba(255, 255, 255, 0.2) 0%, transparent 20%);
   }
 }
-

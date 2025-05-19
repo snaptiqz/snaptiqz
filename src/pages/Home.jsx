@@ -32,11 +32,18 @@ const Home = () => {
   }, []);
 
   return (
-   <div className="w-full min-h-screen bg-[#010205]  ">
+   <div className="w-full min-h-screen bg-[#010205] ">
 
-<Landing />
-      <Tagline />
-      <EventPlans />
+
+      <div className="relative z-10">
+        <Landing />
+      </div>
+      <div className="relative z-20">
+        <Tagline />
+      </div>
+      <div className="relative z-30">
+        <EventPlans />
+      </div>
 
       {/* Fixed Logo */}
       <img
@@ -47,7 +54,7 @@ const Home = () => {
         } ${isMobile ? 'top-4 left-4 w-9' : 'bottom-4 left-6 w-10'}`}
       />
 
-      <div  ref={footerRef}>
+      <div className="relative z-20" ref={footerRef}>
         <Footer />
       </div>
     </div>

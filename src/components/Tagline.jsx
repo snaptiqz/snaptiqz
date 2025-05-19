@@ -21,11 +21,16 @@ const Tagline = () => {
   }, []);
 
   return (
-    <div className="relative w-full text-center px-4 overflow-y-auto overflow-x-hidden font-sans min-h-screen scrollbar-hide bg-[#010205] z-50" style={{
-       
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}>
+  <div className="w-full text-center px-4 font-sans min-h-screen bg-[#010205] z-50 overflow-hidden"
+  style={{
+    scrollbarWidth: 'none',        // Firefox
+    msOverflowStyle: 'none',       // IE 10+
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }}
+>
+
+
 
       {/* Background */}
      
@@ -42,15 +47,13 @@ const Tagline = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-32 lg:mt-60 z-30 min-h-screen sm:min-h-[180vh] lg:min-h-[130vh]">
+      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-32 lg:mt-60 z-30 min-h-[100dvh] sm:min-h-[150vh] lg:min-h-[130vh]">
         {/* Vector Curve */}
       <img
   src={vectorCurve}
   alt="curve"
-  className="absolute left-1/2 -translate-x-1/2 
-     mt-[360px] sm:mt-0
-    h-[60vh] sm:h-[100vh] lg:h-[120vh] 
-    w-[100vw] max-w-none object-contain pointer-events-none transition-transform duration-1000 opacity-40"
+  loading="lazy"
+  className="absolute left-1/2 -translate-x-1/2 mt-[360px] sm:mt-0 h-[60vh] sm:h-[100vh] lg:h-[120vh] max-h-[90vh] w-[100vw] max-w-none object-contain pointer-events-none transition-transform duration-1000 opacity-40"
 />
 
 
@@ -107,10 +110,10 @@ const Tagline = () => {
           </div>
 
           {/* AT 0% COMMISSION */}
-         <div className="relative mx-auto sm:-translate-y-10 w-full flex flex-col items-center max-w-[800px] sm:max-w-[1000px] px-2">
-  <div className="w-full max-w-full text-center">
+       <div className="w-screen sm:-translate-y-10">
+  <div className="w-full text-center">
     <h3
-      className="uppercase font-poppins font-bold tracking-wider w-full"
+      className="uppercase font-poppins font-bold tracking-wider"
       style={{
         fontSize: 'clamp(4.5rem, 13vw, 12rem)',
         WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
@@ -123,9 +126,9 @@ const Tagline = () => {
       AT 0%
     </h3>
     <h3
-      className="uppercase font-poppins font-bold tracking-wider w-full"
+      className="uppercase font-poppins font-bold tracking-wider"
       style={{
-        fontSize: 'clamp(2rem, 6vw, 12rem)', // match AT 0%
+        fontSize: 'clamp(2rem, 6vw, 12rem)',
         WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
         WebkitTextFillColor: 'transparent',
         color: 'transparent',
@@ -138,7 +141,6 @@ const Tagline = () => {
     </h3>
   </div>
 </div>
-
         </div>
       </div>
     </div>
