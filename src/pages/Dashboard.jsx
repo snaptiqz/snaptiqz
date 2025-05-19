@@ -11,6 +11,8 @@ import { AuthContext } from '../context/AuthContext';
 import { EventContext } from '../context/EventContext';
 import { Eye, Copy, Settings2, Users } from 'lucide-react';
 import Spinner from '../components/Spinner';
+import { motion } from 'framer-motion';
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -77,7 +79,7 @@ const Dashboard = () => {
 
       <div
 
-  className="relative z-20 w-full flex flex-col px-6 mb-10  ref={scrollRef}"
+  className="relative z-20 w-full flex flex-col px-6 mb-20  ref={scrollRef}"
 >
 
         {loading ? (
@@ -191,12 +193,34 @@ const Dashboard = () => {
                         {events.map((event) => (
                           
                           <div key={event.id} className="relative">
-                            <div className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[3px] border-l-[1px] border-white rounded-tl-full bottom-0"></div>
-                      <div className="relative flex items-center ml-14 mb-4 mt-1">
-                        <div className="text-lg font-semibold">{date}</div>
-                      </div>
-                            <div className="relative   z-10">
-                              <EventCard event={event} className="z-20" />
+                           <motion.div
+  initial={{ opacity: 0, y: 10 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.3, ease: 'easeOut', delay: 0.5 }}
+  className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[3px] border-l-[1px] border-white rounded-tl-full"
+/>
+
+{/* 3. Date appears after curve */}
+<motion.div
+  initial={{ opacity: 0, x: -10 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.3, ease: 'easeOut', delay: 0.8 }}
+  className="relative flex items-center ml-14 mb-4 mt-1"
+>
+  <div className="text-lg font-semibold">{date}</div>
+</motion.div>
+                           <div className="relative z-10">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, ease: 'easeOut', delay: 0 }}
+  >
+    <EventCard event={event} className="z-20" />
+  </motion.div>
+
                               <div className="absolute left-4 w-2 h-2 bg-white/70 rounded-full -translate-x-1 top-full z-10"></div>
 
                               <div className="flex flex-row gap-2 justify-end -mt-2 mb-6">
