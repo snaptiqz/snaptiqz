@@ -51,15 +51,16 @@ const App = () => {
         </>
       )}
 
-      <Routes>
-        <Route path='/' element={loading ? null : <Home />} />
-        <Route path='/welcome' element={<Welcome />} />
-        <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path='/suggestion' element={<ProtectedRoute><SuggestionsPage /></ProtectedRoute>} />
-        <Route path='/create_event' element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
-        <Route path='/organization_profile' element={<ProtectedRoute><Organization_profile /></ProtectedRoute>} />
-        <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
-      </Routes>
+     <Routes>
+  <Route path='/' element={loading ? null : <Home />} />
+  <Route path='/welcome' element={<Welcome />} />
+  <Route path='/dashboard' element={<Dashboard />} />
+  <Route path='/suggestion' element={<SuggestionsPage />} />
+  <Route path='/create_event' element={<CreateEvent />} />
+  <Route path='/organization_profile' element={<Organization_profile />} />
+  <Route path='/history' element={<History />} />
+</Routes>
+
 
       <ToastContainer
   position="top-right"
