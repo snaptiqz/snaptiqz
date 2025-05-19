@@ -67,3 +67,8 @@ body::-webkit-scrollbar {
     background-image: radial-gradient(circle at top, rgba(255, 255, 255, 0.2) 0%, transparent 20%);
   }
 }
+
+
+.btn-action {
+  @apply flex items-center gap-2 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition;
+}

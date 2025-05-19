@@ -1,76 +1,37 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 export const EventContext = createContext();
 
-const EventContextProvider = ({ children }) => {
-  const [eventData, setEventData] = useState({
-    name: "",
-    description: "",
-    status: "",
-    maxAttendees: "",
-    startDate: "",
-    endDate: "",
-    timezone: "",
-    eventType: "",
-    eventUrl: "",
-    location: "",
-    image: "", // can be URL or a file path string
-    isRegistrationOpen: true,
-    hosts: "",
-    showGuestList: true,
-    formFields: [],
-    tags: [""],
-    isPublic: true,
-    organizationId: "",
-    tickets: [],
-    teamMembers: []
-  });
+const EventProvider = ({ children }) => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const [eventList, setEventList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (field, value) => {
-    setEventData((prev) => ({ ...prev, [field]: value }));
+  // ✅ Fetch all events created by user
+  const fetchMyEvents = async (userId) => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${backendUrl}/events`, {
+        params: { createdBy: userId },
+        withCredentials: true,
+      });
+      setEventList(res.data);
+      console.log("Fetched events:", res.data);
+    } catch (err) {
+      toast.error("Failed to fetch events");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const handleTicketChange = (index, field, value) => {
-    setEventData((prev) => {
-      const updatedTickets = [...prev.tickets];
-      updatedTickets[index][field] = value;
-      return { ...prev, tickets: updatedTickets };
-    });
-  };
-
-const createEvent = async (customData) => {
-  try {
-    const payload = customData || { ...eventData };
-    console.log("🚀 Sending payload:", payload);
-    const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/events/create`,
-      payload
-    );
-
-    toast.success("Event created successfully!");
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to create event.");
-  }
-};
-
 
   return (
-    <EventContext.Provider
-      value={{
-        eventData,
-        setEventData,
-        handleChange,
-        handleTicketChange,
-        createEvent
-      }}
-    >
+    <EventContext.Provider value={{ eventList, loading, fetchMyEvents }}>
       {children}
     </EventContext.Provider>
   );
 };
 
-export default EventContextProvider;
+export default EventProvider;

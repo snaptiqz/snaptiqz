@@ -244,7 +244,7 @@ useEffect(() => {
     setGuests(guests.filter(guest => guest.id !== guestId));
   };
 
-  const handleSubmit = async (status = "PUBLISHED") => {
+ const handleSubmit = async (status = "PUBLISHED") => {
   const isDraft = status === "DRAFT";
   isDraft ? setIsSubmittingDraft(true) : setIsSubmitting(true);
 
@@ -257,10 +257,10 @@ useEffect(() => {
       name: eventName || "",
       description: eventDescription || "",
       status,
-      image: eventPoster || "", // base64 string
+      image: eventPoster || "",
       isRegistrationOpen: true,
       showGuestList: true,
-      organizationId: "zj7e63pbtcmbrwg3s9jej73z", // hardcoded or dynamic
+      organizationId: "zj7e63pbtcmbrwg3s9jej73z",
       eventType: isVirtual ? "online" : "offline",
       eventUrl: null,
       virtualLink: isVirtual ? virtualLink || "" : null,
@@ -292,25 +292,30 @@ useEffect(() => {
       teamMembers: [],
     };
 
-    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/events/create`, payload);
-    console.log("✅ Event created:", res.data);
+    const res = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/events/create`,
+      payload,
+      { withCredentials: true } 
+    );
 
-    toast.success("Event created successfully!",{ icon: false });
+    console.log(" Event created:", res.data);
+    toast.success("Event created successfully!", { icon: false });
     resetForm();
-  } catch (error) {
-    console.error("❌ Event creation failed:", error.response?.data || error.message);
-    toast.error("Failed to create event.",{ icon: false });
-  } finally {
-  isDraft ? setIsSubmittingDraft(false) : setIsSubmitting(false);
-  if (!isDraft) {
-    setShowSpinner(true);
-    setTimeout(() => {
-      navigate('/dashboard');
-    }, 2500);
-  }
-}
-};
 
+    if (!isDraft) {
+      setShowSpinner(true);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2500);
+    }
+
+  } catch (error) {
+    console.error(" Event creation failed:", error.response?.data || error.message);
+    toast.error("Failed to create event.", { icon: false });
+  } finally {
+    isDraft ? setIsSubmittingDraft(false) : setIsSubmitting(false);
+  }
+};
 
  if (showSpinner) return <Spinner />;
   return (
