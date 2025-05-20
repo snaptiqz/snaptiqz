@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import vectorCurve from '../assets/curveVector.svg';
 import gridBg from '../assets/Grid_mob.svg';
+import { motion } from 'framer-motion';
 
 const Tagline = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
@@ -94,53 +95,71 @@ const Tagline = () => {
           </div>
 
           {/* Tagline: Plan. Publish. Engage. */}
-          <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument">
-            {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
-              <span
-                key={i}
-                className="text-transparent bg-clip-text"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(to bottom, #666666 0%, #aaaaaa 60%, #f0f0f0 90%, #ffffff 100%)',
-                  fontSize: 'clamp(4rem, 6vw, 5rem)',
-                }}
-              >
-                {text}
-              </span>
-            ))}
-          </div>
+        <motion.div
+  initial={{ opacity: 0, y: 60 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.5 }}
+  transition={{ duration: 0.8, ease: 'easeOut' }}
+  className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument"
+>
+  {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
+    <motion.span
+      key={i}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ delay: i * 0.3, duration: 0.8, ease: 'easeInOut' }}
+      className="text-transparent bg-clip-text"
+      style={{
+        backgroundImage:
+          'linear-gradient(to bottom, #666666 0%, #aaaaaa 60%, #f0f0f0 90%, #ffffff 100%)',
+        fontSize: 'clamp(4rem, 6vw, 5rem)',
+      }}
+    >
+      {text}
+    </motion.span>
+  ))}
+</motion.div>
+
 
           {/* AT 0% COMMISSION */}
        <div className="w-screen sm:-translate-y-10 mt-10">
-  <div className="w-full text-center">
-    <h3
-      className="uppercase font-poppins font-bold tracking-wider"
-      style={{
-        fontSize: 'clamp(7rem, 16vw, 16rem)',
-        WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
-        WebkitTextFillColor: 'transparent',
-        color: 'transparent',
-        letterSpacing: '0.04em',
-        lineHeight: '1.1',
-      }}
-    >
-      AT 0%
-    </h3>
-    <h3
-      className="uppercase font-poppins font-bold tracking-wider"
-      style={{
-        fontSize: 'clamp(3rem, 8vw, 7rem)',
-        WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
-        WebkitTextFillColor: 'transparent',
-        color: 'transparent',
-        lineHeight: '1.1',
-        textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
-        filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
-      }}
-    >
-      COMMISSION
-    </h3>
-  </div>
+  <motion.div
+  initial={{ opacity: 0, scale: 0.9 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true, amount: 0.5 }}
+ transition={{ delay: 0.8, duration: 0.8, ease: 'easeOut' }} 
+  className="w-full text-center"
+>
+  <h3
+    className="uppercase font-poppins font-bold tracking-wider"
+    style={{
+      fontSize: 'clamp(7rem, 16vw, 16rem)',
+      WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+      WebkitTextFillColor: 'transparent',
+      color: 'transparent',
+      letterSpacing: '0.04em',
+      lineHeight: '1.1',
+    }}
+  >
+    AT 0%
+  </h3>
+  <h3
+    className="uppercase font-poppins font-bold tracking-wider"
+    style={{
+      fontSize: 'clamp(3rem, 8vw, 7rem)',
+      WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+      WebkitTextFillColor: 'transparent',
+      color: 'transparent',
+      lineHeight: '1.1',
+      textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
+      filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
+    }}
+  >
+    COMMISSION
+  </h3>
+</motion.div>
+
 </div>
         </div>
       </div>
