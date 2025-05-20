@@ -61,7 +61,7 @@ const EventPlans = () => {
   return (
     
    <div
-  className="relative text-white font-sans pb-[8vh] lg:pb-[80vh] md:pb-[20vh] px-4 bg-[#010205] overflow-y-auto overflow-x-hidden scrollbar-hide"
+  className="relative text-white font-sans pb-[8vh] lg:pb-[80vh] md:pb-[20vh] px-4 bg-[#010205] overflow-y-auto overflow-x-hidden scrollbar-hide "
 >
 
 
@@ -69,7 +69,7 @@ const EventPlans = () => {
   
         
       {/* Dotted Grid Top Half */}
-     <div className="block sm:block md:block lg:block xl:block 2xl:block">
+     <div className="block sm:block md:block lg:block xl:block 2xl:block ">
   <div
     className="absolute top-0 left-0 w-full sm:h-1/2 h-2/4 z-0 pointer-events-none bg-[#010205]"
     style={{
