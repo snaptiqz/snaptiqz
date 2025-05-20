@@ -60,7 +60,7 @@ const Tagline = () => {
 
 
         {/* Content Wrapper */}
-        <div className="absolute top-[30%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4  space-y-8 max-w-screen mx-auto">
+        <div className="absolute top-[40%] sm:top-[35%] transform -translate-y-1/2 text-center flex flex-col items-center px-2 sm:px-4  space-y-8 max-w-screen mx-auto">
 
           {/* Grid and Header */}
           <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
