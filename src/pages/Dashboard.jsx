@@ -111,6 +111,7 @@ const Dashboard = () => {
           </>
         ) : (
           <>
+          
             {/* Top Controls Bar */}
             <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
               {/* Left: Events Title + Create */}

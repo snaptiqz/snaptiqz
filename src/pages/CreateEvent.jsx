@@ -158,17 +158,14 @@ useEffect(() => {
 };
 
   // Handle event poster upload
- const handlePosterUpload = (e) => {
+const handlePosterUpload = (e) => {
   const file = e.target.files[0];
   if (file) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setEventPoster(reader.result); // Base64 string
-      setEventPosterPreview(reader.result);
-    };
-    reader.readAsDataURL(file); // converts to base64 string
+    setEventPoster(file); // store the actual File object
+    setEventPosterPreview(URL.createObjectURL(file)); // just for preview
   }
 };
+
 
 
   // Handle guest image upload
@@ -253,52 +250,57 @@ useEffect(() => {
     const combinedEnd = buildISODateTime(end, timeRange.end) || new Date().toISOString();
     const safeCapacity = capacity && !isNaN(parseInt(capacity)) ? parseInt(capacity) : null;
 
-    const payload = {
-      name: eventName || "",
-      description: eventDescription || "",
-      status,
-      image: eventPoster || "",
-      isRegistrationOpen: true,
-      showGuestList: true,
-      organizationId: "zj7e63pbtcmbrwg3s9jej73z",
-      eventType: isVirtual ? "online" : "offline",
-      eventUrl: null,
-      virtualLink: isVirtual ? virtualLink || "" : null,
-      location: !isVirtual ? location || "" : null,
-      timezone: timezone || "",
-      tags: tags.length ? tags : [""],
-      isPublic: eventVisibility === "public",
-      hosts: selectedOrganizer || "",
-      startDate: combinedStart,
-      endDate: combinedEnd,
-      maxAttendees: safeCapacity,
-      tickets: [
-        {
-          name: "General",
-          description: "",
-          price: ticketPrice ? Number(ticketPrice) : 0,
-          currency: "INR",
-          isPaid: !!ticketPrice,
-          quantity: safeCapacity,
-          isActive: true,
-          isApprovalRequired: approval,
-          saleStartTime: null,
-          saleEndTime: null,
-          metadata: "",
-          benefits: [""],
-        },
-      ],
-      formFields: [],
-      teamMembers: [],
-    };
+    const formData = new FormData();
+    formData.append("name", eventName || "");
+    formData.append("description", eventDescription || "");
+    formData.append("status", status);
+    formData.append("image", eventPoster); // 🟢 now the File object
+    formData.append("isRegistrationOpen", true);
+    formData.append("showGuestList", true);
+    formData.append("organizationId", "zj7e63pbtcmbrwg3s9jej73z");
+    formData.append("eventType", isVirtual ? "online" : "offline");
+    formData.append("eventUrl", null);
+    formData.append("virtualLink", isVirtual ? virtualLink || "" : "");
+    formData.append("location", !isVirtual ? location || "" : "");
+    formData.append("timezone", timezone || "");
+    formData.append("isPublic", eventVisibility === "public");
+    formData.append("hosts", selectedOrganizer || "");
+    formData.append("startDate", combinedStart);
+    formData.append("endDate", combinedEnd);
+    formData.append("maxAttendees", safeCapacity);
+
+    // Convert complex fields to JSON strings
+    formData.append("tags", JSON.stringify(tags.length ? tags : [""]));
+    formData.append("tickets", JSON.stringify([
+      {
+        name: "General",
+        description: "",
+        price: ticketPrice ? Number(ticketPrice) : 0,
+        currency: "INR",
+        isPaid: !!ticketPrice,
+        quantity: safeCapacity,
+        isActive: true,
+        isApprovalRequired: approval,
+        saleStartTime: null,
+        saleEndTime: null,
+        metadata: "",
+        benefits: [""],
+      }
+    ]));
+    formData.append("formFields", JSON.stringify([]));
+    formData.append("teamMembers", JSON.stringify([]));
 
     const res = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/events/create`,
-      payload,
-      { withCredentials: true } 
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
     );
 
-    console.log(" Event created:", res.data);
     toast.success("Event created successfully!", { icon: false });
     resetForm();
 
@@ -310,12 +312,13 @@ useEffect(() => {
     }
 
   } catch (error) {
-    console.error(" Event creation failed:", error.response?.data || error.message);
+    console.error("Event creation failed:", error.response?.data || error.message);
     toast.error("Failed to create event.", { icon: false });
   } finally {
     isDraft ? setIsSubmittingDraft(false) : setIsSubmitting(false);
   }
 };
+
 
  if (showSpinner) return <Spinner />;
   return (

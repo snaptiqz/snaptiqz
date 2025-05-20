@@ -34,12 +34,12 @@ const EventCard = ({ event }) => {
     isPublic,
     tickets = [],
     createdBy,
+    isPaid,
     guests = [],
     tags = [],
   } = event;
 
   const isPrivate = !isPublic;
-  const isPaid = tickets.some(ticket => ticket.isPaid);
   const isOwner = authUserId === createdBy;
 
   const formattedDate = startDate
@@ -88,10 +88,13 @@ const EventCard = ({ event }) => {
             <MapPin size={14} />
             <span>{eventType === "online" ? (virtualLink || "Online") : (location || "To be announced")}</span>
           </div>
-           <div className="flex items-center gap-2">
-            <DollarSign size={14} />
-            <span>{isPaid ? "Paid" : "Free"}</span>
-          </div>
+          <div className="flex items-center gap-2">
+  <DollarSign size={14} />
+  <span>
+    {tickets.some(ticket =>  ticket.isPaid === "true") ? "Paid" : "Free"}
+  </span>
+</div>
+
         </div>
 
         <div className="w-32 h-20 rounded overflow-hidden border border-white/10 shrink-0">
