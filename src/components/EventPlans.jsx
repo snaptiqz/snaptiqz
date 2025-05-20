@@ -94,7 +94,7 @@ const EventPlans = () => {
   initial={{ opacity: 0.4 }}
   animate={{ opacity: [0.4, 0.6, 0.4] }}
   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-  className="hidden sm:block absolute lg:top-[-15%] md:top-[-15%] left-[-15%] w-[300vw] max-w-[2050px] z-40 pointer-events-none"
+  className="hidden sm:block absolute lg:top-[-15%] md:top-[-15%] md:left-[-25%] md:w-[200vw]  w-[300vw] max-w-[2050px] z-40 pointer-events-none"
 />
 {/* Purple Glow Layer Behind */}
 

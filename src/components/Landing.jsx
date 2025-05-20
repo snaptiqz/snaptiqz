@@ -100,7 +100,7 @@ const Landing = () => {
         <button className="px-3 py-1 rounded-md hover:text-white transition" >
           Explore event
         </button>
-        <button className="px-3 py-1 rounded-md hover:text-white transition" >
+        <button className="px-3 py-1 rounded-md hover:text-white transition" onClick={handleGetHosting} >
           Sign in
         </button>
       </div>
@@ -244,7 +244,7 @@ const Landing = () => {
   src={mike}
   alt="mike"
   className={`mx-auto z-30 ${
-    windowWidth < 640 ? 'w-48 mt-14' : 'lg:w-60 lg:mt-40 md:mt-30 md:w-80 '
+    windowWidth < 640 ? 'w-48 mt-14' : 'lg:w-60 lg:mt-44 md:mt-30 md:w-80 '
   }`}
   initial={{ y: -150, opacity: 0 }}
   animate={{ y: targetY, opacity: 1 }}
@@ -294,7 +294,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut' }}
       src={curlDeskLeft}
       alt="desktop-left-curl"
-      className="absolute lg:top-[40%] md:mr-[45%]   lg:mr-[18%] lg:w-[28vw] md:w-[65vw] lg:max-w-[700px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
+      className="absolute lg:top-[35%] md:mr-[45%]   lg:mr-[18%] lg:w-[28vw] md:w-[65vw] lg:max-w-[800px] transform -translate-x-[120%] -translate-y-1/2 rotate-[60deg] z-10"
     />
 
     {/* Right curl: appears delayed, exits right */}
@@ -306,7 +306,7 @@ const Landing = () => {
       transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
       src={curlDeskRight}
       alt="desktop-right-curl"
-      className="absolute lg:top-[40%]   md:ml-[50%] md:w-[65vw]  lg:ml-[20%] lg:w-[26vw] lg:max-w-[700px] transform translate-x-[120%] -translate-y-1/2 rotate-[120deg] z-10"
+      className="absolute lg:top-[35%]   md:ml-[50%] md:w-[65vw]  lg:ml-[20%] lg:w-[26vw] lg:max-w-[700px] transform translate-x-[120%] -translate-y-1/2 rotate-[120deg] z-10"
     />
   </>
 )}
