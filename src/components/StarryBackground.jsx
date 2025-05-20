@@ -17,7 +17,7 @@ const StarryBackground = ({ count = 30 }) => {
       {stars.map((star) => (
         <div
           key={star.id}
-          className="absolute bg-white rounded-full opacity-20 animate-pulse"
+          className="absolute bg-white rounded-full opacity-20 animate-pulse z-10"
           style={{
             width: `${star.size}px`,
             height: `${star.size}px`,

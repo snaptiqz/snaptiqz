@@ -29,7 +29,7 @@ const BottomNavbar = () => {
 
   const icons = [
     { icon: <PartyPopper size={24} />, path: '/dashboard' },
-    { icon: <TicketCheck size={24} />, path: '/tickets' },
+    { icon: <TicketCheck size={24} />, path: '/my_tickets' },
     { icon: <Plus size={26} />, path: '/create_event' },
     { icon: <Bell size={24} />, path: '/notifications' },
     {

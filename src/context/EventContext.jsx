@@ -29,8 +29,26 @@ const [hasFetched, setHasFetched] = useState(false);
   }
 };
 
+const fetchEventById = async (eventId, organizationId = null) => {
+  setLoading(true);
+  try {
+    const res = await axios.get(`${backendUrl}/events/${eventId}`, {
+      params: organizationId ? { organizationId } : {},
+      withCredentials: true,
+    });
+    console.log("Fetched event by ID:", res.data);
+    return res.data;
+  } catch (err) {
+    toast.error("Failed to fetch event");
+    return null;
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   return (
-    <EventContext.Provider value={{ eventList, loading, fetchMyEvents }}>
+    <EventContext.Provider value={{ eventList, loading, fetchMyEvents,fetchEventById }}>
       {children}
     </EventContext.Provider>
   );

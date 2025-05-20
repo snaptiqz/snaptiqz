@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect,useMemo } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
-import defaultPoster from '../assets/default_poster.svg';
+import defaultPoster from '../assets/default_poster.png';
 import gridBg from '../assets/Grid_mob.svg';
 import avatar from '../assets/avatar.svg';
 import avatarImage from '../assets/avatar.svg';

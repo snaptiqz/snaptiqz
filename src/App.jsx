@@ -7,9 +7,13 @@ import SuggestionsPage from './pages/SuggestionsPage.jsx';
 import CreateEvent from './pages/CreateEvent.jsx';
 import Organization_profile from './pages/Organization_profile.jsx';
 import History from './pages/History.jsx';
+import EventDetails from './pages/EventDetails.jsx';
+import EditEvent from './pages/EditEvent.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import BottomNavbar from './components/BottomNavbar.jsx';
 import TopNavbar from './components/TopNavbar.jsx';
+import MyTickets from './pages/MyTickets.jsx';
+import Notification from './pages/Notification.jsx';
 import Spinner from './components/Spinner.jsx';
 import { ToastContainer, cssTransition,Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -58,7 +62,11 @@ const App = () => {
   <Route path='/suggestion' element={<SuggestionsPage />} />
   <Route path='/create_event' element={<CreateEvent />} />
   <Route path='/organization_profile' element={<Organization_profile />} />
+  <Route path='/event/:id' element={<EventDetails />} />
+  <Route path='/edit/:id' element={<EditEvent />} />
   <Route path='/history' element={<History />} />
+  <Route path='/my_tickets' element={<MyTickets />} />
+  <Route path='/notifications' element={<Notification />} />
 </Routes>
 
 

@@ -15,7 +15,7 @@ import {
   Earth
 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
-import defaultPoster from "../assets/default_poster.svg";
+import defaultPoster from "../assets/default_poster.png";
 
 const EventCard = ({ event }) => {
   const { user } = useContext(AuthContext);

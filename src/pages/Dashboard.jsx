@@ -228,22 +228,37 @@ const Dashboard = () => {
                                 {user.id === event.createdBy ? (
                                   <>
                                     {event.status === 'DRAFT' && (
-                                      <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded">
+                                      <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded"
+                                       onClick={() =>
+                                        navigate(`/event/${event.id}?orgId=${event.organizationId}`)
+                                      }>
                                         Continue editing <ChevronRight size={14} className="inline-block ml-1" />
                                       </button>
                                     )}
                                     {event.status !== 'DRAFT' && new Date(event.startDate) > new Date() && (
-                                      <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded">
-                                        Manage Event <ChevronRight size={14} className="inline-block ml-1" />
-                                      </button>
+                                     <button
+                                      className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded"
+                                      onClick={() =>
+                                        navigate(`/event/${event.id}?orgId=${event.organizationId}`)
+                                      }
+                                    >
+                                      Manage Event <ChevronRight size={14} className="inline-block ml-1" />
+                                    </button>
+
                                     )}
                                     {!event.isPublic && (
-                                      <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded">
+                                      <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded"
+                                       onClick={() =>
+                                        navigate(`/event/${event.id}?orgId=${event.organizationId}`)
+                                      }>
                                         Private Invites <Mail size={14} className="inline-block ml-1" />
                                       </button>
                                     )}
                                     {event.status !== 'DRAFT' && new Date(event.startDate) <new Date() && (
-                                    <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded">
+                                    <button className="text-xs bg-[#1A1A1A] border border-gray-800 px-3 py-1.5 rounded"
+                                     onClick={() =>
+                                        navigate(`/event/${event.id}?orgId=${event.organizationId}`)
+                                      }>
                                       Clone event <ChevronRight size={14} className="inline-block ml-1" />
                                     </button>
                                     )}
