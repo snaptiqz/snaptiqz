@@ -128,7 +128,7 @@ const Tagline = () => {
   initial={{ opacity: 0, scale: 0.9 }}
   whileInView={{ opacity: 1, scale: 1 }}
   viewport={{ once: true, amount: 0.5 }}
- transition={{ delay: 0.5, duration: 0.8, ease: 'easeOut' }} 
+ transition={{ delay: 0.5, duration: 0.5, ease: 'easeOut' }} 
   className="w-full text-center"
 >
   <h3
