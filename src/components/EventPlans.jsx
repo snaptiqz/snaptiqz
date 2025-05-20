@@ -217,8 +217,7 @@ const EventPlans = () => {
   key={index}
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 0.8, y: 0 }}
-  viewport={{ once: false, amount: 0.3 }}
-
+  viewport={{ once: false, amount: 0.3 }} 
   transition={{
     duration: 0.6,
     ease: 'easeOut',
@@ -236,16 +235,7 @@ const EventPlans = () => {
 
 
       
-         <motion.img
-           src={lightGlow}
-           alt="card glow"
-           loading="lazy"
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 0.8 }}
-           transition={{ duration: 1.6, ease: 'easeOut' }}
-           className="absolute -top-32 left-1/2 -translate-x-1/2 w-[400px] h-[400px] blur-2xl object-contain pointer-events-none z-[99] mix-blend-screen"
-         />
-       
+        
          <div
            className="relative z-60 px-6 py-8 rounded-[32px] h-full flex flex-col"
            style={{
