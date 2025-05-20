@@ -97,6 +97,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateProfile = async ({ name, profileImage }) => {
+  if (!user?._id) return toast.error("User ID missing");
+
+  try {
+    const res = await axios.patch(
+      `${backendUrl}/user/${user._id}`,
+      { name, profileImage },
+      { withCredentials: true }
+    );
+
+    toast.success("Profile updated successfully!");
+    fetchSession(); // Refresh user state with latest data
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Profile update failed.");
+  }
+};
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -108,6 +126,7 @@ export const AuthProvider = ({ children }) => {
         fetchSession,
         justSignedUp,
         setJustSignedUp,
+        updateProfile,
       }}
     >
       {children}

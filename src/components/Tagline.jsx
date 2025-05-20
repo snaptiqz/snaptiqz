@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const Tagline = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
   const [starPositions] = useState(() =>
-    Array.from({ length: 80 }, () => ({
+    Array.from({ length: 30 }, () => ({
       width: `${Math.random() * 2 + 1}px`,
       height: `${Math.random() * 2 + 1}px`,
       top: `${Math.random() * 80 + 10}%`,
@@ -99,7 +99,7 @@ const Tagline = () => {
   initial={{ opacity: 0, y: 60 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, amount: 0.5 }}
-  transition={{ duration: 0.8, ease: 'easeOut' }}
+  transition={{ duration: 0.8, ease: 'easeInOut' }}
   className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument"
 >
   {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
@@ -124,13 +124,14 @@ const Tagline = () => {
 
           {/* AT 0% COMMISSION */}
        <div className="w-screen sm:-translate-y-10 mt-10">
-  <motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  whileInView={{ opacity: 1, scale: 1 }}
-  viewport={{ once: true, amount: 0.5 }}
- transition={{ delay: 0.5, duration: 0.5, ease: 'easeOut' }} 
+ <motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: false, amount: 0.4 }}
+  transition={{ duration: 0.6, ease: 'easeOut' }}
   className="w-full text-center"
 >
+
   <h3
     className="uppercase font-poppins font-bold tracking-wider"
     style={{
@@ -147,14 +148,13 @@ const Tagline = () => {
   <h3
     className="uppercase font-poppins font-bold tracking-wider"
     style={{
-      fontSize: 'clamp(3rem, 8vw, 7rem)',
-      WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
-      WebkitTextFillColor: 'transparent',
-      color: 'transparent',
-      lineHeight: '1.1',
-      textShadow: '0px 6px 20px rgba(0, 0, 0, 0.9), 0px 0px 40px rgba(0, 0, 0, 0.7)',
-      filter: 'drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.8))',
-    }}
+  fontSize: 'clamp(3rem, 8vw, 7rem)',
+  WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
+  WebkitTextFillColor: 'transparent',
+  textShadow: '0 4px 12px rgba(0, 0, 0, 0.5)', // ⬅ lighter shadow
+  filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+}}
+
   >
     COMMISSION
   </h3>

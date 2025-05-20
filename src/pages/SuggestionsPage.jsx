@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import gridBg from "../assets/Grid_mob.svg";
 import logo from '../assets/logo.svg';
 import avatar from '../assets/avatar.svg';
@@ -8,30 +8,39 @@ import StarryBackground from '../components/StarryBackground.jsx';
 
 const SuggestionsPage = () => {
   const [step, setStep] = useState(1);
+  const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, updateProfile } = useContext(AuthContext);
+
+  const handleProfileUpdate = async () => {
+    if (!name.trim()) return;
+    setLoading(true);
+    await updateProfile({ name, profileImage: user?.image });
+    setLoading(false);
+    setStep(2);
+  };
 
   return (
-     <div
-            className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden"
-            style={{
-              backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-            }}
-          >
-            {/* Grid Background */}
-            <img
-              src={gridBg}
-              alt="grid background"
-              className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[100vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
-            />
-    
+    <div
+      className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden"
+      style={{
+        backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      }}
+    >
+      {/* Background */}
+      <img
+        src={gridBg}
+        alt="grid background"
+        className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[100vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
+      />
 
       <img src={logo} alt="Logo" className="w-8 h-8 mt-6 self-start ml-6" />
+      <StarryBackground count={80} />
 
-     <StarryBackground count={80} />
-
+      {/* Step 1: Profile Setup */}
       {step === 1 && (
         <div className="flex flex-col items-center mt-20">
           <p className="text-xl sm:text-2xl mb-6">Let’s Set up your Profile</p>
@@ -45,31 +54,36 @@ const SuggestionsPage = () => {
               ✎
             </div>
           </div>
+
           <input
             type="text"
             placeholder="My Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="bg-transparent border border-gray-500 rounded-lg px-4 py-2 mb-6 w-64 text-center placeholder-gray-400"
           />
+
           <button
-            onClick={() => setStep(2)}
-            className="bg-white text-black px-6 py-2 rounded-full"
+            onClick={handleProfileUpdate}
+            className="bg-white text-black px-6 py-2 rounded-full disabled:opacity-50"
+            disabled={loading || !name.trim()}
           >
-            Next
+            {loading ? 'Saving...' : 'Next'}
           </button>
         </div>
       )}
 
+      {/* Step 2 remains unchanged */}
       {step === 2 && (
         <div className="w-full max-w-md px-6 mt-6 flex flex-col gap-6 mb-10">
           <div className="flex justify-between items-center">
-            <p className="text-base ">Choose The Types of Events you're Interested in</p>
+            <p className="text-base">Choose The Types of Events you're Interested in</p>
             <button
-  className="text-sm border border-zinc-50 rounded-lg px-5 py-1 text-gray-400"
-  onClick={() => navigate('/dashboard')}
->
-  Skip
-</button>
-
+              className="text-sm border border-zinc-50 rounded-lg px-5 py-1 text-gray-400"
+              onClick={() => navigate('/dashboard')}
+            >
+              Skip
+            </button>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
@@ -88,8 +102,6 @@ const SuggestionsPage = () => {
           <div>
             <p className="text-white text-sm font-semibold mb-2">Trending Right Now</p>
             <div className="flex gap-4 overflow-x-auto scrollbar-hide -mx-4 px-4 cursor-grab active:cursor-grabbing">
-
-
               {[1, 2].map((item) => (
                 <div key={item} className="bg-[#0d0d12] rounded-lg p-4 w-48 flex-shrink-0">
                   <img src={avatar} className="rounded-full mx-auto mb-2" alt="Org" />
@@ -115,7 +127,7 @@ const SuggestionsPage = () => {
           </div>
 
           <button
-            onClick={() => alert('Dashboard Setup Complete')}
+            onClick={() => navigate('/dashboard')}
             className="bg-white text-black px-6 py-2 rounded-full self-center mt-5"
           >
             Next

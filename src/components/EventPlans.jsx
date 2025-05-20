@@ -217,7 +217,7 @@ const EventPlans = () => {
   key={index}
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 0.8, y: 0 }}
-  viewport={{ once: true, amount: 0.3 }}
+  viewport={{ once: false, amount: 0.3 }}
 
   transition={{
     duration: 0.6,
