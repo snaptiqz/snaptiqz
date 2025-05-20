@@ -20,7 +20,7 @@ const [hasFetched, setHasFetched] = useState(false);
       withCredentials: true,
     });
     setEventList(res.data);
-    console.log("Fetched events:", res.data);
+   
     setHasFetched(true); // ✅ prevent future fetches
   } catch (err) {
     toast.error("Failed to fetch events");

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
-import { UserRound } from 'lucide-react';
+import { UsersRound } from 'lucide-react';
 
 const ScanGuest = ({ onBack, onManualEntry, onScan }) => {
   const qrCodeRegionId = 'qr-reader';
@@ -48,30 +48,32 @@ const ScanGuest = ({ onBack, onManualEntry, onScan }) => {
   }, []);
 
   return (
-    <div className="bg-black/60 backdrop-blur-md p-6 rounded-2xl shadow-lg flex flex-col items-center text-white w-full max-w-xs">
-      {/* QR Scanner Container */}
-      <div id={qrCodeRegionId} className="w-full aspect-square rounded-lg bg-black overflow-hidden" />
+  <div
+    className="h-full  shadow-lg p-2 flex flex-col items-center text-white w-full max-w-xs backdrop-blur-md"
+    style={{
+      background: `radial-gradient(circle at top, rgba(255,255,255,0.1) 0%, #020308 50%, #0F1015 100%)`
+    }}
+  >
+    <div id={qrCodeRegionId} className="w-full aspect-square rounded-lg bg-black overflow-hidden" />
 
-      {/* Divider */}
-      <p className="my-3 text-white/50 text-sm">or</p>
+    <p className="my-3 text-white/50 text-sm">or</p>
 
-      {/* Invite Code Button */}
-      <button
-        onClick={onManualEntry}
-        className="bg-white text-black text-sm px-4 py-2 rounded-md mb-2"
-      >
-        Use Invite Code
-      </button>
+    <button
+      onClick={onManualEntry}
+      className="bg-white text-black text-sm px-4 py-2 rounded-md mb-2"
+    >
+      Use Invite Code
+    </button>
 
-      {/* Back Button */}
-      <button
-        onClick={onBack}
-        className="bg-white/10 border border-white/20 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2"
-      >
-        Back to Guests <UserRound size={16} />
-      </button>
-    </div>
-  );
+    <button
+      onClick={onBack}
+      className="bg-white/10 border border-white/20 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2 mt-10"
+    >
+      Back to Guests <UsersRound size={16} />
+    </button>
+  </div>
+);
+
 };
 
 export default ScanGuest;

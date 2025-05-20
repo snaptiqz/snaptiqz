@@ -1,14 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import { UserPlus, Search, Lock, Users, Filter, UserCheck, ListFilter,Ellipsis,Frown,Check,Mailbox,Antenna,Tickets,LogIn,UserMinus2, UserX2 } from 'lucide-react';
 import ScanGuest from './ScanGuest';
+import { nav } from 'framer-motion/client';
+import { useNavigate } from 'react-router-dom';
 
 const Guests = ({ event }) => {
 
 const [showEllipsisDropdown, setShowEllipsisDropdown] = useState(false);
 const [showFilterDropdown, setShowFilterDropdown] = useState(false);
 const [showPrivateFilterDropdown, setShowPrivateFilterDropdown] = useState(false);
-const [showScanner, setShowScanner] = useState(false);
-
+const navigate = useNavigate();
 const ellipsisRef = useRef();
 const filterRef = useRef();
 const privateFilterRef = useRef();
@@ -62,13 +63,9 @@ useEffect(() => {
           <h2 className="text-xl font-semibold">Guests (0)</h2>
         </div>
         <div className="flex justify-end gap-2">
-          <button
-  onClick={() => setShowScanner(true)}
-  className="flex items-center gap-1 px-2 py-1.5 text-sm bg-[#2b2b2b] rounded-md"
->
-  <UserPlus size={14} /> Add Guests
-</button>
-
+          <button className="flex items-center gap-1 px-2 py-1.5 text-sm bg-[#2b2b2b] rounded-md" onClick={() => navigate('/scan-guest')}>
+            <UserPlus size={14} /> Add Guests
+          </button>
           <div className="relative" ref={ellipsisRef}>
   <button
     onClick={() => setShowEllipsisDropdown(!showEllipsisDropdown)}
@@ -202,26 +199,7 @@ useEffect(() => {
           </p>
         </div>
       </div>
-      {showScanner && (
-  <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-center px-4">
-    <ScanGuest
-      onScan={(data) => {
-        console.log("Scanned Guest ID:", data);
-        setShowScanner(false);
-        // ✅ handle scanned guest logic here (e.g., send to API or add to guest list)
-      }}
-      onManualEntry={() => {
-        console.log("Manual Invite Triggered");
-        setShowScanner(false);
-        // ✅ show invite input or modal
-      }}
-      onBack={() => setShowScanner(false)}
-    />
-  </div>
-)}
-
     </div>
-    
   );
 };
 

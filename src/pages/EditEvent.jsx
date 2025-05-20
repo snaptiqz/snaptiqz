@@ -35,12 +35,12 @@ const EditEvent = () => {
 
       <div className="max-w-xl mx-auto px-4 mt-24 space-y-6">
         <div>
-          <label className="text-sm text-white/60">Event name</label>
+         
           <div className="relative mt-1">
             <input
               value={eventData.name}
               onChange={(e) => handleChange('name', e.target.value)}
-              className="w-full bg-[#1e1e1e] border border-white/20 rounded-lg px-4 py-3 pr-10 text-white"
+              className="w-full bg-transparent border border-white/20 rounded-lg px-4 py-3 pr-10 text-white"
               placeholder="Event name"
             />
             <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40" size={16} />
@@ -53,7 +53,7 @@ const EditEvent = () => {
             value={eventData.description}
             onChange={(e) => handleChange('description', e.target.value)}
             rows={3}
-            className="w-full mt-1 bg-[#1e1e1e] border border-white/20 rounded-lg px-4 py-3 text-white"
+            className="w-full mt-1 bg-transparent border border-white/20 rounded-lg px-4 py-3 text-white"
             placeholder="Enter description"
           />
         </div>
