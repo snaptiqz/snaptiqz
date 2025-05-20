@@ -115,11 +115,11 @@ const Tagline = () => {
     <h3
       className="uppercase font-poppins font-bold tracking-wider"
       style={{
-        fontSize: 'clamp(6rem, 16vw, 16rem)',
+        fontSize: 'clamp(7rem, 16vw, 16rem)',
         WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
         WebkitTextFillColor: 'transparent',
         color: 'transparent',
-        letterSpacing: '0.05em',
+        letterSpacing: '0.04em',
         lineHeight: '1.1',
       }}
     >

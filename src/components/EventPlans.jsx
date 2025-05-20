@@ -248,7 +248,7 @@ const EventPlans = () => {
          <div
            className="relative z-60 px-6 py-8 rounded-[32px] h-full flex flex-col"
            style={{
-             background: 'linear-gradient(180deg, rgba(29,34,53,0.4) 10%, rgba(12,13,16,0.4) 20%)',
+             background: 'linear-gradient(180deg, rgba(29,34,53,0.4) 0%, rgba(12,13,16,0.2) 100%)',
              backdropFilter: 'blur(20px)',
              WebkitBackdropFilter: 'blur(40px)',
              border: '1px solid rgba(255, 255, 255, 0.1)'
@@ -258,7 +258,7 @@ const EventPlans = () => {
              {plan.title}
            </h3>
        
-           <p className="text-sm text-center mb-6 bg-gradient-to-b from-black to-gray-300 bg-clip-text text-transparent ">
+           <p className="text-sm text-center mb-6 bg-gradient-to-b from-gray-600 to-gray-100 bg-clip-text text-transparent ">
              {plan.subtitle}
            </p>
        
