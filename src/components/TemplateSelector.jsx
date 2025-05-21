@@ -13,7 +13,7 @@ const TemplateSelector = ({ selectedTemplate, setTemplate, color, showWatermark 
      <div className='mt-8'>
   <p className='text-sm'>Choose Template</p>
 
-  <div className="bg-[#2b2b2b] w-full h-[200px] rounded-lg mt-2 p-2 mr-4 overflow-x-auto overflow-y-hidden">
+  <div className="bg-[#2b2b2b] w-full h-[200px] rounded-lg mt-2 p-2 pr-2  overflow-x-auto overflow-y-hidden">
     <div className='flex gap-8'>
 
       {/* Template 1 — With Bottom Circle (SVG) */}
@@ -138,16 +138,16 @@ const TemplateSelector = ({ selectedTemplate, setTemplate, color, showWatermark 
 
       {/* Template 4 */}
      <div
-  className={`w-[100px] h-[720px]  flex-shrink-0 rounded-xl cursor-pointer transition ring-offset-2 ${
+  className={`w-[100px] h-[190px]  flex-shrink-0 rounded-xl cursor-pointer transition   ${
     selectedTemplate === 'template4' ? 'shadow-[0_0_12px_rgba(255,255,255,0.5)]' : ''
   }`}
   onClick={() => setTemplate('template4')}
 >
 
-  <div className="transform scale-[0.25] origin-top-left">
+  <div className="transform scale-[0.25] origin-top-left  ">
 
     {/* Full Ticket Container */}
-    <div className="w-[400px] h-[740px] bg-black rounded-3xl p-6 flex flex-col justify-between">
+    <div className="w-[400px] h-[740px] bg-black rounded-3xl p-8  flex flex-col justify-between">
 
       {/* White Top Section */}
       <div className="bg-white rounded-xl w-full h-[480px] overflow-hidden"></div>
