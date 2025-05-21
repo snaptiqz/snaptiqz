@@ -204,8 +204,10 @@ const TicketDesigner = () => {
             </div>
           </div>
           
-          <button 
-  className='bg-[#1e1e1e] hover:bg-[#4b4b4b] text-white px-3 py-2 rounded-lg gap-2 mt-4 flex items-center justify-between w-32' // fixed width
+         <button 
+  className={`px-3 py-2 rounded-lg gap-2 mt-4 flex items-center justify-between w-32 ${
+    fontFamily !== 'Inter' ? 'bg-[#4b4b4b]' : 'bg-[#1e1e1e]'
+  } hover:bg-[#4b4b4b] text-white`}
   onClick={() => {
     const fonts = [
       'Inter', 'Arial', 'Helvetica', 'Times New Roman', 'Roboto', 
@@ -216,6 +218,7 @@ const TicketDesigner = () => {
     setFontFamily(fonts[nextIndex]);
   }}
 >
+
   <p className='text-base font-semibold'>Ag</p>
   <p className='truncate text-sm max-w-[100px]'>{fontFamily}</p>
   <ChevronsUpDown size={20} />

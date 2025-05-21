@@ -91,7 +91,7 @@ const TicketPreview = ({
         {(template === 'template1' || template === 'template2' || template === 'template3') && (
           <div
             className={`bg-white w-full text-black ${
-              template === 'template3' ? 'h-[300px] rounded-t-xl' : 'h-[450px] rounded-xl'
+              template === 'template3' ? 'h-[300px] rounded-t-xl ' : 'h-[450px] rounded-xl'
             } flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
             
           >
@@ -105,52 +105,48 @@ const TicketPreview = ({
             />
 
             <div
-              className={`flex flex-col  ${
-                template === 'template3' ? 'mt-2 gap-1 px-3' : 'mt-4 gap-2 px-4'
-              }`}
-            >
-              {visibility.showEventName && (
-                <h2
-                  className={`${template === 'template3' ? 'text-lg' : 'text-2xl'} font-semibold`}
-                  style={{ fontFamily, textAlign }}
-                >
-                  Event Name
-                </h2>
-              )}
+  className={`flex flex-col flex-1 justify-center gap-2 px-4 ${
+    template === 'template3' ? 'gap-1 px-3' : ''
+  }`}
+  style={{ textAlign, fontFamily }}
+>
+  {visibility.showEventName && (
+    <h2 className={`${template === 'template3' ? 'text-lg' : 'text-2xl'} font-semibold`}>
+      Event Name
+    </h2>
+  )}
 
-              {visibility.showOrganizerImage && (
-  <div
-    className="flex w-full"
-    style={{
-      justifyContent:
-        textAlign === 'left' ? 'flex-start' :
-        textAlign === 'right' ? 'flex-end' :
-        'center'
-    }}
-  >
-    <img
-      src={avatar}
-      className={`border border-black rounded-full ${
-        template === 'template3' ? 'h-16 w-16' : 'h-20 w-20'
-      }`}
-      alt="Organizer"
-    />
-  </div>
-)}
+  {visibility.showOrganizerImage && (
+    <div
+      className="flex w-full"
+      style={{
+        justifyContent:
+          textAlign === 'left'
+            ? 'flex-start'
+            : textAlign === 'right'
+            ? 'flex-end'
+            : 'center',
+      }}
+    >
+      <img
+        src={avatar}
+        className={`border border-black rounded-full ${
+          template === 'template3' ? 'h-16 w-16' : 'h-20 w-20'
+        }`}
+        alt="Organizer"
+      />
+    </div>
+  )}
 
+  {visibility.showOrganizerName && (
+    <p className="font-semibold text-sm">
+      Hosted by Organizer Name
+    </p>
+  )}
 
-             {visibility.showOrganizerName && (
-  <p
-    className="font-semibold text-sm"
-    style={{ fontFamily,  textAlign }}
-  >
-    Hosted by Organizer Name
-  </p>
-)}
+  {visibility.showDetails && detailInfo}
+</div>
 
-
-              {visibility.showDetails && detailInfo}
-            </div>
           </div>
         )}
 
@@ -196,60 +192,67 @@ const TicketPreview = ({
 
         {/* Template 4 - Black outer container with both white and black sections inside */}
         {template === 'template4' && (
-          <div className="rounded-2xl p-3 w-full" style={{ backgroundColor: color,fontFamily }}>
-            <div
-              className={`bg-white rounded-xl text-black w-full h-[400px] flex flex-col ${
-                visibility.ticketOnly ? 'hidden' : 'block'
-              }`}
-             
-            >
-              <img
-                src={ticketImage}
-                alt="Ticket design"
-                className="w-full h-1/4 object-fill"
-                style={{ height: '25%' }}
-              />
+  <div className="rounded-2xl p-3 w-full" style={{ backgroundColor: color, fontFamily }}>
+    <div
+      className={`bg-white rounded-xl text-black w-full h-[400px] flex flex-col ${
+        visibility.ticketOnly ? 'hidden' : ''
+      }`}
+    >
+      {/* Image stays fixed on top */}
+      <img
+        src={ticketImage}
+        alt="Ticket design"
+        className="w-full object-fill"
+        style={{ height: '25%' }}
+      />
 
-              <div className={`flex flex-col  mt-4 gap-2 px-4`}  style={{ textAlign }}>
-                {visibility.showEventName && (
-                  <h2 className="text-2xl font-semibold" style={{ fontFamily }}>
-                    Event Name
-                  </h2>
-                )}
-               {visibility.showOrganizerImage && (
-  <div
-    className="flex w-full"
-    style={{
-      justifyContent:
-        textAlign === 'left'
-          ? 'flex-start'
-          : textAlign === 'right'
-          ? 'flex-end'
-          : 'center',
-    }}
-  >
-    <img
-      src={avatar}
-      className="h-20 w-20 border border-black rounded-full"
-      alt="Organizer"
-    />
+      {/* Vertically centered content */}
+      <div
+        className="flex flex-col flex-1 justify-center gap-2 px-4"
+        style={{ textAlign, fontFamily }}
+      >
+        {visibility.showEventName && (
+          <h2 className="text-2xl font-semibold">Event Name</h2>
+        )}
+
+        {visibility.showOrganizerImage && (
+          <div
+            className="flex w-full"
+            style={{
+              justifyContent:
+                textAlign === 'left'
+                  ? 'flex-start'
+                  : textAlign === 'right'
+                  ? 'flex-end'
+                  : 'center',
+            }}
+          >
+            <img
+              src={avatar}
+              className="h-20 w-20 border border-black rounded-full"
+              alt="Organizer"
+            />
+          </div>
+        )}
+
+        {visibility.showOrganizerName && (
+          <p className="font-semibold">Hosted by Organizer Name</p>
+        )}
+
+        {visibility.showDetails && detailInfo}
+      </div>
+    </div>
+
+    {/* Black section */}
+    <div
+      className="w-full h-[200px] bg-black rounded-2xl relative z-10 mt-4"
+      style={{ backgroundColor: color, fontFamily }}
+    >
+      {blackSection}
+    </div>
   </div>
 )}
 
-                {visibility.showOrganizerName && (
-                  <p className="font-semibold" style={{ fontFamily }}>
-                    Hosted by Organizer Name
-                  </p>
-                )}
-                {visibility.showDetails && detailInfo}
-              </div>
-            </div>
-
-            <div className="w-full h-[200px]  bg-black rounded-2xl relative z-10 mt-4" style={{ backgroundColor: color,fontFamily }}>
-              {blackSection}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
