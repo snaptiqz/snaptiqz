@@ -30,7 +30,7 @@ const EventCard = ({ event }) => {
     eventType,
     location,
     virtualLink,
-    image,
+    coverImage,
     isPublic,
     tickets = [],
     createdBy,
@@ -99,7 +99,7 @@ const EventCard = ({ event }) => {
 
         <div className="w-32 h-20 rounded overflow-hidden border border-white/10 shrink-0">
           <img
-            src={image || defaultPoster}
+            src={coverImage || defaultPoster}
             alt="Event Poster"
             className="object-cover w-full h-full"
           />

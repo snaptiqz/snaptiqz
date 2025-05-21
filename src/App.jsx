@@ -18,6 +18,7 @@ import Spinner from './components/Spinner.jsx';
 import { ToastContainer, cssTransition,Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScanGuestPage from './pages/ScanGuestPage.jsx';
+import TicketDesigner from './pages/TicketDesigner.jsx';
 
 const App = () => {
   const location = useLocation();
@@ -69,6 +70,7 @@ const App = () => {
   <Route path='/my_tickets' element={<MyTickets />} />
   <Route path='/notifications' element={<Notification />} />
   <Route path="/scan-guest" element={<ScanGuestPage />} />
+  <Route path='/ticket-designing' element={<TicketDesigner />} />
 </Routes>
 
 

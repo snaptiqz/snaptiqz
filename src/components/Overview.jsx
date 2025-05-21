@@ -10,7 +10,7 @@ const Overview = ({ event }) => {
   const {
     name,
     description,
-    image,
+    coverImage,
     startDate,
     endDate,
     eventType,
@@ -90,7 +90,7 @@ const percent = (count) =>
       {/* Event Card */}
       <div className="bg-[#1e1e1e] border border-white/10 rounded-2xl overflow-hidden shadow-md ">
         <img
-          src={image || defaultPoster}
+          src={coverImage || defaultPoster}
           alt="Event Poster"
           className="w-full h-48 object-cover p-2 rounded-2xl"
         />

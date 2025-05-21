@@ -196,7 +196,7 @@ const handlePosterUpload = (e) => {
   setEventPosterPreview(defaultPoster);
   setDateRange([null, null]);
   setTimeRange({ start: '', end: '' });
-  setTimezone('Asia/Kolkata');
+  setTimezone('');
   setIsVirtual(false);
   setLocation('');
   setVirtualLink('');
@@ -254,7 +254,7 @@ const handlePosterUpload = (e) => {
     formData.append("name", eventName || "");
     formData.append("description", eventDescription || "");
     formData.append("status", status);
-    formData.append("image", eventPoster); // 🟢 now the File object
+    formData.append("coverImage", eventPoster); // 🟢 now the File object
     formData.append("isRegistrationOpen", true);
     formData.append("showGuestList", true);
     formData.append("organizationId", "zj7e63pbtcmbrwg3s9jej73z");
