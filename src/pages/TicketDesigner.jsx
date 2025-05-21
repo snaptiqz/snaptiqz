@@ -4,6 +4,9 @@ import defaultTicket from '../assets/ticketdesign1.png';
 import TopNavbar from '../components/TopNavbar';
 import StarryBackground from '../components/StarryBackground';
 import avatar from '../assets/avatar.svg';
+import TemplateSelector from '../components/TemplateSelector';
+import TicketPreview from '../components/TicketPreview';
+
 
 const TicketDesigner = () => {
   const fileInputRef = useRef(null);
@@ -14,6 +17,7 @@ const TicketDesigner = () => {
   const [template, setTemplate] = useState('template1');
   const [textAlign, setTextAlign] = useState('center');
   const [fontFamily, setFontFamily] = useState('Inter');
+  const [textColor, setTextColor] = useState('#ffffff');
   const [showWatermark, setShowWatermark] = useState(true);
   const [visibility, setVisibility] = useState({
     showEventName: true,
@@ -145,94 +149,17 @@ const TicketDesigner = () => {
           <h2 className="text-xl">Edit Tickets</h2>
         </div>
 
-        <div className='bg-[#2b2b2b] p-4  h-[700px] w-full rounded-lg'>
-          <div className='flex  flex-col '>
-            <div 
-              className={`bg-white rounded-xl w-full h-[450px] flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
-              style={{ color }}
-            >
-              <img src={ticketImage} alt="Ticket design" className="w-full h-1/4 object-fill" style={{ height: '25%',}} />
+        <TicketPreview
+  template={template}
+  ticketImage={ticketImage}
+  textAlign={textAlign}
+  fontFamily={fontFamily}
+  color={color}
+  textColor={textColor}    
+  showWatermark={showWatermark}
+  visibility={visibility}
+/>
 
-              
-              <div className={`flex flex-col items-${textAlign} mt-4 gap-2 px-4`}>
-                {visibility.showEventName && (
-                  <h2 className='text-2xl font-semibold' style={{ fontFamily }}>Event Name</h2>
-                )}
-                
-                {visibility.showOrganizerImage && (
-                  <div className="flex justify-center w-full">
-                    <img src={avatar} className='h-20 w-20 border border-black rounded-full' alt="Organizer" />
-                  </div>
-                )}
-                
-                {visibility.showOrganizerName && (
-                  <p className='font-semibold' style={{ fontFamily }}>Hosted by Organizer Name</p>
-                )}
-                
-                {visibility.showDetails && (
-                  <>
-                    <div className='flex gap-3 justify-center'>
-                      <Clock size={20} />
-                      <p>6:00 PM-8:00 PM</p>
-                    </div>
-                    <div className='flex gap-3 justify-center'>
-                      <Calendar size={20} />
-                      <p>21 May 2025</p>
-                    </div>
-                    <div className='flex gap-3 justify-center'>
-                      <MapPin size={20} />
-                      <p>To be announced</p>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-            
-            <div className="flex flex-col justify-center relative w-full ">
-              <svg
-                viewBox="0 0 400 280"
-                width="100%"
-                height="100%"
-                className="rounded-xl z-10 "
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <mask id="cutout">
-                    <rect width="100%" height="100%" rx="12" ry="12" fill="white" />
-                    <circle cx="200" cy="240" r="40" fill="black" />
-                  </mask>
-                </defs>
-
-                <rect
-                  width="100%"
-                  height="240"
-                  fill={color}
-                  rx="24"
-                  ry="24"
-                  mask="url(#cutout)"
-                />
-              </svg>
-
-              {/* Content over SVG */}
-              <div className="absolute inset-0 z-20 flex justify-between px-4 py-3 mt-2">
-                <div className="flex flex-col justify-start mt-2 gap-1 text-white">
-                  <p className="mb-10">Name</p>
-                  <p className="text-white/80 text-lg">Invite-code</p>
-                  <p className="text-white text-xl">SN-24Xc1</p>
-                  {showWatermark && (
-                  <div className=" opacity-30 text-xs flex items-center">
-                    <p>Snaptiqz</p>
-                  </div>
-                )}
-                </div>
-                <div className="mt-4 text-white/80">
-                  <QrCodeIcon size={120} />
-                </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className='mt-4 flex justify-between'>
           <button 
@@ -297,180 +224,57 @@ const TicketDesigner = () => {
         </div>
 
         {/* Select Color */}
-        <div className='mt-6'>
-          <p className='text-sm text-white/70 mb-2'>Select color</p>
-          <div className='flex items-center gap-3 flex-wrap'>
-            {[
-              '#000000', // black
-              '#b42020', // red
-              '#f5c518', // yellow
-              '#0e1a4b', // dark blue
-              '#2b5797', // medium blue
-              '#5d4037', // brown
-              '#6a1b9a', // purple
-              '#1b5e20', // green 
-              '#d3d3d3', // gray
-            ].map((clr, index) => (
-              <button
-                key={index}
-                className={`w-6 h-6 rounded-full border-2 hover:scale-110 transition-transform ${color === clr ? 'border-white' : 'border-transparent'}`}
-                style={{ backgroundColor: clr }}
-                onClick={() => handleColorChange(clr)}
-              />
-            ))}
-          </div>
-        </div>
-
-      <div className='mt-8'>
-  <p className='text-sm'>Choose Template</p>
-
-  <div className="bg-[#1e1e1e] w-full h-[200px] rounded-lg mt-2 p-2 overflow-x-auto overflow-y-hidden">
-    <div className='flex gap-2'>
-
-      {/* Template 1 — With Bottom Circle (SVG) */}
-      <div className="w-[110px] flex-shrink-0">
-        <div className='transform scale-[0.25] origin-top-left'>
-          <div className="bg-white rounded-3xl w-[400px] h-[500px] overflow-hidden"></div>
-          <div className="flex flex-col justify-center relative w-[400px]">
-            <svg
-              viewBox="0 0 400 240"
-              width="100%"
-              height="100%"
-              className="rounded-xl z-10"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <mask id="cutout">
-                  <rect width="100%" height="100%" rx="12" ry="12" fill="white" />
-                  <circle cx="200" cy="240" r="40" fill="black" />
-                </mask>
-              </defs>
-              <rect
-                width="100%"
-                height="280"
-                fill={color}
-                rx="24"
-                ry="24"
-                mask="url(#cutout)"
-              />
-            </svg>
-            <div className="absolute inset-0 z-20 flex justify-between px-4 py-2">
-              <div className="flex flex-col justify-start mt-2 gap-2 text-white text-sm">
-                <p className="mb-4">Name</p>
-                <p className="text-white/80 text-sm mt-6">Invite-code</p>
-                <p className="text-white text-xl">SN-24Xc1</p>
-                {showWatermark && (
-                  <div className="opacity-30 text-[10px] flex items-center">
-                    <p>Snaptiqz</p>
-                  </div>
-                )}
-              </div>
-              <div className="mt-4 text-white/80">
-                <QrCodeIcon size={140} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Template 2 — With Solid Black SVG */}
-      <div className="w-[110px] flex-shrink-0">
-  <div className='transform scale-[0.25] origin-top-left'>
-    
-    {/* Top White Section */}
-    <div className="bg-white rounded-t-3xl w-[400px] h-[500px] overflow-hidden"></div>
-    
-    {/* Bottom Black Section (Replaces SVG) */}
-    <div className="relative w-[400px] h-[240px] bg-black rounded-b-3xl z-10">
-      <div className="absolute inset-0 z-20 flex justify-between px-4 py-2">
-        <div className="flex flex-col justify-start mt-2 gap-2 text-white text-sm">
-          <p className="mb-4">Name</p>
-          <p className="text-white/80 text-sm mt-6">Invite-code</p>
-          <p className="text-white text-xl">SN-24Xc1</p>
-          {showWatermark && (
-            <div className="opacity-30 text-[10px] flex items-center">
-              <p>Snaptiqz</p>
-            </div>
-          )}
-        </div>
-        <div className="mt-4 text-white/80">
-          <QrCodeIcon size={140} />
-        </div>
-      </div>
-    </div>
-
+      <div className='mt-6'>
+  <p className='text-sm text-white/70 mb-2'>Select color</p>
+  <div className='flex gap-3 overflow-x-auto whitespace-nowrap pb-2'>
+    {[
+      '#000000', '#1c1c1c', '#b42020', '#ff4d4d',
+      '#f5c518', '#ffd700', '#ffa500', '#ff8c00',
+      '#0e1a4b', '#2b5797', '#5dade2', '#1b5e20',
+      '#4caf50', '#81c784', '#6a1b9a', '#ba68c8',
+      '#5d4037', '#8d6e63', '#d3d3d3', '#9e9e9e',
+      '#f06292', '#e91e63'
+    ].map((clr, index) => (
+      <button
+        key={index}
+        className={`min-w-[24px] min-h-[24px] rounded-full border-2 hover:scale-110 transition-transform ${
+          color === clr ? 'border-white' : 'border-transparent'
+        }`}
+        style={{ backgroundColor: clr }}
+        onClick={() => handleColorChange(clr)}
+      />
+    ))}
   </div>
 </div>
 
-
-      {/* Template 3 — With Normal Div Instead of SVG */}
-      <div className="w-[95px] flex-shrink-0 mt-10">
-        <div className='transform scale-[0.25] origin-top-left'>
-          <div className="bg-white rounded-t-xl w-[350px] h-[300px] overflow-hidden"></div>
-          <div className="relative w-[350px] h-[240px] bg-black rounded-b-xl z-10">
-            <div className="absolute inset-0 z-20 flex justify-between px-4 py-2">
-              <div className="flex flex-col justify-start mt-2 gap-2 text-white text-sm">
-                <p className="mb-4">Name</p>
-                <p className="text-white/80 text-sm mt-6">Invite-code</p>
-                <p className="text-white text-xl">SN-24Xc1</p>
-                {showWatermark && (
-                  <div className="opacity-30 text-[10px] flex items-center">
-                    <p>Snaptiqz</p>
-                  </div>
-                )}
-              </div>
-              <div className="mt-4 text-white/80">
-                <QrCodeIcon size={140} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Template 4 */}
-     <div className="w-[110px] flex-shrink-0">
-  <div className="transform scale-[0.25] origin-top-left">
-
-    {/* Full Ticket Container */}
-    <div className="w-[400px] h-[740px] bg-black rounded-3xl p-6 flex flex-col justify-between">
-
-      {/* White Top Section */}
-      <div className="bg-white rounded-xl w-full h-[480px] overflow-hidden"></div>
-
-      {/* Bottom Content Section */}
-      <div className="flex justify-between items-end text-white text-sm ">
-
-        {/* Left Text */}
-        <div className="flex flex-col gap-2">
-          <p className="text-white/70 text-sm">Name</p>
-          <p className="text-white/80 text-sm mt-1">Invite-code</p>
-          <p className="text-white text-xl font-semibold">SN-24Xc1</p>
-          {showWatermark && (
-            <div className="opacity-30 text-[10px] mt-2">
-              <p>Snaptiqz</p>
-            </div>
-          )}
-        </div>
-
-        {/* Right QR Code */}
-        <div className="text-white/80">
-          <QrCodeIcon size={140} />
-        </div>
-
-      </div>
-
-    </div>
-    
+{/* <div className='mt-6'>
+  <p className='text-sm text-white/70 mb-2'>Text color</p>
+  <div className='flex gap-3 overflow-x-auto whitespace-nowrap pb-2'>
+    {[
+      '#ffffff', '#e4e4e4', '#cccccc', '#999999', '#666666', '#333333',
+      '#000000', '#ff4d4d', '#ffd700', '#81c784', '#5dade2', '#ba68c8'
+    ].map((clr, index) => (
+      <button
+        key={index}
+        className={`min-w-[24px] min-h-[24px] rounded-full border-2 hover:scale-110 transition-transform ${
+          textColor === clr ? 'border-white' : 'border-transparent'
+        }`}
+        style={{ backgroundColor: clr }}
+        onClick={() => setTextColor(clr)}
+      />
+    ))}
   </div>
-</div>
+</div> */}
 
 
 
-      
-
-    </div>
-  </div>
-</div>
+     
+<TemplateSelector 
+  selectedTemplate={template} 
+  setTemplate={setTemplate} 
+  
+  showWatermark={showWatermark} 
+/>
 
 
 
