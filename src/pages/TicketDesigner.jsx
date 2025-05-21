@@ -151,7 +151,7 @@ const TicketDesigner = () => {
               className={`bg-white rounded-xl w-full h-[450px] flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
               style={{ color }}
             >
-              <img src={ticketImage} alt="Ticket design" className="w-full h-1/4 object-contain" style={{ height: '25%' }} />
+              <img src={ticketImage} alt="Ticket design" className="w-full h-1/4 object-cover" style={{ height: '25%', width: '100%' }} />
 
               
               <div className={`flex flex-col items-${textAlign} mt-4 gap-2 px-4`}>
