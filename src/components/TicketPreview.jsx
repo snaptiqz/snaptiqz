@@ -68,8 +68,8 @@ const TicketPreview = ({
 
   const blackSection = (
     <div className="absolute inset-0 z-20 flex justify-between px-4 py-3 mt-2 text-white" style={{fontFamily}}>
-      <div className="flex flex-col justify-start mt-2 gap-1">
-        <p className="mb-10 text-sm" style={{ fontFamily }}>Name</p>
+      <div className="flex flex-col justify-start  gap-1">
+        <p className="mb-10 text-xl" style={{ fontFamily }}>Name</p>
 <p className="text-white/80 text-sm" style={{ fontFamily }}>Invite-code</p>
 <p className="text-white text-md" style={{ fontFamily }}>SN-24Xc1</p>
 
@@ -78,7 +78,7 @@ const TicketPreview = ({
 </div>
 
       </div>
-      <div className="mt-4 text-white/80">
+      <div className="mt-5 text-white/80">
         <QrCodeIcon size={template === 'template3' ? 80 : 120} />
       </div>
     </div>
@@ -198,10 +198,10 @@ const TicketPreview = ({
         {template === 'template4' && (
           <div className="rounded-2xl p-3 w-full" style={{ backgroundColor: color,fontFamily }}>
             <div
-              className={`bg-white rounded-xl w-full h-[400px] flex flex-col ${
+              className={`bg-white rounded-xl text-black w-full h-[400px] flex flex-col ${
                 visibility.ticketOnly ? 'hidden' : 'block'
               }`}
-              style={{ color }}
+             
             >
               <img
                 src={ticketImage}
@@ -245,7 +245,7 @@ const TicketPreview = ({
               </div>
             </div>
 
-            <div className="w-full h-[200px] bg-black rounded-2xl relative z-10 mt-4" style={{ backgroundColor: color,fontFamily }}>
+            <div className="w-full h-[200px]  bg-black rounded-2xl relative z-10 mt-4" style={{ backgroundColor: color,fontFamily }}>
               {blackSection}
             </div>
           </div>
