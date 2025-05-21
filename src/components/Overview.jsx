@@ -73,7 +73,7 @@ const percent = (count) =>
             Share <Share2 size={18} />
            </button>
            <div className='flex justify-end gap-2'>
-            <button className='bg-[#1e1e1e] px-2 text-md py-2 rounded-md flex items-center gap-1' >
+            <button className='bg-[#1e1e1e] px-2 text-md py-2 rounded-md flex items-center gap-1'onClick={() => navigate(`/editTicket/${event.id}?orgId=${event.organizationId}`)} >
            
             Tickets <PenLine size={18} />
             </button>

@@ -70,7 +70,7 @@ const App = () => {
   <Route path='/my_tickets' element={<MyTickets />} />
   <Route path='/notifications' element={<Notification />} />
   <Route path="/scan-guest" element={<ScanGuestPage />} />
-  <Route path='/ticket-designing' element={<TicketDesigner />} />
+  <Route path='/editTicket/:id' element={<TicketDesigner />} />
 </Routes>
 
 
