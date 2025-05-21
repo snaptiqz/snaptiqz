@@ -115,7 +115,7 @@ const TicketDesigner = () => {
 
   return (
     <div
-      className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden"
+      className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden p-4"
       style={{
         backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)`,
         backgroundRepeat: 'no-repeat',
@@ -135,7 +135,7 @@ const TicketDesigner = () => {
       />
 
       {/* content starting here */}
-      <div className='p-4 mt-10 mb-20'>
+      <div className=' mt-10 mb-20'>
         <div className='flex justify-start gap-3 mb-6'>
           <div className='flex gap-2'>
             <button onClick={() => navigate(-1)}>
@@ -145,15 +145,15 @@ const TicketDesigner = () => {
           <h2 className="text-xl">Edit Tickets</h2>
         </div>
 
-        <div className='bg-[#2b2b2b] p-4 h-[700px] w-full rounded-lg'>
-          <div className='flex flex-col'>
+        <div className='bg-[#2b2b2b] p-4  h-[700px] w-full rounded-lg'>
+          <div className='flex  flex-col '>
             <div 
               className={`bg-white rounded-xl w-full h-[450px] flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
               style={{ color }}
             >
-              <img src={ticketImage} alt="Ticket design" className="w-full h-auto" />
+              <img src={ticketImage} alt="Ticket design" className="w-full h-[1/4]" />
               
-              <div className={`flex flex-col items-${textAlign} mt-4 gap-3 px-4`}>
+              <div className={`flex flex-col items-${textAlign} mt-4 gap-2 px-4`}>
                 {visibility.showEventName && (
                   <h2 className='text-2xl font-semibold' style={{ fontFamily }}>Event Name</h2>
                 )}
@@ -187,12 +187,12 @@ const TicketDesigner = () => {
               </div>
             </div>
             
-            <div className="flex flex-col justify-center relative w-full">
+            <div className="flex flex-col justify-center relative w-full ">
               <svg
-                viewBox="0 0 400 240"
+                viewBox="0 0 400 280"
                 width="100%"
-                height="240"
-                className="rounded-xl z-10 -mt-8"
+                height="100%"
+                className="rounded-xl z-10 "
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <defs>
@@ -204,7 +204,7 @@ const TicketDesigner = () => {
 
                 <rect
                   width="100%"
-                  height="280"
+                  height="240"
                   fill={color}
                   rx="24"
                   ry="24"
@@ -213,7 +213,7 @@ const TicketDesigner = () => {
               </svg>
 
               {/* Content over SVG */}
-              <div className="absolute inset-0 z-20 flex justify-between px-4 py-3">
+              <div className="absolute inset-0 z-20 flex justify-between px-4 py-3 mt-2">
                 <div className="flex flex-col justify-start mt-2 gap-1 text-white">
                   <p className="mb-10">Name</p>
                   <p className="text-white/80 text-lg">Invite-code</p>
