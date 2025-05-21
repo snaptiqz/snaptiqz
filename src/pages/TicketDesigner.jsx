@@ -151,7 +151,8 @@ const TicketDesigner = () => {
               className={`bg-white rounded-xl w-full h-[450px] flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
               style={{ color }}
             >
-              <img src={ticketImage} alt="Ticket design" className="w-full h-[1/4]" />
+              <img src={ticketImage} alt="Ticket design" className="w-full h-1/4 object-contain" style={{ height: '25%' }} />
+
               
               <div className={`flex flex-col items-${textAlign} mt-4 gap-2 px-4`}>
                 {visibility.showEventName && (
@@ -334,7 +335,7 @@ const TicketDesigner = () => {
             <svg
               viewBox="0 0 400 240"
               width="100%"
-              height="240"
+              height="100%"
               className="rounded-xl z-10"
               xmlns="http://www.w3.org/2000/svg"
             >
