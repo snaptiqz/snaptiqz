@@ -51,7 +51,7 @@ const TicketPreview = ({
   );
 
   return (
-    <div className="bg-[#2b2b2b] p-4 w-full  rounded-lg">
+    <div className="bg-[#2b2b2b] h-[700px] p-4 w-full  rounded-lg">
       <div className="flex flex-col w-full">
         {/* White Top Section for template1/2/3 */}
         {(template === 'template1' || template === 'template2' || template === 'template3') && (
@@ -149,9 +149,9 @@ const TicketPreview = ({
 
         {/* Template 4 - Black outer container with both white and black sections inside */}
         {template === 'template4' && (
-          <div className="rounded-2xl p-2 w-full" style={{ backgroundColor: color }}>
+          <div className="rounded-2xl p-3 w-full" style={{ backgroundColor: color }}>
             <div
-              className={`bg-white rounded-xl w-full h-[450px] flex flex-col ${
+              className={`bg-white rounded-xl w-full h-[400px] flex flex-col ${
                 visibility.ticketOnly ? 'hidden' : 'block'
               }`}
               style={{ color }}
