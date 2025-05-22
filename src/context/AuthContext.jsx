@@ -31,11 +31,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ✅ Load session on initial mount
-  useEffect(() => {
-    fetchSession();
-  }, []);
-
+  
   // ✅ Signup logic
   const register = async ({ email, password, name, imageUrl }) => {
     try {

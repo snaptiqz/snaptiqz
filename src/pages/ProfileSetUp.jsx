@@ -1,5 +1,5 @@
 // File: pages/Step1ProfileSetup.jsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import avatar from '../assets/avatar.svg';
@@ -9,7 +9,7 @@ import StarryBackground from '../components/StarryBackground';
 
 const ProfileSetUp = () => {
   const navigate = useNavigate();
-  const { user, updateProfile,checkUsername } = useContext(AuthContext);
+  const { user, updateProfile, checkUsername } = useContext(AuthContext);
 
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -18,34 +18,39 @@ const ProfileSetUp = () => {
   const [preview, setPreview] = useState(user?.profileImage || '');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    return () => {
+      if (file) URL.revokeObjectURL(file);
+    };
+  }, [file]);
+
   const handleProfileUpdate = async () => {
-  if (!name.trim() || !username.trim()) return;
+    if (!name.trim() || !username.trim()) return;
 
-  setLoading(true);
-  setUsernameError('');
+    setLoading(true);
+    setUsernameError('');
 
-  try {
-    const isTaken = await checkUsername(username.trim());
-    if (isTaken.exists) {
-      setUsernameError('Username is already taken');
+    try {
+      const isTaken = await checkUsername(username.trim());
+      if (isTaken.exists) {
+        setUsernameError('Username is already taken');
+        setLoading(false);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('name', name.trim());
+      formData.append('username', username.trim());
+      if (file) formData.append('profileImage', file);
+
+      await updateProfile(formData); // should be a POST to backend
+      navigate('/suggestions');
+    } catch (err) {
+      console.error('Failed to update profile:', err);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const formData = new FormData();
-    formData.append('name', name.trim());
-    formData.append('username', username.trim());
-    if (file) formData.append('profileImage', file);
-
-    await updateProfile(formData);
-    navigate('/suggestions');
-  } catch (err) {
-    console.error('Failed to update profile:', err);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden">
@@ -88,23 +93,22 @@ const ProfileSetUp = () => {
         />
 
         <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => {
-                setUsername(e.target.value);
-                setUsernameError('');
-            }}
-            className="bg-transparent border border-gray-500 rounded-lg px-4 py-2 mb-1 w-64 text-center placeholder-gray-400"
-            />
-            {usernameError && (
-            <p className="text-red-500 text-sm mt-1 mb-4">{usernameError}</p>
-            )}
-
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+            setUsernameError('');
+          }}
+          className="bg-transparent border border-gray-500 rounded-lg px-4 py-2 mb-1 w-64 text-center placeholder-gray-400"
+        />
+        {usernameError && (
+          <p className="text-red-500 text-sm mt-1 mb-4">{usernameError}</p>
+        )}
 
         <button
           onClick={handleProfileUpdate}
-          className="bg-white text-black px-6 py-2 rounded-full disabled:opacity-50"
+          className="bg-white text-black px-6 py-2 rounded-lg mt-4 disabled:opacity-50"
           disabled={loading || !name.trim() || !username.trim()}
         >
           {loading ? 'Saving...' : 'Next'}
