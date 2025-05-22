@@ -17,22 +17,35 @@ const ProfileSetUp = () => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(user?.profileImage || '');
   const [loading, setLoading] = useState(false);
+  const [checkingUsername, setCheckingUsername] = useState(false);
+  const [isUsernameValid, setIsUsernameValid] = useState(false);
 
-  useEffect(() => {
+
+ useEffect(() => {
+  if (!username.trim()) {
+    setUsernameError('');
+    setIsUsernameValid(false);
+    return;
+  }
+
+  setCheckingUsername(true);
   const timeout = setTimeout(async () => {
-    if (!username.trim()) return;
-
     try {
       const isTaken = await checkUsername(username.trim());
       if (isTaken.exists) {
         setUsernameError('Username is already taken');
+        setIsUsernameValid(false);
       } else {
-        setUsernameError('');
+        setUsernameError('Username is available');
+        setIsUsernameValid(true);
       }
     } catch (err) {
       setUsernameError('Failed to check username');
+      setIsUsernameValid(false);
+    } finally {
+      setCheckingUsername(false);
     }
-  }, 500); // wait 500ms after user stops typing
+  }, 500);
 
   return () => clearTimeout(timeout);
 }, [username]);
@@ -105,26 +118,43 @@ const ProfileSetUp = () => {
         />
 
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-            setUsernameError('');
-          }}
-          className="bg-transparent border border-gray-500 rounded-lg px-4 py-2 mb-1 w-64 text-center placeholder-gray-400"
-        />
+  type="text"
+  placeholder="Username"
+  value={username}
+  onChange={(e) => {
+    const value = e.target.value.toLowerCase(); // ⬅ force lowercase
+    setUsername(value);
+    setUsernameError('');
+  }}
+  className="bg-transparent border border-gray-500 rounded-lg px-4 py-2 mb-1 w-64 text-center placeholder-gray-400"
+/>
+
         {usernameError && (
-          <p className="text-red-500 text-sm mt-1 mb-4">{usernameError}</p>
+          <p
+            className={`text-sm mt-1 mb-4 ${
+              isUsernameValid ? 'text-green-500' : 'text-red-500'
+            }`}
+          >
+            {usernameError}
+          </p>
         )}
 
-        <button
-          onClick={handleProfileUpdate}
-          className="bg-white text-black px-6 py-2 rounded-lg mt-4 disabled:opacity-50"
-          disabled={loading || !name.trim() || !username.trim()}
-        >
-          {loading ? 'Saving...' : 'Next'}
-        </button>
+
+       <button
+  onClick={handleProfileUpdate}
+  className="bg-white text-black px-6 py-2 rounded-lg mt-4 disabled:opacity-50"
+  disabled={
+  loading ||
+  checkingUsername ||
+  !name.trim() ||
+  !username.trim() ||
+  !isUsernameValid
+}
+
+>
+  {loading ? 'Saving...' : 'Next'}
+</button>
+
       </div>
     </div>
   );

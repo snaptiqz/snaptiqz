@@ -12,20 +12,23 @@ const Welcome = () => {
   const navigate = useNavigate();
   const { user,justSignedUp,setJustSignedUp } = useContext(AuthContext);
 
-useEffect(() => {
+ useEffect(() => {
   const timer = setTimeout(() => {
     setShowSplash(false);
     setTimeout(() => {
-      // TEMPORARY OVERRIDE: Always navigate to profile setup
-      navigate('/profile-setup');
-      setJustSignedUp(false);
-      sessionStorage.removeItem("justSignedUp");
+      if (justSignedUp) {
+        navigate('/profile-setup');
+        setJustSignedUp(false);
+sessionStorage.removeItem("justSignedUp");
+
+      } else {
+        navigate('/dashboard');
+      }
     }, 500);
   }, 2500);
 
   return () => clearTimeout(timer);
-}, []);
-
+}, [justSignedUp]);
 
   return (
   <div

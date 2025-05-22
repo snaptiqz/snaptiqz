@@ -50,7 +50,7 @@ const [displayedText, setDisplayedText] = useState('');
    "Hope there’s free food in this one...",
    "Trying to reach our inner peace and the server.",
    "Loading… our vibes must align first.",
-   "Daydreaming about bumping into them at registration…👀",
+   "Daydreaming about bumping into them at registration…",
    "Importing fun… please install patience.",
    "Staring at this won’t make it faster, but hey.",
    "You’ve reached the fun part: waiting.",
