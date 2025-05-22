@@ -19,38 +19,50 @@ const ProfileSetUp = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    return () => {
-      if (file) URL.revokeObjectURL(file);
-    };
-  }, [file]);
-
-  const handleProfileUpdate = async () => {
-    if (!name.trim() || !username.trim()) return;
-
-    setLoading(true);
-    setUsernameError('');
+  const timeout = setTimeout(async () => {
+    if (!username.trim()) return;
 
     try {
       const isTaken = await checkUsername(username.trim());
       if (isTaken.exists) {
         setUsernameError('Username is already taken');
-        setLoading(false);
-        return;
+      } else {
+        setUsernameError('');
       }
-
-      const formData = new FormData();
-      formData.append('name', name.trim());
-      formData.append('username', username.trim());
-      if (file) formData.append('profileImage', file);
-
-      await updateProfile(formData); // should be a POST to backend
-      navigate('/suggestions');
     } catch (err) {
-      console.error('Failed to update profile:', err);
-    } finally {
-      setLoading(false);
+      setUsernameError('Failed to check username');
     }
-  };
+  }, 500); // wait 500ms after user stops typing
+
+  return () => clearTimeout(timeout);
+}, [username]);
+
+
+  const handleProfileUpdate = async () => {
+  if (!name.trim() || !username.trim()) return;
+
+  setLoading(true);
+  try {
+    const isTaken = await checkUsername(username.trim());
+    if (isTaken.exists) {
+      setUsernameError('Username is already taken');
+      setLoading(false);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', name.trim());
+    formData.append('username', username.trim());
+    if (file) formData.append('profileImage', file);
+
+    await updateProfile(formData);
+    navigate('/suggestions');
+  } catch (err) {
+    console.error('Failed to update profile:', err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden">

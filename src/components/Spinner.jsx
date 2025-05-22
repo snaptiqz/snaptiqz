@@ -39,6 +39,7 @@ const [displayedText, setDisplayedText] = useState('');
   "Launching in 3… 2… nope, still loading.",
   "Just debugging the universe.",
   "Fetching data from a parallel dimension…",
+  "Planning your next ‘accidental’ run-in with your crush…",
   "Downloading motivation…",
  " Finding signal... through cosmic interference",
   "Be right there. Just fixing the space-time continuum.",
@@ -46,6 +47,16 @@ const [displayedText, setDisplayedText] = useState('');
   "Just warming up the rocket boosters...",
   "We didn’t forget, just loading...",
    "Hope there’s free food in this one...",
+   "Trying to reach our inner peace and the server.",
+   "Loading… our vibes must align first.",
+   "Daydreaming about bumping into them at registration…👀",
+   "Importing fun… please install patience.",
+   "Staring at this won’t make it faster, but hey.",
+   "You’ve reached the fun part: waiting.",
+   "What if… this is the whole experience?",
+  
+
+
   ];
 
   useEffect(() => {
