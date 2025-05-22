@@ -10,6 +10,8 @@ export const AuthProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [user, setUser] = useState(null);
+  const [usernameError, setUsernameError] = useState('');
+
   const [justSignedUp, setJustSignedUp] = useState(() =>
     sessionStorage.getItem("justSignedUp") === "true"
   );
@@ -93,26 +95,46 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       setJustSignedUp(false);
       sessionStorage.removeItem("justSignedUp");
-      navigate("/login");
+      navigate("/");
     }
   };
 
-  const updateProfile = async ({ name, profileImage }) => {
-  if (!user?._id) return toast.error("User ID missing");
+ const updateProfile = async (formData) => {
+  if (!user?.id) return toast.error("User ID missing");
 
   try {
     const res = await axios.patch(
-      `${backendUrl}/user/${user._id}`,
-      { name, profileImage },
-      { withCredentials: true }
+      `${backendUrl}/user/`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+      }
     );
 
     toast.success("Profile updated successfully!");
-    fetchSession(); // Refresh user state with latest data
+    fetchSession(); // refresh user
   } catch (err) {
     toast.error(err.response?.data?.message || "Profile update failed.");
   }
 };
+
+const checkUsername = async (username) => {
+  if (!username.trim()) return false;
+  try {
+    const res = await axios.get(`${backendUrl}/user/check-username`, {
+      params: { username: username.trim() },
+      withCredentials: true,
+    });
+    return res.data; // Backend should respond with availability status or validity
+  } catch (err) {
+    console.error("Username check failed:", err.message);
+    return false;
+  }
+};
+
 
 const createOrganization = async (name) => {
   if (!name.trim()) {
@@ -150,7 +172,8 @@ const createOrganization = async (name) => {
         justSignedUp,
         setJustSignedUp,
         updateProfile,
-        createOrganization
+        createOrganization,
+        checkUsername
       }}
     >
       {children}

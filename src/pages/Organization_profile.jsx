@@ -8,7 +8,7 @@ import {
   DollarSign,
   ArrowLeft,
   QrCode,
-  Pencil,
+  Pencil,LogOut
 } from 'lucide-react';
 import gridBg from '../assets/Grid_mob.svg';
 import { AuthContext } from '../context/AuthContext.jsx';
@@ -18,7 +18,7 @@ import StarryBackground from '../components/StarryBackground.jsx';
 
 const Organization_profile = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user,logout } = useContext(AuthContext);
 
   if (!user) return <Spinner />;
 
@@ -86,7 +86,11 @@ const Organization_profile = () => {
           <button className="flex items-center gap-3">
             <DollarSign size={20} /> Revenue
           </button>
+          <button onClick={logout} className="flex items-center gap-3">
+    <LogOut size={20} /> Logout
+  </button>
         </div>
+        
       </div>
     </div>
   );

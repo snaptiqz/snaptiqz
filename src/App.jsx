@@ -19,6 +19,7 @@ import { ToastContainer, cssTransition,Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScanGuestPage from './pages/ScanGuestPage.jsx';
 import TicketDesigner from './pages/TicketDesigner.jsx';
+import ProfileSetUp from './pages/ProfileSetUp.jsx';
 
 const App = () => {
   const location = useLocation();
@@ -60,8 +61,9 @@ const App = () => {
      <Routes>
   <Route path='/' element={loading ? null : <Home />} />
   <Route path='/welcome' element={<Welcome />} />
+  <Route path='/profile-setup' element={<ProfileSetUp />} />
   <Route path='/dashboard' element={<Dashboard />} />
-  <Route path='/suggestion' element={<SuggestionsPage />} />
+  <Route path='/suggestions' element={<SuggestionsPage />} />
   <Route path='/create_event' element={<CreateEvent />} />
   <Route path='/organization_profile' element={<Organization_profile />} />
   <Route path='/event/:id' element={<EventDetails />} />

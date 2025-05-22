@@ -9,16 +9,18 @@ const TicketPreview = ({
   textAlign = 'center',
   fontFamily,
   color = '#000',
-   textColor = '#fff',
   showWatermark,
   visibility = {},
 }) => {
   if (!['template1', 'template2', 'template3', 'template4'].includes(template)) return null;
 
+  const getJustify = (align) =>
+  align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center';
+
   const detailInfo = (
   <>
     <div
-      className={`flex gap-3 text-sm`}
+      className={`flex gap-3 text-sm `}
       style={{
         justifyContent:
           textAlign === 'left'
@@ -59,34 +61,50 @@ const TicketPreview = ({
         fontFamily, // ✅ Apply here
       }}
     >
-      <MapPin size={template === 'template3' ? 16 : 20} />
+      <MapPin class size={template === 'template3' ? 16 : 20} />
       <p style={{ fontFamily }}>To be announced</p>
     </div>
   </>
 );
 
+const getContrastColor = (bgColor) => {
+  const hex = bgColor.replace('#', '');
+  const r = parseInt(hex.substr(0, 2), 16);
+  const g = parseInt(hex.substr(2, 2), 16);
+  const b = parseInt(hex.substr(4, 2), 16);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 160 ? '#000' : '#fff';
+};
 
-  const blackSection = (
-    <div className="absolute inset-0 z-20 flex justify-between px-4 py-3 mt-2 text-white" style={{fontFamily}}>
-      <div className="flex flex-col justify-start  gap-1">
-        <p className="mb-10 text-xl" style={{ fontFamily }}>Name</p>
-<p className="text-white/80 text-sm" style={{ fontFamily }}>Invite-code</p>
-<p className="text-white text-md" style={{ fontFamily }}>SN-24Xc1</p>
+const textColor = getContrastColor(color);
 
-<div className="opacity-30 text-xs flex items-center">
-  <p style={{ fontFamily }}>Snaptiqz</p>
-</div>
+const blackSection = (
+  <div
+    className="absolute inset-0 z-20 flex justify-between px-4 py-3 mt-2"
+    style={{ fontFamily, color: textColor }}
+  >
+    <div className="flex flex-col justify-start gap-1">
+      <p className="mb-10 text-xl" style={{ fontFamily, color: textColor }}>Name</p>
+      <p className="text-sm" style={{ fontFamily, color: textColor + 'CC' }}>Invite-code</p>
+      <p className="text-md" style={{ fontFamily, color: textColor }}>SN-24Xc1</p>
 
-      </div>
-      <div className="mt-5 text-white/80">
-        <QrCodeIcon size={template === 'template3' ? 80 : 120} />
-      </div>
+      {showWatermark && (
+        <div className="opacity-30 text-xs flex items-center">
+          <p style={{ fontFamily, color: textColor }}>Snaptiqz</p>
+        </div>
+      )}
     </div>
-  );
+
+    <div className="mt-5" style={{ color: textColor + 'CC' }}>
+      <QrCodeIcon size={template === 'template3' ? 80 : 120} color={textColor} />
+    </div>
+  </div>
+);
+
 
   return (
-    <div className="bg-[#2b2b2b] h-[700px] p-4 w-full   rounded-lg" style={{ fontFamily }}>
-      <div className="flex flex-col w-full">
+    <div className=" " style={{ fontFamily }}>
+      <div className="flex flex-col w-[320px]">
         {/* White Top Section for template1/2/3 */}
         {(template === 'template1' || template === 'template2' || template === 'template3') && (
           <div

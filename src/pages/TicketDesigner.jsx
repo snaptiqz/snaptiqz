@@ -1,17 +1,18 @@
-import React, { useRef, useState, useCallback } from 'react';
-import { Upload, ImageIcon, Layout, Palette, Undo, Eye, ArrowLeft, Clock, MapPin, Calendar, QrCodeIcon, ImageOff, AlignLeft, AlignCenter, AlignRight, ChevronsLeftRight, Sparkle, Sparkles, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
+import React, { useRef, useState, useCallback, } from 'react';
+import { Upload, ImageIcon, Layout, Palette, Undo, Eye, ArrowLeft, Clock, MapPin, Calendar, QrCodeIcon,Download, ImageOff, AlignLeft, AlignCenter, AlignRight, ChevronsLeftRight, Sparkle, Sparkles, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import defaultTicket from '../assets/ticketdesign1.png';
 import TopNavbar from '../components/TopNavbar';
 import StarryBackground from '../components/StarryBackground';
 import avatar from '../assets/avatar.svg';
 import TemplateSelector from '../components/TemplateSelector';
 import TicketPreview from '../components/TicketPreview';
-
+import { useNavigate } from 'react-router-dom';
+import html2canvas from 'html2canvas';
 
 const TicketDesigner = () => {
   const fileInputRef = useRef(null);
-  const navigate = () => console.log("Navigate function would be called here");
-
+  const navigate = useNavigate();
+  const ticketRef = useRef(null);
   const [ticketImage, setTicketImage] = useState(defaultTicket);
   const [color, setColor] = useState('#000000');
   const [template, setTemplate] = useState('template1');
@@ -73,6 +74,27 @@ const TicketDesigner = () => {
   const handleRemoveWatermark = useCallback(() => {
     setShowWatermark(false);
   }, []);
+
+const handleDownload = async () => {
+  if (!ticketRef.current) return;
+
+  const originalBg = ticketRef.current.style.backgroundColor;
+  ticketRef.current.style.backgroundColor = 'transparent'; // ensure no background
+
+  const canvas = await html2canvas(ticketRef.current, {
+    backgroundColor: null, // ⬅️ this removes white fallback background
+  });
+
+  ticketRef.current.style.backgroundColor = originalBg; // restore if needed
+
+  const link = document.createElement('a');
+  link.download = 'ticket.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+};
+
+
+
 
   const handleUpdate = useCallback(() => {
     // In a real app, this would save the changes to a database or API
@@ -149,16 +171,19 @@ const TicketDesigner = () => {
           <h2 className="text-xl">Edit Tickets</h2>
         </div>
 
-        <TicketPreview
-  template={template}
-  ticketImage={ticketImage}
-  textAlign={textAlign}
-  fontFamily={fontFamily}
-  color={color}
-  textColor={textColor}    
-  showWatermark={showWatermark}
-  visibility={visibility}
-/>
+        <div className='bg-[#2b2b2b] rounded-lg h-[700px] p-4 sm:w-[400px]    ' ref={ticketRef}>
+  <TicketPreview
+    template={template}
+    ticketImage={ticketImage}
+    textAlign={textAlign}
+    fontFamily={fontFamily}
+    color={color}
+    textColor={textColor}
+    showWatermark={showWatermark}
+    visibility={visibility}
+  />
+</div>
+
 
 
         <div className='mt-4 flex justify-between'>
@@ -177,6 +202,13 @@ const TicketDesigner = () => {
             Remove Image
             <ImageOff className='text-white' size={20} />
           </button>
+          <button
+  onClick={handleDownload}
+  className="bg-[#1e1e1e] text-white p-1  rounded-md  hover:bg-gray-600"
+>
+ <Download className='text-white' size={20} />
+</button>
+
         </div>
 
         <div className='mt-4 flex justify-between'>
