@@ -113,7 +113,7 @@ const blackSection = (
             } flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
             
           >
-            <<img
+            <img
   src={ticketImage}
   alt="Ticket design"
   className="w-full h-auto object-cover rounded-t-xl"
