@@ -11,6 +11,8 @@ const [messageIndex, setMessageIndex] = useState(0);
 const [displayedText, setDisplayedText] = useState('');
 
 
+
+
   const generalMessages = [
     "Still faster than your 8 AM alarm...",
     "Loading… because teleportation isn’t ready yet.",
@@ -23,7 +25,6 @@ const [displayedText, setDisplayedText] = useState('');
     "Giving pixels a pep talk...",
     "This isn’t a lag, it’s dramatic timing.",
     "Making everything look cooler ...",
-     "Even this loading screen has better attendance.",
     "Moonwalking through server traffic...",
     "Snaptiqz is vibing with the universe.",
     "Please enjoy this loading performance.",
@@ -59,6 +60,18 @@ const [displayedText, setDisplayedText] = useState('');
 
   ];
 
+  
+
+  function fisherYatesShuffle(array) {
+  const a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+
   useEffect(() => {
     let startTime;
     const animate = (time) => {
@@ -81,8 +94,9 @@ const [displayedText, setDisplayedText] = useState('');
   // Rotate message every 3s
   useEffect(() => {
   // Shuffle messages once
-  const shuffled = [...generalMessages].sort(() => 0.5 - Math.random());
-  setShuffledMessages(shuffled);
+ const shuffled = fisherYatesShuffle(generalMessages);
+setShuffledMessages(shuffled);
+
 
   const interval = setInterval(() => {
     setMessageIndex((prev) => (prev + 1) % shuffled.length);
