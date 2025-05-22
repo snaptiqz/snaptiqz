@@ -113,14 +113,15 @@ const blackSection = (
             } flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
             
           >
-            <img
-              src={ticketImage}
-              alt="Ticket design"
-              className="w-full object-fill"
-              style={{
-                height: template === 'template3' ? '60px' : '25%',
-              }}
-            />
+            <<img
+  src={ticketImage}
+  alt="Ticket design"
+  className="w-full h-auto object-cover rounded-t-xl"
+  style={{
+    height: template === 'template3' ? '60px' : '25%',
+    objectPosition: 'top',
+  }}
+/>
 
             <div
   className={`flex flex-col flex-1 justify-center gap-2 px-4 ${
