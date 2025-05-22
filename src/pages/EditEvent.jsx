@@ -33,6 +33,7 @@ const EditEvent = () => {
   const [isVirtual, setIsVirtual] = useState(false);
   const [virtualLink, setVirtualLink] = useState('');
   const [location, setLocation] = useState('');
+  const [posterFile, setPosterFile] = useState(null);
 
 
 
@@ -147,7 +148,7 @@ const addDOBQuestion = () => {
 };
 
 const predefinedQuestions = [
-  { label: 'Enter Your Full Name.', type: 'Name', required: true },
+  { label: 'Enter Your Full Name.', type: 'Full Name', required: true },
   { label: 'Enter Your mail ID.', type: 'Email', required: true },
   { label: 'Enter Your Available Phone No.', type: 'Phone', required: false },
 ];
@@ -214,11 +215,12 @@ const predefinedQuestions = [
 
         <div className="w-full bg-[#2b2b2b] border border-white/20 rounded-xl overflow-hidden">
  <div className="relative">
-  <img
-    src={currentPoster}
-    alt="Event Poster"
-    className="w-full h-40 object-cover"
-  />
+ <img
+  src={posterFile ? URL.createObjectURL(posterFile) : currentPoster}
+  alt="Event Poster"
+  className="w-full h-40 object-cover"
+/>
+
   
   {/* Buttons */}
   <div className="absolute top-2 right-2 flex gap-2 z-10">
@@ -228,9 +230,28 @@ const predefinedQuestions = [
     >
       <RefreshCcw size={14} />
     </button>
-    <button className="bg-white text-black px-2 py-1 text-xs rounded-md flex items-center gap-1">
-      <Image size={14} /> Add your Event Poster
-    </button>
+   <input
+  type="file"
+  accept="image/*"
+  className="hidden"
+  id="poster-upload"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPosterFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleChange('eventPoster', reader.result); // If you want base64 preview
+      };
+      reader.readAsDataURL(file);
+    }
+  }}
+/>
+
+<label htmlFor="poster-upload" className="bg-white text-black px-2 py-1 text-xs rounded-md flex items-center gap-1 cursor-pointer">
+  <Image size={14} /> Add your Event Poster
+</label>
+
   </div>
 
   {/* Event Name Over Poster */}
@@ -331,10 +352,10 @@ const predefinedQuestions = [
 
 
    <div className="space-y-3">
-  <div className="flex items-center justify-between">
+  <div className="flex gap-2">
     <p className="text-sm">Time and date</p>
     <PenLine
-      size={16}
+      size={20}
        title="Edit Date & Time"
       className="text-white/60 hover:text-white cursor-pointer"
       onClick={() => setShowPicker(true)}
