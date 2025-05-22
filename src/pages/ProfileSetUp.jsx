@@ -69,7 +69,7 @@ const ProfileSetUp = () => {
     if (file) formData.append('profileImage', file);
 
     await updateProfile(formData);
-    navigate('/suggestions');
+    navigate('/dashboard');
   } catch (err) {
     console.error('Failed to update profile:', err);
   } finally {
