@@ -6,6 +6,7 @@ import logo from '../assets/logo.svg';
 import google from '../assets/google_logo.png';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../components/Spinner'; // Assuming Spinner is a separate component
 
 const SignupPopup = ({ onClose }) => {
   const { register, login } = useContext(AuthContext);
@@ -140,18 +141,20 @@ const SignupPopup = ({ onClose }) => {
           {error && <p className="text-red-400 text-sm text-center mb-3">{error}</p>}
 
           <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-white text-black py-3 rounded-full font-semibold mb-4"
-          >
-            {isSubmitting
-              ? mode === 'signup'
-                ? 'Signing up...'
-                : 'Signing in...'
-              : mode === 'signup'
-              ? 'Sign Up'
-              : 'Sign In'}
-          </button>
+  type="submit"
+  disabled={isSubmitting}
+  className="w-full bg-white text-black py-3 rounded-full font-semibold mb-4 flex justify-center items-center gap-2"
+>
+  {isSubmitting ? (
+    <>
+      <Spinner />
+      {mode === 'signup' ? 'Signing up' : 'Signing in'}
+    </>
+  ) : (
+    mode === 'signup' ? 'Sign Up' : 'Sign In'
+  )}
+</button>
+
            {mode === 'signin' && (
     <div
       onClick={() => navigate('/forgotpassword')} // ⬅️ navigate on click
