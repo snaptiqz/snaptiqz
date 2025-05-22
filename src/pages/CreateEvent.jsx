@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect,useMemo } from 'react';
+import React, { useState, useRef, useEffect,useMemo,useContext } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
 import defaultPoster from '../assets/default_poster.png';
 import gridBg from '../assets/Grid_mob.svg';
@@ -17,6 +17,7 @@ import TopNavbar from '../components/TopNavbar';
 import StarryBackground from '../components/StarryBackground';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import { AuthContext } from "../context/AuthContext";
 
 const CreateEvent = () => {
   const [ticketPrice, setTicketPrice] = useState("");
@@ -40,19 +41,20 @@ const [eventDescription, setEventDescription] = useState('');
   const [timeRange, setTimeRange] = useState({ start: "", end: "" });
 const [selectedOrganizer, setSelectedOrganizer] = useState("Organizer (Me)");
 const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
+const [organizationId, setOrganizationId] = useState("");
   const [location, setLocation] = useState('');
   // Tags state
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
   const [showTagInput, setShowTagInput] = useState(false);
   
-  // Guests state
-  const [guests, setGuests] = useState([]);
-  const [showGuestModal, setShowGuestModal] = useState(false);
-  const [guestName, setGuestName] = useState('');
-  const [guestEmail, setGuestEmail] = useState('');
-  const [guestImage, setGuestImage] = useState(null);
-  const [guestImagePreview, setGuestImagePreview] = useState(null);
+  // speakers state
+  const [speakers, setSpeakers] = useState([]);
+  const [showSpeakerModal, setShowSpeakerModal] = useState(false);
+  const [speakerName, setSpeakerName] = useState('');
+  const [speakerEmail, setSpeakerEmail] = useState('');
+  const [speakerImage, setSpeakerImage] = useState(null);
+  const [speakerImagePreview, setSpeakerImagePreview] = useState(null);
   const [isVirtual, setIsVirtual] = useState(false);
   const [virtualLink, setVirtualLink] = useState('');
   const [showSpinner, setShowSpinner] = useState(false);
@@ -65,9 +67,10 @@ const [previewUrl, setPreviewUrl] = useState(null);
 
   const formContainerRef = useRef(null);
   const fileInputRef = useRef(null);
-  const guestImageInputRef = useRef(null);
+  const speakerImageInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const organizerDropdownRef = useRef(null);
+const { createOrganization } = useContext(AuthContext);
 
 
   const customStyles = {
@@ -168,14 +171,14 @@ const handlePosterUpload = (e) => {
 
 
 
-  // Handle guest image upload
-  const handleGuestImageUpload = (e) => {
+  // Handle speaker image upload
+  const handleSpeakerImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setGuestImage(file);
+      setSpeakerImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setGuestImagePreview(reader.result);
+        setSpeakerImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -203,7 +206,7 @@ const handlePosterUpload = (e) => {
   setCapacity('');
   setTicketPrice('');
   setApproval(true);
-  setGuests([]);
+  setSpeakers([]);
   setTags([]);
   setTagInput('');
   setShowTagInput(false);
@@ -216,29 +219,29 @@ const handlePosterUpload = (e) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
-  // Guest functions
-  const addGuest = () => {
-    if (guestName.trim() !== '' && guestEmail.trim() !== '') {
-      const newGuest = {
+  // speaker functions
+  const addSpeaker = () => {
+    if (speakerName.trim() !== '' && speakerEmail.trim() !== '') {
+      const newSpeaker = {
         id: Date.now(),
-        name: guestName.trim(),
-        email: guestEmail.trim(),
-        image: guestImagePreview || avatarImage
+        name: speakerName.trim(),
+        email: speakerEmail.trim(),
+        image: speakerImagePreview || avatarImage
       };
-      setGuests([...guests, newGuest]);
-      setGuestName('');
-      setGuestEmail('');
-      setGuestImage(null);
-      setGuestImagePreview(null);
-      setShowGuestModal(false);
+      setSpeakers([...speakers, newSpeaker]);
+      setSpeakerName('');
+      setSpeakerEmail('');
+      setSpeakerImage(null);
+      setSpeakerImagePreview(null);
+      setShowSpeakerModal(false);
     }
   };
 
 
 
 
-  const removeGuest = (guestId) => {
-    setGuests(guests.filter(guest => guest.id !== guestId));
+  const removeSpeaker = (speakerId) => {
+    setSpeakers(speakers.filter(speaker => speaker.id !== speakerId));
   };
 
  const handleSubmit = async (status = "PUBLISHED") => {
@@ -256,8 +259,8 @@ const handlePosterUpload = (e) => {
     formData.append("status", status);
     formData.append("coverImage", eventPoster); // 🟢 now the File object
     formData.append("isRegistrationOpen", true);
-    formData.append("showGuestList", true);
-    formData.append("organizationId", "zj7e63pbtcmbrwg3s9jej73z");
+    formData.append("showSpeakerList", true);
+    formData.append("organizationId", organizationId || "");
     formData.append("eventType", isVirtual ? "online" : "offline");
     formData.append("eventUrl", null);
     formData.append("virtualLink", isVirtual ? virtualLink || "" : "");
@@ -778,37 +781,37 @@ const handlePosterUpload = (e) => {
             )}
           </div>
 
-          {/* Guests Section */}
+          {/* speakers Section */}
           <div className="space-y-3">
            
             <button 
               className="flex items-center justify-center gap-2 w-full bg-[#2b2b2b] px-4 py-3 rounded-lg text-sm border border-white/20 hover:bg-white/10 transition"
-              onClick={() => setShowGuestModal(true)}
+              onClick={() => setShowSpeakerModal(true)}
             >
-              <UserPlus size={16} /> Add Guests
+              <UserPlus size={16} /> Add speakers
             </button>
             
-            {/* Guest List */}
-            {guests.length > 0 && (
+            {/* speaker List */}
+            {speakers.length > 0 && (
               <div className="mt-2 space-y-2">
-                {guests.map((guest) => (
+                {speakers.map((speaker) => (
                   <div 
-                    key={guest.id} 
+                    key={speaker.id} 
                     className="flex items-center justify-between bg-white/10 px-4 py-2 rounded-lg"
                   >
                     <div className="flex items-center gap-3">
                       <img 
-                        src={guest.image} 
-                        alt={guest.name} 
+                        src={speaker.image} 
+                        alt={speaker.name} 
                         className="w-8 h-8 rounded-full object-cover"
                       />
                       <div>
-                        <p className="text-sm font-medium">{guest.name}</p>
-                        <p className="text-xs text-white/70">{guest.email}</p>
+                        <p className="text-sm font-medium">{speaker.name}</p>
+                        <p className="text-xs text-white/70">{speaker.email}</p>
                       </div>
                     </div>
                     <button 
-                      onClick={() => removeGuest(guest.id)}
+                      onClick={() => removeSpeaker(speaker.id)}
                       className="text-white/70 hover:text-red-300 transition"
                     >
                       <X size={16} />
@@ -914,46 +917,46 @@ const handlePosterUpload = (e) => {
         </div>
       </div>
   
-      {/* Guest Modal */}
-      {showGuestModal && (
+      {/* speaker Modal */}
+      {showSpeakerModal && (
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/70">
           <div className="bg-black border border-white/20 rounded-xl w-full max-w-md p-6 m-4 relative">
             <button 
               className="absolute top-4 right-4 text-white/70 hover:text-white transition"
               onClick={() => {
-                setShowGuestModal(false);
-                setGuestName('');
-                setGuestEmail('');
-                setGuestImage(null);
-                setGuestImagePreview(null);
+                setShowSpeakerModal(false);
+                setSpeakerName('');
+                setSpeakerEmail('');
+                setSpeakerImage(null);
+                setSpeakerImagePreview(null);
               }}
             >
               <X size={16} />
             </button>
             
-            <h3 className="text-lg font-semibold mb-4">Add Guest</h3>
+            <h3 className="text-lg font-semibold mb-4">Add Speaker</h3>
             
-            {/* Guest Image Upload */}
+            {/* speaker Image Upload */}
             <div className="flex justify-center mb-4">
               <div className="relative">
                 <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/30">
                   <img 
-                    src={guestImagePreview || avatarImage} 
-                    alt="Guest" 
+                    src={speakerImagePreview || avatarImage} 
+                    alt="speaker" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <button 
                   className="absolute bottom-0 right-0 bg-white/20 p-1 rounded-full hover:bg-white/30 transition"
-                  onClick={() => guestImageInputRef.current.click()}
+                  onClick={() => speakerImageInputRef.current.click()}
                 >
                   <ImageIcon size={14} />
                 </button>
                 <input
                   type="file"
-                  ref={guestImageInputRef}
+                  ref={speakerImageInputRef}
                   accept="image/*"
-                  onChange={handleGuestImageUpload}
+                  onChange={handleSpeakerImageUpload}
                   className="hidden"
                 />
               </div>
@@ -964,9 +967,9 @@ const handlePosterUpload = (e) => {
                 <label className="text-sm text-white/80 block mb-1">Name*</label>
                 <input
                   type="text"
-                  value={guestName}
-                  onChange={(e) => setGuestName(e.target.value)}
-                  placeholder="Guest Name"
+                  value={speakerName}
+                  onChange={(e) => setSpeakerName(e.target.value)}
+                  placeholder="Speaker Name"
                   className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40"
                 />
               </div>
@@ -975,9 +978,9 @@ const handlePosterUpload = (e) => {
                 <label className="text-sm text-white/80 block mb-1">Email*</label>
                 <input
                   type="email"
-                  value={guestEmail}
-                  onChange={(e) => setGuestEmail(e.target.value)}
-                  placeholder="guest@example.com"
+                  value={speakerEmail}
+                  onChange={(e) => setSpeakerEmail(e.target.value)}
+                  placeholder="speaker@example.com"
                   className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40"
                 />
               </div>
@@ -985,18 +988,18 @@ const handlePosterUpload = (e) => {
               <div className="flex gap-3 mt-6">
                 <button 
                   className="flex-1 py-3 bg-white text-black rounded-lg font-medium hover:bg-gray-100 transition"
-                  onClick={addGuest}
+                  onClick={addSpeaker}
                 >
-                  Add Guest
+                  Add Speaker
                 </button>
                 <button 
                   className="flex-1 py-3 bg-transparent border border-white/30 rounded-lg font-medium hover:bg-white/5 transition"
                   onClick={() => {
-                    setShowGuestModal(false);
-                    setGuestName('');
-                    setGuestEmail('');
-                    setGuestImage(null);
-                    setGuestImagePreview(null);
+                    setShowSpeakerModal(false);
+                    setSpeakerName('');
+                    setSpeakerEmail('');
+                    setSpeakerImage(null);
+                    setSpeakerImagePreview(null);
                   }}
                 >
                   Cancel
@@ -1066,70 +1069,49 @@ const handlePosterUpload = (e) => {
   </div>
 )}
 {showAddOrgPopup && (
-  <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/60">
-    <div className="bg-[#1e1e1e] p-6 rounded-xl w-[90%] max-w-sm border border-white/20 text-white space-y-4">
-      <h2 className="text-lg font-semibold">Add New Organization</h2>
-
-      {/* Image Upload */}
-      <div className="flex flex-col items-center gap-2">
-        <img
-          src={previewUrl || avatar}
-          alt="Organization Logo"
-          className="w-20 h-20 object-cover rounded-full border border-white/20"
-        />
-        <label className="text-xs cursor-pointer text-white hover:underline">
-          Upload Logo
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file) {
-                setOrgImage(file);
-                setPreviewUrl(URL.createObjectURL(file));
-              }
-            }}
-          />
-        </label>
-      </div>
-
-      {/* Organization Name Input */}
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div className="bg-[#1e1e1e] border border-white/20 rounded-xl p-6 w-full max-w-md space-y-4">
+      <h2 className="text-white text-lg font-semibold">Create New Organization</h2>
       <input
         type="text"
         value={newOrgName}
         onChange={(e) => setNewOrgName(e.target.value)}
         placeholder="Organization Name"
-        className="w-full px-4 py-2 rounded-lg bg-[#2b2b2b] border border-white/20 focus:outline-none text-sm"
+        className="w-full px-4 py-2 bg-transparent border border-white/20 text-white rounded-lg placeholder-white/40"
       />
-
-      {/* Buttons */}
-      <div className="flex justify-center gap-2">
+      <div className="flex justify-end gap-2">
         <button
-          onClick={() => {
-            setShowAddOrgPopup(false);
-            setNewOrgName('');
-            setPreviewUrl(null);
-            setOrgImage(null);
-          }}
-          className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm"
+          onClick={() => setShowAddOrgPopup(false)}
+          className="px-4 py-2 text-sm text-white bg-white/10 rounded-md"
         >
           Cancel
         </button>
         <button
-          onClick={() => {
-            if (newOrgName.trim()) {
-              setSelectedOrganizer(newOrgName);
-              setShowAddOrgPopup(false);
-              setNewOrgName('');
-              setPreviewUrl(null);
-              setOrgImage(null);
-            }
-          }}
-          className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-sm"
-        >
-          Add
-        </button>
+  onClick={async () => {
+    if (!newOrgName.trim()) {
+      toast.error("Please enter a valid organization name.");
+      return;
+    }
+
+    try {
+      const res = await createOrganization(newOrgName.trim());
+      const { id } = res; // extract the id from API response
+
+      // Set the organization name as label and store the id
+      setSelectedOrganizer(newOrgName.trim());
+      setOrganizationId(id); // ✅ your setter for the orgId
+      setShowAddOrgPopup(false);
+      setNewOrgName("");
+    } catch (err) {
+      console.error("Org creation failed", err);
+      toast.error("Could not create organization.");
+    }
+  }}
+  className="px-4 py-2 text-sm bg-white text-black rounded-md"
+>
+  Create
+</button>
+
       </div>
     </div>
   </div>

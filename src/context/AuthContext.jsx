@@ -114,6 +114,29 @@ export const AuthProvider = ({ children }) => {
   }
 };
 
+const createOrganization = async (name) => {
+  if (!name.trim()) {
+    toast.error("Organization name cannot be empty");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      `${backendUrl}/organizations/create`,
+      { name: name.trim() },
+      { withCredentials: true }
+    );
+
+    toast.success("Organization created successfully!");
+     console.log(res.data);
+    return res.data; 
+    // { message, id }
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Failed to create organization.");
+    throw err;
+  }
+};
+
 
   return (
     <AuthContext.Provider
@@ -127,6 +150,7 @@ export const AuthProvider = ({ children }) => {
         justSignedUp,
         setJustSignedUp,
         updateProfile,
+        createOrganization
       }}
     >
       {children}

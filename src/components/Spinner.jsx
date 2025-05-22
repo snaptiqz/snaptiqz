@@ -75,7 +75,7 @@ const [displayedText, setDisplayedText] = useState('');
 
   const interval = setInterval(() => {
     setMessageIndex((prev) => (prev + 1) % shuffled.length);
-  }, 5000);
+  }, 6000);
 
   return () => clearInterval(interval);
 }, []);
