@@ -61,7 +61,7 @@ const EventCard = ({ event }) => {
       {/* Header: Title + Privacy */}
       <div className="flex justify-between items-center mb-2">
         <p className="font-semibold text-lg line-clamp-1">{name || "Untitled Event"}</p>
-        <div className="flex items-center gap-2 text-sm text-white bg-[#2e2e2e] px-2 py-1 rounded-md">
+        <div className="flex items-center gap-1 text-sm text-white bg-[#2e2e2e] px-2 py-1 rounded-md">
           {isPublic ? (
             <>
               <Earth size={14} /> Public Event
@@ -93,25 +93,28 @@ const EventCard = ({ event }) => {
         
         </div>
 
-        <div className="w-32 h-20 rounded overflow-hidden border border-white/10 shrink-0">
-          <img
-            src={coverImage || defaultPoster}
-            alt="Event Poster"
-            className="object-cover w-full h-full"
-          />
-        </div>
+        <div className="w-24 h-24 rounded overflow-hidden border border-white/10 shrink-0">
+        <img
+          src={coverImage || defaultPoster}
+          alt="Event Poster"
+          className="object-cover w-full h-full"
+        />
+      </div>
+
       </div>
 
       {/* Guests */}
       
      
-
+      <p className="text-xs text-white line-clamp-2 mt-1">
+    {description || "No description provided."}
+  </p>
 
      
 
       {/* Tags */}
       {tags.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-2 text-xs text-white">
+        <div className="mt-3 flex flex-wrap gap-2 text-xs text-white">
           {tags.map((tag, idx) => (
             <span key={idx} className="  rounded-full flex items-center gap-1">
               <Tag size={16} />
