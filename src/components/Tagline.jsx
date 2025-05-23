@@ -50,14 +50,12 @@ const Tagline = () => {
       {/* Main Content */}
       <div className="relative w-full flex justify-center items-center mt-20 sm:mt-22 lg:mt-60 z-30 min-h-[100dvh] sm:min-h-[100vh] lg:min-h-[200vh]">
         {/* Vector Curve */}
-  <img
+    <img
   src={vectorCurve}
   alt="curve"
   loading="lazy"
-  className="absolute left-1/2 -translate-x-1/2 top-[300px] md:top-[350px] sm:top-[240px] h-[80vh] max-h-[200vh] w-[200vw] max-w-none object-contain pointer-events-none transition-transform duration-1000"
-  style={{ aspectRatio: '2 / 1' }}
+  className="absolute left-1/2 -translate-x-1/2 mt-[360px] md:mt-10 sm:mt-34 h-[60vh] sm:h-[100vh] lg:h-[120vh] max-h-[90vh] w-[200vw] max-w-none object-contain pointer-events-none transition-transform duration-1000 "
 />
-
 
 
 
@@ -78,12 +76,10 @@ const Tagline = () => {
                   }}
                 />
                 <img
-                    src={gridBg}
-                    alt="grid background"
-                    className="relative w-[28vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
-                    style={{ aspectRatio: '1 / 1' }} // approximate
-                  />
-
+                  src={gridBg}
+                  alt="grid background"
+                  className="relative w-[28vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
+                />
               </div>
             </div>
 
@@ -127,44 +123,36 @@ const Tagline = () => {
 
 
           {/* AT 0% COMMISSION */}
-       <div className="w-screen sm:-translate-y-10 mt-10">
- <motion.div
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: false, amount: 0.4 }}
-  transition={{ duration: 0.6, ease: 'easeOut' }}
-  className="w-full text-center"
->
-
-  <h3
-    className="uppercase font-poppins font-bold tracking-wider"
-    style={{
-      fontSize: 'clamp(7rem, 16vw, 16rem)',
-      WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
-      WebkitTextFillColor: 'transparent',
-      color: 'transparent',
-      letterSpacing: '0.04em',
-      lineHeight: '1.1',
-    }}
-  >
-    AT 0%
-  </h3>
-  <h3
-    className="uppercase font-poppins font-bold tracking-wider"
-    style={{
-  fontSize: 'clamp(3rem, 8vw, 7rem)',
-  WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
-  WebkitTextFillColor: 'transparent',
-  textShadow: '0 4px 12px rgba(0, 0, 0, 0.5)', // ⬅ lighter shadow
-  filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
-}}
-
-  >
-    COMMISSION
-  </h3>
-</motion.div>
-
+      <div className="w-screen sm:-translate-y-10 mt-10">
+  <div className="w-full text-center">
+    <h3
+      className="uppercase font-poppins font-bold tracking-wider"
+      style={{
+        fontSize: 'clamp(7rem, 16vw, 16rem)',
+        WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+        WebkitTextFillColor: 'transparent',
+        color: 'transparent',
+        letterSpacing: '0.04em',
+        lineHeight: '1.1',
+      }}
+    >
+      AT 0%
+    </h3>
+    <h3
+      className="uppercase font-poppins font-bold tracking-wider"
+      style={{
+        fontSize: 'clamp(3rem, 8vw, 7rem)',
+        WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
+        WebkitTextFillColor: 'transparent',
+        textShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
+        filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+      }}
+    >
+      COMMISSION
+    </h3>
+  </div>
 </div>
+
         </div>
       </div>
     </div>
