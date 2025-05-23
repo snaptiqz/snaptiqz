@@ -417,26 +417,11 @@ const FormQuestions = ({ questions = [], setQuestions }) => {
 
           {q.showDropdown && (
   <div className="absolute right-0 mt-1 bg-[#1e1e1e] border border-white/20 rounded-lg shadow-xl z-10 w-48 text-xs overflow-hidden max-h-72">
-    <div className="px-3 py-2 border-b border-white/10 text-white/60 font-medium">Field Type</div>
+
     
     <div className="overflow-y-auto max-h-56 custom-scrollbar">
       {/* Field Type Options */}
-      {questionTypes.map((type) => {
-        const IconComp = type.icon;
-        return (
-          <div
-            key={type.name}
-            onClick={() => handleTypeChange(index, type.name)}
-            className="px-3 py-2 hover:bg-white/10 cursor-pointer flex items-center gap-2"
-          >
-            <IconComp size={14} className="text-white/60" />
-            <div>
-              <div className="text-white">{type.name}</div>
-              <div className="text-white/50 text-xs">{type.description}</div>
-            </div>
-          </div>
-        );
-      })}
+     
 
       {/* Requirement Header */}
       <div className="border-t border-white/10 px-3 py-2 text-white/60 font-medium">Requirement</div>
