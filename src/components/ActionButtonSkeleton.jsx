@@ -2,9 +2,9 @@ import React from "react";
 
 const ActionButtonSkeleton = () => {
   return (
-    <div className="flex flex-row gap-2 justify-end mt-2 mb-6 animate-pulse">
-      <div className="w-[130px] h-[32px] bg-gray-800 rounded-md shimmer" />
-      <div className="w-[120px] h-[32px] bg-gray-800 rounded-md shimmer" />
+    <div className="flex flex-row gap-2 justify-end  mb-6 animate-pulse">
+      <div className="w-[100px] h-[24px] bg-gray-800 rounded-md shimmer" />
+      <div className="w-[100px] h-[24px] bg-gray-800 rounded-md shimmer" />
 
       <style>{`
         @keyframes shimmer {

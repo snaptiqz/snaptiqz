@@ -14,22 +14,15 @@ import Payments from '../components/Payments';
 
 const EventDetails = () => {
   const [activeTab, setActiveTab] = useState('Overview');
-  const [event, setEvent] = useState(null);
-  const { fetchEventById } = useContext(EventContext);
+
 
   const { id: eventId } = useParams(); // e.g. from /event/:id
   const [searchParams] = useSearchParams();
-  const organizationId = searchParams.get('orgId'); // from ?orgId=xyz
+  const organizationId = searchParams.get('orgId'); 
+  const { useEventById } = useContext(EventContext);
+const { data: event, isLoading, isError } = useEventById(eventId, organizationId);// from ?orgId=xyz
 
-  useEffect(() => {
-    if (!eventId) return;
-    const getEvent = async () => {
-      const eventData = await fetchEventById(eventId, organizationId);
-      if (eventData) setEvent(eventData);
-    };
-    getEvent();
-  }, [eventId, organizationId]);
-
+  
   if (!event) {
     return <div ><Spinner /></div>;
   }

@@ -55,10 +55,12 @@ const EventCard = ({ event }) => {
     : "TBD";
 
   return (
-    <div className="bg-[#1e1e1e] p-2 rounded-lg mb-4 text-white">
+  <div className="bg-[#1e1e1e]/70 backdrop-blur-lg border border-white/10 p-4 rounded-lg mb-4 text-white">
+
+
       {/* Header: Title + Privacy */}
       <div className="flex justify-between items-center mb-2">
-        <p className="font-semibold text-2xl line-clamp-1">{name || "Untitled Event"}</p>
+        <p className="font-semibold text-lg line-clamp-1">{name || "Untitled Event"}</p>
         <div className="flex items-center gap-2 text-sm text-white bg-[#2e2e2e] px-2 py-1 rounded-md">
           {isPublic ? (
             <>
@@ -74,7 +76,7 @@ const EventCard = ({ event }) => {
 
       {/* Body: Details + Image side-by-side */}
       <div className="flex justify-between items-start gap-4">
-        <div className="flex flex-col gap-1 text-xs text-white flex-1">
+        <div className="flex flex-col gap-2 text-sm text-white flex-1">
            <div className="flex items-center gap-2">
             <CalendarDays size={14} />
             <span>{formattedDate}</span>
@@ -88,13 +90,7 @@ const EventCard = ({ event }) => {
             <MapPin size={14} />
             <span>{eventType === "online" ? (virtualLink || "Online") : (location || "To be announced")}</span>
           </div>
-          <div className="flex items-center gap-2">
-  <DollarSign size={14} />
-  <span>
-    {tickets.some(ticket =>  ticket.isPaid === "true") ? "Paid" : "Free"}
-  </span>
-</div>
-
+        
         </div>
 
         <div className="w-32 h-20 rounded overflow-hidden border border-white/10 shrink-0">
@@ -108,17 +104,7 @@ const EventCard = ({ event }) => {
 
       {/* Guests */}
       
-      {guests.length > 0 ? (
-  <div className="flex items-center gap-2 text-xs text-white">
-    <UsersRound size={14} className="shrink-0" />
-    <p className="font-medium">Special Guests:</p>
-    <p className="line-clamp-1 truncate">{guests.join(", ")}</p>
-  </div>
-) : (
-  <p className="text-xs text-white line-clamp-2 mt-2">
-    {description || "No description provided."}
-  </p>
-)}
+     
 
 
      
@@ -127,8 +113,8 @@ const EventCard = ({ event }) => {
       {tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2 text-xs text-white">
           {tags.map((tag, idx) => (
-            <span key={idx} className="px-2 py-1 bg-[#1A1A1A] rounded-full flex items-center gap-1">
-              <Tag size={12} />
+            <span key={idx} className="  rounded-full flex items-center gap-1">
+              <Tag size={16} />
               {tag}
             </span>
           ))}

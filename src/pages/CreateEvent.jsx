@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect,useMemo,useContext } from 'react';
 import bgImage from '../assets/org_dashboard.svg';
-import defaultPoster from '../assets/default_poster.png';
+import defaultPoster from '../assets/ticketdesign1.png';
 import gridBg from '../assets/Grid_mob.svg';
 import avatar from '../assets/avatar.svg';
 import avatarImage from '../assets/avatar.svg';
@@ -10,7 +10,7 @@ import Select from 'react-select';
 import timezoneList from '../data/timezones.json'; 
 import PhotonLocationInput from '../components/PhotonLocationInput';
 import "react-datepicker/dist/react-datepicker.css";
-import {  MapPin,  LaptopMinimal,  Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
+import {  MapPin,RefreshCcw, Image, LaptopMinimal,  Tags, Users, Earth, Plus, Image as ImageIcon, Clock, ChevronDown, ChevronRight, LogIn, Globe, Text, ScanFace, Lock, X, Check, Upload, UserPlus, Pen, Ticket } from 'lucide-react';
 import axios from "axios";
 import { toast } from "react-toastify";
 import TopNavbar from '../components/TopNavbar';
@@ -18,6 +18,9 @@ import StarryBackground from '../components/StarryBackground';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { AuthContext } from "../context/AuthContext";
+import ticket1 from '../assets/ticketdesign1.png';
+import ticket2 from '../assets/ticketdesign2.png';
+
 
 const CreateEvent = () => {
   const [ticketPrice, setTicketPrice] = useState("");
@@ -25,7 +28,7 @@ const CreateEvent = () => {
   const [capacity, setCapacity] = useState("");
   const [showPriceModal, setShowPriceModal] = useState(false);
   const [showCapacityModal, setShowCapacityModal] = useState(false);
-  const [timezone, setTimezone] = useState("Asia/Kolkata");
+  const [timezone, setTimezone] = useState("GMT+05:30 — India Standard Time (New Delhi)");
   const [eventVisibility, setEventVisibility] = useState('public');
   const [eventPoster, setEventPoster] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,14 +39,13 @@ const CreateEvent = () => {
 const [eventDescription, setEventDescription] = useState('');
   const [showVisibilityDropdown, setShowVisibilityDropdown] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [start, end] = dateRange;
+  const [start, setStart] = useState(new Date());
+const [end, setEnd] = useState(new Date());
   const [timeRange, setTimeRange] = useState({ start: "", end: "" });
 const [selectedOrganizer, setSelectedOrganizer] = useState("Organizer (Me)");
 const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
 const [organizationId, setOrganizationId] = useState("");
-const [organizations, setOrganizations] = useState([]);
-
+  const [posterTemplateIndex, setPosterTemplateIndex] = useState(0);
   const [location, setLocation] = useState('');
   // Tags state
   const [tags, setTags] = useState([]);
@@ -51,43 +53,30 @@ const [organizations, setOrganizations] = useState([]);
   const [showTagInput, setShowTagInput] = useState(false);
   
   // speakers state
-  const [speakers, setSpeakers] = useState([]);
-  const [showSpeakerModal, setShowSpeakerModal] = useState(false);
-  const [speakerName, setSpeakerName] = useState('');
-  const [speakerEmail, setSpeakerEmail] = useState('');
-  const [speakerImage, setSpeakerImage] = useState(null);
+
+ 
   const [speakerImagePreview, setSpeakerImagePreview] = useState(null);
   const [isVirtual, setIsVirtual] = useState(false);
   const [virtualLink, setVirtualLink] = useState('');
   const [showSpinner, setShowSpinner] = useState(false);
+  const templates = [ticket1, ticket2];
 const navigate = useNavigate();
 
   const [showAddOrgPopup, setShowAddOrgPopup] = useState(false);
 const [newOrgName, setNewOrgName] = useState('');
-const [orgImage, setOrgImage] = useState(null);
-const [previewUrl, setPreviewUrl] = useState(null);
+
 
   const formContainerRef = useRef(null);
   const fileInputRef = useRef(null);
   const speakerImageInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const organizerDropdownRef = useRef(null);
-const { createOrganization,getOrganizations } = useContext(AuthContext);
+const { createOrganization, useOrganizations } = useContext(AuthContext);
+const { data, isLoading } = useOrganizations();
+const organizations = data?.items || [];
 
-useEffect(() => {
-  const fetchOrganizations = async () => {
-    try {
-      const res = await getOrganizations();
-     if (res && Array.isArray(res.items)) {
-  setOrganizations(res.items);
-}
 
-    } catch (err) {
-      console.error("Failed to load organizations", err);
-    }
-  };
-  fetchOrganizations();
-}, []);
+
 
   const customStyles = {
   control: (base) => ({
@@ -137,7 +126,16 @@ useEffect(() => {
   };
 }, []);
 
-  // Close dropdown when clicking outside
+
+const switchTemplate = () => {
+  if (!eventPoster) {
+    setPosterTemplateIndex((prev) => (prev + 1) % templates.length);
+    setEventPosterPreview(templates[(posterTemplateIndex + 1) % templates.length]);
+  }
+};
+
+
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -151,12 +149,12 @@ useEffect(() => {
     };
   }, []);
 
-  // Handle scroll with proper styling
+
   useEffect(() => {
     if (formContainerRef.current) {
       const handleScroll = () => {
         const scrollPosition = formContainerRef.current.scrollTop;
-        // Additional scroll effects could be added here
+      
       };
       
       formContainerRef.current.addEventListener('scroll', handleScroll);
@@ -176,7 +174,7 @@ useEffect(() => {
   return result.toISOString();
 };
 
-  // Handle event poster upload
+
 const handlePosterUpload = (e) => {
   const file = e.target.files[0];
   if (file) {
@@ -185,22 +183,6 @@ const handlePosterUpload = (e) => {
   }
 };
 
-
-
-  // Handle speaker image upload
-  const handleSpeakerImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSpeakerImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSpeakerImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Tag functions
   const addTag = () => {
     if (tagInput.trim() !== '' && !tags.includes(tagInput.trim())) {
       setTags([...tags, tagInput.trim()]);
@@ -235,30 +217,7 @@ const handlePosterUpload = (e) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
-  // speaker functions
-  const addSpeaker = () => {
-    if (speakerName.trim() !== '' && speakerEmail.trim() !== '') {
-      const newSpeaker = {
-        id: Date.now(),
-        name: speakerName.trim(),
-        email: speakerEmail.trim(),
-        image: speakerImagePreview || avatarImage
-      };
-      setSpeakers([...speakers, newSpeaker]);
-      setSpeakerName('');
-      setSpeakerEmail('');
-      setSpeakerImage(null);
-      setSpeakerImagePreview(null);
-      setShowSpeakerModal(false);
-    }
-  };
-
-
-
-
-  const removeSpeaker = (speakerId) => {
-    setSpeakers(speakers.filter(speaker => speaker.id !== speakerId));
-  };
+  
 
  const handleSubmit = async (status = "PUBLISHED") => {
   const isDraft = status === "DRAFT";
@@ -273,7 +232,7 @@ const handlePosterUpload = (e) => {
     formData.append("name", eventName || "");
     formData.append("description", eventDescription || "");
     formData.append("status", status);
-    formData.append("coverImage", eventPoster); // 🟢 now the File object
+    formData.append("coverImage", eventPoster); 
     formData.append("isRegistrationOpen", true);
     formData.append("showSpeakerList", true);
     formData.append("organizationId", organizationId || "");
@@ -288,7 +247,6 @@ const handlePosterUpload = (e) => {
     formData.append("endDate", combinedEnd);
     formData.append("maxAttendees", safeCapacity);
 
-    // Convert complex fields to JSON strings
     formData.append("tags", JSON.stringify(tags.length ? tags : [""]));
     formData.append("tickets", JSON.stringify([
       {
@@ -357,18 +315,7 @@ const handlePosterUpload = (e) => {
         alt="grid background"
         className="absolute left-1/2 top-3/4 -translate-x-1/2 -translate-y-3/4 w-[120vw] sm:w-[60vw] max-w-none opacity-80 pointer-events-none z-0"
       />
-
-    
-  
-      {/* Background Image with Stars */}
-      <img
-  src={bgImage}
-  alt="Background"
-  className="fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-80"
-/>
   <TopNavbar  />
-
-
       <StarryBackground count={60}/>
 
       {/* Form Container with Scroll */}
@@ -378,29 +325,41 @@ const handlePosterUpload = (e) => {
       >
         
         {/* Poster */}
-        <div className="relative w-full rounded-xl overflow-hidden bg-white/5 border border-white/20 mb-8 group hover:border-white/40 transition">
-          <img 
-  src={eventPosterPreview} 
-  alt="Event Poster" 
-  className="w-full h-28 object-contain bg-black" 
-/>
+      
 
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-            <input
-              type="file"
-              ref={fileInputRef}
-              accept="image/*"
-              onChange={handlePosterUpload}
-              className="hidden"
-            />
-            <button 
-              className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-sm flex items-center gap-2 hover:bg-white/30 transition"
-              onClick={() => fileInputRef.current.click()}
-            >
-              <Upload size={16} /> Upload Event Poster
-            </button>
-          </div>
-        </div>
+<div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/20 mb-8 group hover:border-white/40 transition">
+  <img 
+      src={eventPosterPreview ? eventPosterPreview : templates[posterTemplateIndex]} 
+    alt="Event Poster" 
+    className="w-full h-full object-cover bg-black" 
+  />
+
+   <div className="absolute top-2 right-2 flex gap-2 z-10">
+    {/* Template Switcher */}
+    <button
+      onClick={switchTemplate}
+      className="bg-white text-black px-3 py-1 text-xs rounded-md flex items-center gap-1 shadow"
+    >
+      <RefreshCcw size={14} /> 
+    </button>
+
+    {/* Image Upload */}
+    <input
+      type="file"
+      ref={fileInputRef}
+      accept="image/*"
+      onChange={handlePosterUpload}
+      className="hidden"
+    />
+    <button
+      className="bg-white text-black px-3 py-1 text-xs rounded-md flex items-center gap-1 shadow"
+      onClick={() => fileInputRef.current.click()}
+    >
+      <Upload size={14} /> Upload Poster
+    </button>
+  </div>
+</div>
+
 
        
         <div className="space-y-6">
@@ -421,9 +380,9 @@ const handlePosterUpload = (e) => {
       <ChevronDown size={16} />
     </button>
 
-  {showOrganizerDropdown && (
+ {showOrganizerDropdown && (
   <div className="absolute left-0 mt-2 w-full bg-[#2b2b2b] border border-white/20 rounded-xl shadow-xl z-30 text-sm">
-
+    
     {/* Organizer (Me) */}
     <button
       onClick={() => {
@@ -442,22 +401,28 @@ const handlePosterUpload = (e) => {
     <div className="border-t border-white/30" />
 
     {/* Organizations */}
-   {organizations.length > 0 && organizations.map((org) => (
-      <button
-        key={org.id}
-        onClick={() => {
-          setSelectedOrganizer(org.name);
-          setOrganizationId(org.id);
-          setShowOrganizerDropdown(false);
-        }}
-        className={`w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10 ${
-          selectedOrganizer === org.name ? "bg-white/10 text-blue-400" : "text-white"
-        }`}
-      >
-        <ScanFace size={18} />
-        {org.name}
-      </button>
-    ))}
+    {isLoading ? (
+      <div className="px-4 py-3 text-white/60">Loading organizations...</div>
+    ) : organizations.length > 0 ? (
+      organizations.map((org) => (
+        <button
+          key={org.id}
+          onClick={() => {
+            setSelectedOrganizer(org.name);
+            setOrganizationId(org.id);
+            setShowOrganizerDropdown(false);
+          }}
+          className={`w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10 ${
+            selectedOrganizer === org.name ? "bg-white/10 text-blue-400" : "text-white"
+          }`}
+        >
+          <ScanFace size={18} />
+          {org.name}
+        </button>
+      ))
+    ) : (
+      <div className="px-4 py-3 text-white/60">No organizations found</div>
+    )}
 
     <div className="border-t border-white/30" />
 
@@ -474,6 +439,7 @@ const handlePosterUpload = (e) => {
     </button>
   </div>
 )}
+
 
   </div>
 
@@ -528,13 +494,9 @@ const handlePosterUpload = (e) => {
         value={eventName}
         onChange={(e) => setEventName(e.target.value)}
         autoFocus
-        className="text-3xl font-semibold bg-transparent border-b border-white/30 outline-none focus:border-white/70 transition w-full max-w-[250px]"
+        className="text-3xl font-semibold bg-transparent  outline-none focus:border-white/70 transition w-full max-w-[250px]"
       />
-      <Check
-        size={22}
-        className="text-white cursor-pointer hover:text-green-500 transition"
-        onClick={() => setIsEditingEventName(false)}
-      />
+      
     </>
   ) : (
     <>
@@ -551,115 +513,102 @@ const handlePosterUpload = (e) => {
             {/* Date & Time Section */}
         <div className="space-y-2">
  
-
-  {/* Display Box */}
   <div
     onClick={() => setShowPicker(true)}
-    className="flex items-start gap-3 p-4 rounded-xl bg-[#2B2B2B] border border-white/20 cursor-pointer hover:bg-white/20 transition"
+    className="flex items-start gap-3 p-4 rounded-xl bg-[#2B2B2B] border border-white/20 cursor-pointer hover:bg-white/10 transition"
   >
     <Clock className="text-white/70 mt-1" size={20} />
     <div className="text-sm leading-snug">
       <div className="font-medium text-white">
-        {start
-          ? format(start, "EEEE, MMMM d yyyy")
-          : "Select event date"}
+        {start ? format(start, "EEE, MMM d yyyy") : "Select event date"}
       </div>
       <div className="text-white/70">
         {timeRange.start && timeRange.end
-          ? `${timeRange.start} to ${timeRange.end} GMT +5:30`
+          ? `${timeRange.start} to ${timeRange.end} ${timezone}`
           : "Select time range"}
       </div>
     </div>
   </div>
 
-  {/* Popup Picker */}
- {showPicker && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-2">
-    <div className="bg-black border border-white/20 rounded-xl shadow-2xl p-5 w-full max-w-md mx-auto">
-      {/* Title with Clock Icon */}
-      <div className="flex items-center gap-2 mb-4">
-        <Clock size={20} className="text-white/70" />
-        <span className="text-white text-sm">Select Date & Time</span>
-      </div>
+  {showPicker && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-2">
+      <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl p-6 w-full max-w-md text-white">
+        
+    
+        <h2 className="text-lg font-semibold mb-4">Event Time</h2>
 
-      {/* Date Picker */}
-      <DatePicker
-  selected={start}
-  onChange={(update) => {
-    if (Array.isArray(update)) {
-      const [startDate, endDate] = update;
-      setDateRange([
-        startDate,
-        endDate ?? startDate  // 👈 if end is null, use start as end
-      ]);
-    }
-  }}
-  startDate={start}
-  endDate={end}
-  selectsRange
-  inline
-/>
+        {/* Start Time */}
+        <div className="grid grid-cols-3 items-center mb-3">
+          <label className="text-sm text-white/70 col-span-1">Start</label>
+          <div className="col-span-2 grid grid-cols-2 gap-2">
+            <DatePicker
+              selected={start}
+              onChange={(date) => {
+                setStart(date);
+                if (date > end) setEnd(date); // auto adjust if start > end
+              }}
+              dateFormat="EEE, MMM d"
+              className="bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm w-full text-white"
+            />
+            <input
+              type="time"
+              value={timeRange.start}
+              onChange={(e) =>
+                setTimeRange({ ...timeRange, start: e.target.value })
+              }
+              className="bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm w-full text-white"
+            />
+          </div>
+        </div>
 
-      {/* Time Inputs */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="relative">
-          <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" size={16} />
-          <input
-            type="time"
-            value={timeRange.start}
-            onChange={(e) =>
-              setTimeRange({ ...timeRange, start: e.target.value })
-            }
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm text-white"
-            placeholder="Start Time"
+        {/* End Time */}
+        <div className="grid grid-cols-3 items-center mb-4">
+          <label className="text-sm text-white/70 col-span-1">End</label>
+          <div className="col-span-2 grid grid-cols-2 gap-2">
+            <DatePicker
+              selected={end}
+              onChange={(date) => setEnd(date)}
+              dateFormat="EEE, MMM d"
+              className="bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm w-full text-white"
+            />
+            <input
+              type="time"
+              value={timeRange.end}
+              onChange={(e) =>
+                setTimeRange({ ...timeRange, end: e.target.value })
+              }
+              className="bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-sm w-full text-white"
+            />
+          </div>
+        </div>
+
+        {/* Timezone Dropdown */}
+        <div className="mb-5">
+          <label className="text-sm text-white/70 mb-1 block">Timezone</label>
+          <Select
+            options={timezoneList}
+            value={timezoneList.find((tz) => tz.value === timezone)}
+            onChange={(selected) => setTimezone(selected.value)}
+            styles={customStyles}
+            placeholder="Search or select timezone"
+            isSearchable
           />
         </div>
-        <div className="relative">
-          <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" size={16} />
-          <input
-            type="time"
-            value={timeRange.end}
-            onChange={(e) =>
-              setTimeRange({ ...timeRange, end: e.target.value })
-            }
-            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm text-white"
-            placeholder="End Time"
-          />
-          {/* Timezone Selector */}
 
-
-
-
-
-
+        {/* Done Button */}
+        <div className="flex justify-end">
+          <button
+            onClick={() => setShowPicker(false)}
+            className="bg-white text-black text-sm font-medium px-5 py-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            Done
+          </button>
         </div>
-        <div className="mt-4">
-  <label className="block text-white/70 text-sm mb-2">Select Timezone</label>
-  <Select
-    options={timezoneList}
-    value={timezoneList.find((tz) => tz.value === timezone)}
-    onChange={(selected) => setTimezone(selected.value)}
-    styles={customStyles}
-    placeholder="Search or select timezone"
-    isSearchable
-  />
-</div>
-      </div>
-
-      {/* Done Button */}
-      <div className="mt-6 flex justify-end">
-        <button
-          onClick={() => setShowPicker(false)}
-          className="text-sm text-black bg-white px-5 py-2 rounded-lg hover:bg-gray-100 transition"
-        >
-          Done
-        </button>
       </div>
     </div>
-  </div>
-)}
-
+  )}
 </div>
+
 
 
           {/* Location Section */}
@@ -813,45 +762,6 @@ const handlePosterUpload = (e) => {
           </div>
 
        
-          {/* <div className="space-y-3">
-           
-            <button 
-              className="flex items-center justify-center gap-2 w-full bg-[#2b2b2b] px-4 py-3 rounded-lg text-sm border border-white/20 hover:bg-white/10 transition"
-              onClick={() => setShowSpeakerModal(true)}
-            >
-              <UserPlus size={16} /> Add speakers
-            </button>
-            
-           
-            {speakers.length > 0 && (
-              <div className="mt-2 space-y-2">
-                {speakers.map((speaker) => (
-                  <div 
-                    key={speaker.id} 
-                    className="flex items-center justify-between bg-white/10 px-4 py-2 rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src={speaker.image} 
-                        alt={speaker.name} 
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="text-sm font-medium">{speaker.name}</p>
-                        <p className="text-xs text-white/70">{speaker.email}</p>
-                      </div>
-                    </div>
-                    <button 
-                      onClick={() => removeSpeaker(speaker.id)}
-                      className="text-white/70 hover:text-red-300 transition"
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>*/}
 
           {/* Ticket Type */}
         <div className="space-y-4">
@@ -947,98 +857,7 @@ const handlePosterUpload = (e) => {
         </div>
       </div>
   
-      {/* speaker Modal */}
-      {showSpeakerModal && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/70">
-          <div className="bg-black border border-white/20 rounded-xl w-full max-w-md p-6 m-4 relative">
-            <button 
-              className="absolute top-4 right-4 text-white/70 hover:text-white transition"
-              onClick={() => {
-                setShowSpeakerModal(false);
-                setSpeakerName('');
-                setSpeakerEmail('');
-                setSpeakerImage(null);
-                setSpeakerImagePreview(null);
-              }}
-            >
-              <X size={16} />
-            </button>
-            
-            <h3 className="text-lg font-semibold mb-4">Add Speaker</h3>
-            
-            {/* speaker Image Upload */}
-            <div className="flex justify-center mb-4">
-              <div className="relative">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/30">
-                  <img 
-                    src={speakerImagePreview || avatarImage} 
-                    alt="speaker" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <button 
-                  className="absolute bottom-0 right-0 bg-white/20 p-1 rounded-full hover:bg-white/30 transition"
-                  onClick={() => speakerImageInputRef.current.click()}
-                >
-                  <ImageIcon size={14} />
-                </button>
-                <input
-                  type="file"
-                  ref={speakerImageInputRef}
-                  accept="image/*"
-                  onChange={handleSpeakerImageUpload}
-                  className="hidden"
-                />
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm text-white/80 block mb-1">Name*</label>
-                <input
-                  type="text"
-                  value={speakerName}
-                  onChange={(e) => setSpeakerName(e.target.value)}
-                  placeholder="Speaker Name"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40"
-                />
-              </div>
-              
-              <div>
-                <label className="text-sm text-white/80 block mb-1">Email*</label>
-                <input
-                  type="email"
-                  value={speakerEmail}
-                  onChange={(e) => setSpeakerEmail(e.target.value)}
-                  placeholder="speaker@example.com"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-sm focus:outline-none focus:border-white/40"
-                />
-              </div>
-              
-              <div className="flex gap-3 mt-6">
-                <button 
-                  className="flex-1 py-3 bg-white text-black rounded-lg font-medium hover:bg-gray-100 transition"
-                  onClick={addSpeaker}
-                >
-                  Add Speaker
-                </button>
-                <button 
-                  className="flex-1 py-3 bg-transparent border border-white/30 rounded-lg font-medium hover:bg-white/5 transition"
-                  onClick={() => {
-                    setShowSpeakerModal(false);
-                    setSpeakerName('');
-                    setSpeakerEmail('');
-                    setSpeakerImage(null);
-                    setSpeakerImagePreview(null);
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+    
       {/* Ticket Price Modal */}
 {showPriceModal && (
   <div className="fixed p-4 inset-0 z-50 flex items-center justify-center bg-black/60">

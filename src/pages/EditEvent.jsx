@@ -4,7 +4,7 @@ import { EventContext } from '../context/EventContext';
 import TopNavbar from '../components/TopNavbar';
 import StarryBackground from '../components/StarryBackground';
 import {
-  Upload, Pencil, MapPin, Link2, Plus, Undo,
+  Upload, ArrowLeft, MapPin, Link2, Plus, Undo,
   PenLine,RotateCcw, Image,AlignCenter,AlignLeft, AlignRight,ChevronsUpDown,
   Sparkles,CalendarDays, Globe, UserPlus, Users, HandHeart,Clock,
   RefreshCcw,LaptopMinimal
@@ -16,6 +16,7 @@ import ticket1 from '../assets/ticketdesign1.png';
 import ticket2 from '../assets/ticketdesign2.png';
 import Select from 'react-select';
 import timezoneList from '../data/timezones.json'; 
+import FormQuestions from '../components/FormQuestions';
 
 
 
@@ -23,8 +24,8 @@ const EditEvent = () => {
   const { id: eventId } = useParams();
   const [isEditingName, setIsEditingName] = useState(false);
   const [fontFamily, setFontFamily] = useState('Inter');
-  const { fetchEventById } = useContext(EventContext);
-  const [eventData, setEventData] = useState(null);
+  const { useEventById } = useContext(EventContext);
+const { data: eventData, isLoading } = useEventById(eventId);
   const [posterTemplateIndex, setPosterTemplateIndex] = useState(0);
   const [textAlign, setTextAlign] = useState('right');
   const [showPicker, setShowPicker] = useState(false);
@@ -81,42 +82,38 @@ const handleAlignChange = (alignment) => {
 };
 
  useEffect(() => {
-  const loadEvent = async () => {
-    const data = await fetchEventById(eventId);
-    setEventData(data);
-    setStart(new Date(data.startDate));
-    setEnd(new Date(data.endDate));
-    setTimeRange({
-      start: new Date(data.startDate).toTimeString().slice(0, 5),
-      end: new Date(data.endDate).toTimeString().slice(0, 5),
-    });
-    setTimezone(data.timezone || 'Asia/Kolkata');
+  if (!eventData) return;
 
-    // Use fetched or fallback to predefined
-    if (data.formFields && data.formFields.length > 0) {
-      setQuestions(data.formFields.map((q) => ({
-        ...q,
-        showDropdown: false,
-      })));
-    } else {
-      setQuestions(predefinedQuestions.map((q, i) => ({
-        ...q,
-        id: Date.now() + i,
-        showDropdown: false,
-      })));
-    }
+  setStart(new Date(eventData.startDate));
+  setEnd(new Date(eventData.endDate));
+  setTimeRange({
+    start: new Date(eventData.startDate).toTimeString().slice(0, 5),
+    end: new Date(eventData.endDate).toTimeString().slice(0, 5),
+  });
+  setTimezone(eventData.timezone || 'Asia/Kolkata');
 
-    if (data.virtualLink?.trim()) {
-      setIsVirtual(true);
-      setVirtualLink(data.virtualLink);
-    } else {
-      setIsVirtual(false);
-      setLocation(data.location || '');
-    }
-  };
+  if (eventData.formFields?.length > 0) {
+    setQuestions(eventData.formFields.map((q) => ({
+      ...q,
+      showDropdown: false,
+    })));
+  } else {
+    setQuestions(predefinedQuestions.map((q, i) => ({
+      ...q,
+      id: Date.now() + i,
+      showDropdown: false,
+    })));
+  }
 
-  loadEvent();
-}, [eventId]);
+  if (eventData.virtualLink?.trim()) {
+    setIsVirtual(true);
+    setVirtualLink(eventData.virtualLink);
+  } else {
+    setIsVirtual(false);
+    setLocation(eventData.location || '');
+  }
+}, [eventData]);
+
 
 
 
@@ -154,13 +151,22 @@ const predefinedQuestions = [
 ];
 
   return (
-    <div className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden pb-20"
+    <div className="min-h-screen w-full text-white bg-[#010205] relative overflow-hidden pb-20 pt-16"
          style={{ backgroundImage: `radial-gradient(circle at top, rgba(0, 70, 255, 0.1) 0%, transparent 20%)` }}>
       <TopNavbar />
       <StarryBackground count={60} />
 
-      <div className="max-w-xl mx-auto px-4 mt-24 space-y-6">
+      <div className="max-w-xl mx-auto p-4  space-y-6">
         <div>
+          <div className='flex justify-start gap-3 mb-6'>
+          <div className='flex gap-2'>
+            <button onClick={() => navigate(-1)}>
+              <ArrowLeft className="text-white bg-[#2b2b2b] p-1 rounded-lg" size={28} />
+            </button>
+          </div>
+          <h2 className="text-xl">Edit Tickets</h2>
+        </div>
+
          
       <div className="relative mt-1 group">
   {isEditingName ? (
@@ -605,94 +611,7 @@ const predefinedQuestions = [
 </div>
 
 
-        <div className="space-y-3 mt-6">
-  <p className="text-sm font-semibold">Questions for Applicants</p>
-
-{questions.map((field, index) => (
-  <div
-    key={field.id || index}
-    className="bg-[#2b2b2b] border border-white/10 rounded-xl px-4 py-3 text-sm flex justify-between items-center relative"
-  >
-    {/* Number + Label */}
-    <div className="flex items-center gap-2 flex-1">
-      <span className="text-white text-sm">{index + 1}.</span>
-      <input
-        type="text"
-        value={field.label}
-        placeholder="Enter your question..."
-        onChange={(e) => {
-  const updated = [...questions];
-  updated[index].label = e.target.value.trimStart();
-  setQuestions(updated);
-}}
-onBlur={(e) => {
-  const updated = [...questions];
-  updated[index].label = e.target.value.trim();
-  setQuestions(updated);
-}}
-
-        className="bg-transparent text-white flex-1 outline-none placeholder-white/40 text-sm"
-      />
-    </div>
-
-    {/* Show type dropdown */}
-    <div className="relative ml-3">
-      <button
-        onClick={() => {
-          const updated = [...questions];
-          updated[index].showDropdown = !updated[index].showDropdown;
-          setQuestions(updated);
-        }}
-        className="flex items-center gap-1 px-2 py-1 text-xs text-white/70 hover:text-white rounded-md"
-      >
-        {field.type || (field.required ? 'Required' : 'Optional')}
-        <ChevronsUpDown size={14} />
-      </button>
-
-      {field.showDropdown && (
-        <div className="absolute right-0 mt-1 bg-[#1e1e1e] border border-white/10 rounded-md shadow-md z-10 w-32">
-          {[' Name', 'Email', 'Phone', 'Required', 'Optional'].map((option) => (
-            <div
-              key={option}
-              onClick={() => {
-                const updated = [...questions];
-                if (option === 'Required' || option === 'Optional') {
-                  updated[index].required = option === 'Required';
-                } else {
-                  updated[index].type = option;
-                }
-                updated[index].showDropdown = false;
-                setQuestions(updated);
-              }}
-              className="px-3 py-2 text-xs hover:bg-white/10 cursor-pointer"
-            >
-              {option}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  </div>
-))}
-
-
-  <div className="flex items-center gap-2 mt-2">
-    <button
-      onClick={addNewQuestion}
-      className="text-xs bg-[#2b2b2b] px-4 py-2 rounded-lg flex items-center gap-2 border border-white/10"
-    >
-      <Plus size={14} /> Add New Question
-    </button>
-
-   <button
-  onClick={addDOBQuestion}
-  className="text-xs bg-[#2b2b2b] px-4 py-2 rounded-lg flex items-center gap-2 border border-white/10"
->
-  <CalendarDays size={14} /> Ask For Date of Birth
-</button>
-
-  </div>
-</div>
+      <FormQuestions questions={questions} setQuestions={setQuestions} />
 
 
         <div className="flex gap-3 mt-6">

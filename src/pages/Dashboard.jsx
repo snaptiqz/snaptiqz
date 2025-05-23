@@ -19,18 +19,15 @@ import ActionButtonSkeleton from '../components/ActionButtonSkeleton';
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const { eventList, loading, fetchMyEvents } = useContext(EventContext);
+  const { useMyEvents } = useContext(EventContext);
+const { data: eventList = [], isLoading: loading } = useMyEvents(user?.id);
   const [activeFilter, setActiveFilter] = useState('UPCOMING');
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
   const scrollRef = useRef(null);
 
    
-  useEffect(() => {
-    if (user?.id) {
-      fetchMyEvents(user.id);
-    }
-  }, [user]);
+  
 
   // Filter events based on active filter and search term
   useEffect(() => {

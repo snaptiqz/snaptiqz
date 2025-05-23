@@ -19,7 +19,8 @@ const BottomNavbar = () => {
   const navbarRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useContext(AuthContext);
+  const { useSession } = useContext(AuthContext);
+  const { data: user } = useSession();
   const [collapsed, setCollapsed] = useState(() => {
   const stored = sessionStorage.getItem("navbarCollapsed");
   return stored ? JSON.parse(stored) : false;
