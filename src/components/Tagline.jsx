@@ -75,11 +75,7 @@ const Tagline = () => {
                     pointerEvents: 'none',
                   }}
                 />
-                <img
-                  src={gridBg}
-                  alt="grid background"
-                  className="relative w-[28vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
-                />
+               
               </div>
             </div>
 
@@ -95,10 +91,20 @@ const Tagline = () => {
           </div>
 
           {/* Tagline: Plan. Publish. Engage. */}
-        <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument">
+        <motion.div
+  initial={{ opacity: 0, y: 60 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.5 }}
+  transition={{ duration: 0.8, ease: 'easeInOut' }}
+  className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument"
+>
   {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
-    <span
+    <motion.span
       key={i}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ delay: i * 0.3, duration: 0.8, ease: 'easeInOut' }}
       className="text-transparent bg-clip-text"
       style={{
         backgroundImage:
@@ -107,42 +113,50 @@ const Tagline = () => {
       }}
     >
       {text}
-    </span>
+    </motion.span>
   ))}
-</div>
+</motion.div>
 
 
           {/* AT 0% COMMISSION */}
-      <div className="w-screen sm:-translate-y-10 mt-10">
-  <div className="w-full text-center">
-    <h3
-      className="uppercase font-poppins font-bold tracking-wider"
-      style={{
-        fontSize: 'clamp(7rem, 16vw, 16rem)',
-        WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
-        WebkitTextFillColor: 'transparent',
-        color: 'transparent',
-        letterSpacing: '0.04em',
-        lineHeight: '1.1',
-      }}
-    >
-      AT 0%
-    </h3>
-    <h3
-      className="uppercase font-poppins font-bold tracking-wider"
-      style={{
-        fontSize: 'clamp(3rem, 8vw, 7rem)',
-        WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
-        WebkitTextFillColor: 'transparent',
-        textShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
-        filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
-      }}
-    >
-      COMMISSION
-    </h3>
-  </div>
-</div>
+       <div className="w-screen sm:-translate-y-10 mt-10">
+ <motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: false, amount: 0.4 }}
+  transition={{ duration: 0.6, ease: 'easeOut' }}
+  className="w-full text-center"
+>
 
+  <h3
+    className="uppercase font-poppins font-bold tracking-wider"
+    style={{
+      fontSize: 'clamp(7rem, 16vw, 16rem)',
+      WebkitTextStroke: '1.4px rgba(255, 255, 255, 0.5)',
+      WebkitTextFillColor: 'transparent',
+      color: 'transparent',
+      letterSpacing: '0.04em',
+      lineHeight: '1.1',
+    }}
+  >
+    AT 0%
+  </h3>
+  <h3
+    className="uppercase font-poppins font-bold tracking-wider"
+    style={{
+  fontSize: 'clamp(3rem, 8vw, 7rem)',
+  WebkitTextStroke: '1.2px rgba(255, 255, 255, 0.5)',
+  WebkitTextFillColor: 'transparent',
+  textShadow: '0 4px 12px rgba(0, 0, 0, 0.5)', // ⬅ lighter shadow
+  filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.5))',
+}}
+
+  >
+    COMMISSION
+  </h3>
+</motion.div>
+
+</div>
         </div>
       </div>
     </div>
