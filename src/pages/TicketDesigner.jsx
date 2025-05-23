@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, } from 'react';
+import React, { useRef, useState, useCallback,useEffect } from 'react';
 import { Upload, ImageIcon, Layout, Palette, Undo, Eye, ArrowLeft, Clock, MapPin, Calendar, QrCodeIcon,Download, ImageOff, AlignLeft, AlignCenter, AlignRight, ChevronsLeftRight, Sparkle, Sparkles, ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
 import defaultTicket from '../assets/ticketdesign1.png';
 import TopNavbar from '../components/TopNavbar';
@@ -9,19 +9,26 @@ import TicketPreview from '../components/TicketPreview';
 import { useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
 
+
 const TicketDesigner = () => {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const ticketRef = useRef(null);
   const [ticketImage, setTicketImage] = useState(defaultTicket);
   const [color, setColor] = useState('#000000');
+  const [bodyColor, setBodyColor] = useState('#FFFFFF');
+  const [textColor2,setTextColor2] = useState('#000000');
   const [template, setTemplate] = useState('template1');
   const [textAlign, setTextAlign] = useState('center');
   const [fontFamily, setFontFamily] = useState('Inter');
-  const [textColor, setTextColor] = useState('#ffffff');
+  const [fontSize, setFontSize] = useState(16); // default 16px
+
+  const [inputColor, setInputColor] = useState(color);
+   const [inputBodyColor, setInputBodyColor] = useState(bodyColor);
+  const [inputTextColor2, setInputTextColor2] = useState(textColor2);
   const [showWatermark, setShowWatermark] = useState(true);
   const [visibility, setVisibility] = useState({
-    showEventName: true,
+    showCoverImage: true,
     showDetails: true,
     showOrganizerImage: true,
     showOrganizerName: true,
@@ -47,6 +54,16 @@ const TicketDesigner = () => {
     setColor(newColor);
   }, []);
 
+   const handleBodyColorChange = useCallback((newColor) => {
+    setBodyColor(newColor);
+  }, []);
+
+
+  const handleTextColorChange = useCallback((newColor) => {
+    setTextColor2(newColor);
+
+  })
+
   const handleAlignChange = useCallback((alignment) => {
     setTextAlign(alignment);
   }, []);
@@ -58,12 +75,14 @@ const TicketDesigner = () => {
   const handleUndo = useCallback(() => {
     setTicketImage(defaultTicket);
     setColor('#000000');
+    setTextColor2('#000000');
+    setBodyColor('#FFFFFF');
     setTemplate('template1');
     setTextAlign('center');
     setFontFamily('Inter');
     setShowWatermark(true);
     setVisibility({
-      showEventName: true,
+      showCoverImage: true,
       showDetails: true,
       showOrganizerImage: true,
       showOrganizerName: true,
@@ -93,11 +112,20 @@ const handleDownload = async () => {
   link.click();
 };
 
+useEffect(() => {
+  setInputColor(color); // sync when color changes elsewhere
+}, [color]);
 
+useEffect(()=>{
+  setInputTextColor2(textColor2);
+},[textColor2])
 
+useEffect(()=>{
+  setInputBodyColor(bodyColor);
+},[bodyColor  ])
 
   const handleUpdate = useCallback(() => {
-    // In a real app, this would save the changes to a database or API
+    
     console.log('Ticket design updated!', {
       ticketImage,
       color,
@@ -110,8 +138,8 @@ const handleDownload = async () => {
     alert('Ticket design updated successfully!');
   }, [ticketImage, color, template, textAlign, fontFamily, visibility, showWatermark]);
 
-  const toggleShowEventName = useCallback(() => 
-    setVisibility((prev) => ({ ...prev, showEventName: !prev.showEventName })), []);
+  const toggleShowCoverImage = useCallback(() => 
+    setVisibility((prev) => ({ ...prev, showCoverImage: !prev.showCoverImage })), []);
     
   const toggleShowDetails = useCallback(() => 
     setVisibility((prev) => ({ ...prev, showDetails: !prev.showDetails })), []);
@@ -178,9 +206,13 @@ const handleDownload = async () => {
     textAlign={textAlign}
     fontFamily={fontFamily}
     color={color}
-    textColor={textColor}
+    bodyColor={bodyColor}
+    textColor2={textColor2}
     showWatermark={showWatermark}
     visibility={visibility}
+     fontSize={fontSize}
+   
+  
   />
 </div>
 
@@ -256,29 +288,126 @@ const handleDownload = async () => {
   <ChevronsUpDown size={20} />
 </button>
 
+
         </div>
+        {/* <div className="mt-4">
+  <p className="text-sm text-white/70 mb-2">Font Size</p>
+  <input
+    type="range"
+    min={10}
+    max={30}
+    step={1}
+    value={fontSize}
+    onChange={(e) => setFontSize(parseInt(e.target.value))}
+    className="w-full"
+  />
+  <p className="text-xs text-white mt-1">Size: {fontSize}px</p>
+</div> */}
+
 
         {/* Select Color */}
-      <div className='mt-6'>
-  <p className='text-sm text-white/70 mb-2'>Select color</p>
-  <div className='flex gap-3 overflow-x-auto whitespace-nowrap pb-2'>
-    {[
-      '#000000', '#1c1c1c', '#b42020', '#ff4d4d',
-      '#f5c518', '#ffd700', '#ffa500', '#ff8c00',
-      '#0e1a4b', '#2b5797', '#5dade2', '#1b5e20',
-      '#4caf50', '#81c784', '#6a1b9a', '#ba68c8',
-      '#5d4037', '#8d6e63', '#d3d3d3', '#9e9e9e',
-      '#f06292', '#e91e63'
-    ].map((clr, index) => (
-      <button
-        key={index}
-        className={`min-w-[24px] min-h-[24px] rounded-full border-2 hover:scale-110 transition-transform ${
-          color === clr ? 'border-white' : 'border-transparent'
-        }`}
-        style={{ backgroundColor: clr }}
-        onClick={() => handleColorChange(clr)}
-      />
-    ))}
+      <div className='mt-6 flex justify-between'>
+    <div className=''>
+  <p className='text-sm text-white/70 mb-2'>Select Ticket color</p>
+  <div className="flex items-center gap-4">
+    {/* Native color picker */}
+    <input
+      type="color"
+      value={color}
+      onChange={(e) => {
+        const value = e.target.value;
+        setInputColor(value);
+        handleColorChange(value);
+      }}
+      className="w-12 h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+    />
+
+    {/* Hex code input */}
+    <input
+      type="text"
+      value={inputColor}
+      onChange={(e) => setInputColor(e.target.value)}
+      onBlur={() => {
+        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputColor)) {
+          handleColorChange(inputColor);
+        } else {
+          setInputColor(color); // revert if invalid
+        }
+      }}
+      maxLength={7}
+      placeholder="#000000"
+      className="bg-[#1e1e1e] border border-white/20 rounded-md px-3 py-1 text-white text-sm w-[100px]"
+    />
+  </div>
+</div>
+
+ <div className=''>
+  <p className='text-sm text-white/70 mb-2'>Select Body color</p>
+  <div className="flex items-center gap-4">
+    {/* Native color picker */}
+    <input
+      type="color"
+      value={bodyColor}
+      onChange={(e) => {
+        const value = e.target.value;
+        setInputBodyColor(value);
+        handleBodyColorChange(value);
+      }}
+      className="w-12 h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+    />
+
+    {/* Hex code input */}
+    <input
+      type="text"
+      value={inputBodyColor}
+      onChange={(e) => setInputBodyColor(e.target.value)}
+      onBlur={() => {
+        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputBodyColor)) {
+          handleBodyColorChange(inputBodyColor);
+        } else {
+          setInputBodyColor(bodyColor); // revert if invalid
+        }
+      }}
+      maxLength={7}
+      placeholder="#ffffff"
+      className="bg-[#1e1e1e] border border-white/20 rounded-md px-3 py-1 text-white text-sm w-[100px]"
+    />
+  </div>
+</div>
+</div>
+
+
+<div className=''>
+  <p className='text-sm text-white/70 mb-2'>Select Text Color</p>
+  <div className="flex items-center gap-4">
+    {/* Native color picker */}
+    <input
+      type="color"
+      value={textColor2}
+      onChange={(e) => {
+        const value = e.target.value;
+        setInputTextColor2(value);
+        handleTextColorChange(value);
+      }}
+      className="w-12 h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+    />
+
+    {/* Hex code input */}
+    <input
+      type="text"
+      value={inputColor}
+      onChange={(e) => setInputColor(e.target.value)}
+      onBlur={() => {
+        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputTextColor2)) {
+          handleTextColorChange(inputTextColor2);
+        } else {
+          setInputColor(textColor2); // revert if invalid
+        }
+      }}
+      maxLength={7}
+      placeholder="#000000"
+      className="bg-[#1e1e1e] border border-white/20 rounded-md px-3 py-1 text-white text-sm w-[100px]"
+    />
   </div>
 </div>
 
@@ -317,7 +446,7 @@ const handleDownload = async () => {
           <h3 className="text-white font-semibold">Visibility</h3>
 
           <div className="flex flex-col gap-2 items-start">
-            <VisibilityToggle label="Show event name" value={visibility.showEventName} onToggle={toggleShowEventName} />
+            <VisibilityToggle label="Show Cover Image" value={visibility.showCoverImage} onToggle={toggleShowCoverImage} />
             <VisibilityToggle label="Show event Details" value={visibility.showDetails} onToggle={toggleShowDetails} />
             <VisibilityToggle label="Show organizer image" value={visibility.showOrganizerImage} onToggle={toggleShowOrganizerImage} />
             <VisibilityToggle label="Show organizer name" value={visibility.showOrganizerName} onToggle={toggleShowOrganizerName} />

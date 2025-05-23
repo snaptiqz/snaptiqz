@@ -9,6 +9,8 @@ const TicketPreview = ({
   textAlign = 'center',
   fontFamily,
   color = '#000',
+  bodyColor = '#fff', 
+  textColor2 = '#000',
   showWatermark,
   visibility = {},
 }) => {
@@ -108,28 +110,29 @@ const blackSection = (
         {/* White Top Section for template1/2/3 */}
         {(template === 'template1' || template === 'template2' || template === 'template3') && (
           <div
-            className={`bg-white w-full text-black ${
-              template === 'template3' ? 'h-[300px] rounded-t-xl ' : 'h-[450px] rounded-xl'
-            } flex flex-col ${visibility.ticketOnly ? 'hidden' : 'block'}`}
+           className={`w-full flex flex-col ${template === 'template3' ? 'h-[300px] rounded-t-xl' : 'h-[450px] rounded-xl'} ${visibility.ticketOnly ? 'hidden' : 'block'}`}
+style={{ backgroundColor: bodyColor }}
+
             
           >
-            <img
+            {visibility.showCoverImage&&(<img
               src={ticketImage}
               alt="Ticket design"
               className="w-full object-fill"
               style={{
                 height: template === 'template3' ? '60px' : '25%',
               }}
-            />
+            />)}
 
             <div
   className={`flex flex-col flex-1 justify-center gap-2 px-4 ${
     template === 'template3' ? 'gap-1 px-3' : ''
   }`}
-  style={{ textAlign, fontFamily }}
+ style={{ textAlign, fontFamily, color: textColor2 }}
+
 >
   {visibility.showEventName && (
-    <h2 className={`${template === 'template3' ? 'text-lg' : 'text-2xl'} font-semibold`}>
+    <h2 className={`${template === 'template3' ? 'text-lg' : 'text-2xl'} font-semibold `}>
       Event Name
     </h2>
   )}
@@ -144,6 +147,7 @@ const blackSection = (
             : textAlign === 'right'
             ? 'flex-end'
             : 'center',
+          
       }}
     >
       <img
@@ -214,15 +218,17 @@ const blackSection = (
     <div
       className={`bg-white rounded-xl text-black w-full h-[400px] flex flex-col ${
         visibility.ticketOnly ? 'hidden' : ''
-      }`}
+      }`} style={{ backgroundColor: bodyColor, color: textColor2 }}
     >
       {/* Image stays fixed on top */}
-      <img
-        src={ticketImage}
-        alt="Ticket design"
-        className="w-full object-fill"
-        style={{ height: '25%' }}
-      />
+       {visibility.showCoverImage&&(<img
+              src={ticketImage}
+              alt="Ticket design"
+              className="w-full object-fill"
+              style={{
+                height:'25%',
+              }}
+            />)}
 
       {/* Vertically centered content */}
       <div
