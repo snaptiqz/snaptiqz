@@ -208,7 +208,7 @@ useEffect(()=>{
           <h2 className="text-xl">Edit Tickets</h2>
         </div>
 
-       <div className="flex justify-center items-center min-h-[700px] w-full p-4">
+       <div className="flex justify-center items-center min-h-[700px] w-full ">
   <div
     className="bg-[#2b2b2b] flex items-center justify-center rounded-xl w-full sm:w-[340px] h-[700px]"
     ref={ticketRef}

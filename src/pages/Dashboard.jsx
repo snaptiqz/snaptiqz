@@ -12,6 +12,8 @@ import { EventContext } from '../context/EventContext';
 import { Eye, Copy, Settings2, Users } from 'lucide-react';
 import Spinner from '../components/Spinner';
 import { motion } from 'framer-motion';
+import EventCardSkeleton from '../components/EventCardSkeleton';
+import ActionButtonSkeleton from '../components/ActionButtonSkeleton';
 
 
 const Dashboard = () => {
@@ -83,7 +85,31 @@ const Dashboard = () => {
 >
 
         {loading ? (
-         <Spinner/>
+            <div className="relative min-h-screen overflow-y-auto scrollbar-hidden">
+    {/* Vertical timeline line */}
+    <div className="absolute left-4 top-10 bottom-0 w-px bg-white/40 z-0" />
+
+    {/* Skeleton Cards */}
+    <div className="flex flex-col  relative z-10 mt-12">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="relative">
+          {/* Curved Line */}
+         
+
+          {/* Skeleton Card */}
+          <div className=" mt-2 ">
+             <div className="absolute -top-8 left-4 w-[28px] h-[32px] border-t-[3px] border-l-[1px] border-white/40 rounded-tl-full" />
+            <EventCardSkeleton />
+             <div className="absolute  left-4 w-2 h-2 bg-white/70 rounded-full -translate-x-1 bottom-12 z-10"></div>
+            <ActionButtonSkeleton />
+          </div>
+
+          {/* Dot at bottom */}
+         
+        </div>
+      ))}
+    </div>
+  </div>
         ) : eventList.length === 0 ? (
           <>
             <h1 className="text-2xl text-left w-full font-semibold mb-10">Events</h1>
@@ -161,7 +187,7 @@ const Dashboard = () => {
             </div>
 
             {filteredEvents.length === 0 ? (
-              <div className="flex flex-col items-center justify-center text-center py-16">
+              <div className="flex flex-col items-center justify-center text-center mt-40 py-16">
                 <p className="text-gray-300 mb-1">No {activeFilter.toLowerCase()} events found</p>
                 {searchTerm && <p className="text-sm text-gray-500">Try adjusting your search</p>}
               </div>
@@ -222,7 +248,7 @@ const Dashboard = () => {
     <EventCard event={event} className="z-20" />
   </motion.div>
 
-                              <div className="absolute left-4 w-2 h-2 bg-white/70 rounded-full -translate-x-1 top-full z-10"></div>
+                             
 
                               <div className="flex flex-row gap-2 justify-end -mt-2 mb-6">
                                 {user.id === event.createdBy ? (
