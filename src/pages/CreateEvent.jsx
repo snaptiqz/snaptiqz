@@ -42,6 +42,8 @@ const [eventDescription, setEventDescription] = useState('');
 const [selectedOrganizer, setSelectedOrganizer] = useState("Organizer (Me)");
 const [showOrganizerDropdown, setShowOrganizerDropdown] = useState(false);
 const [organizationId, setOrganizationId] = useState("");
+const [organizations, setOrganizations] = useState([]);
+
   const [location, setLocation] = useState('');
   // Tags state
   const [tags, setTags] = useState([]);
@@ -70,8 +72,22 @@ const [previewUrl, setPreviewUrl] = useState(null);
   const speakerImageInputRef = useRef(null);
   const dropdownRef = useRef(null);
   const organizerDropdownRef = useRef(null);
-const { createOrganization } = useContext(AuthContext);
+const { createOrganization,getOrganizations } = useContext(AuthContext);
 
+useEffect(() => {
+  const fetchOrganizations = async () => {
+    try {
+      const res = await getOrganizations();
+     if (res && Array.isArray(res.items)) {
+  setOrganizations(res.items);
+}
+
+    } catch (err) {
+      console.error("Failed to load organizations", err);
+    }
+  };
+  fetchOrganizations();
+}, []);
 
   const customStyles = {
   control: (base) => ({
@@ -405,45 +421,60 @@ const handlePosterUpload = (e) => {
       <ChevronDown size={16} />
     </button>
 
-    {showOrganizerDropdown && (
-      <div className="absolute left-0 mt-2 w-full bg-[#2b2b2b] border border-white/20 rounded-xl shadow-xl z-30 text-sm">
-        <button
-          onClick={() => {
-            setSelectedOrganizer("Organizer (Me)");
-            setShowOrganizerDropdown(false);
-          }}
-          className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
-        >
-          <ScanFace size={18} />
-          Organizer (Me)
-        </button>
-          <div className="border-t border-white/30 " />
-        <button
-          onClick={() => {
-            setSelectedOrganizer("Organization Name");
-            setShowOrganizerDropdown(false);
-          }}
-          className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10 text-blue-400"
-        >
-          <ScanFace size={18} />
-          Organization Name
-        </button>
-          <div className="border-t border-white/30 " />
-     <button
-  onClick={() => {
-    setShowOrganizerDropdown(false);
-    setTimeout(() => setShowAddOrgPopup(true), 0); 
-  }}
-  className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
->
-  <Plus size={18} />
-  Add New Organization
-</button>
+  {showOrganizerDropdown && (
+  <div className="absolute left-0 mt-2 w-full bg-[#2b2b2b] border border-white/20 rounded-xl shadow-xl z-30 text-sm">
 
+    {/* Organizer (Me) */}
+    <button
+      onClick={() => {
+        setSelectedOrganizer("Organizer (Me)");
+        setOrganizationId("");
+        setShowOrganizerDropdown(false);
+      }}
+      className={`w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10 ${
+        selectedOrganizer === "Organizer (Me)" ? "bg-white/10" : ""
+      }`}
+    >
+      <ScanFace size={18} />
+      Organizer (Me)
+    </button>
 
+    <div className="border-t border-white/30" />
 
-      </div>
-    )}
+    {/* Organizations */}
+   {organizations.length > 0 && organizations.map((org) => (
+      <button
+        key={org.id}
+        onClick={() => {
+          setSelectedOrganizer(org.name);
+          setOrganizationId(org.id);
+          setShowOrganizerDropdown(false);
+        }}
+        className={`w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10 ${
+          selectedOrganizer === org.name ? "bg-white/10 text-blue-400" : "text-white"
+        }`}
+      >
+        <ScanFace size={18} />
+        {org.name}
+      </button>
+    ))}
+
+    <div className="border-t border-white/30" />
+
+    {/* Add New Org */}
+    <button
+      onClick={() => {
+        setShowOrganizerDropdown(false);
+        setTimeout(() => setShowAddOrgPopup(true), 0);
+      }}
+      className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/10"
+    >
+      <Plus size={18} />
+      Add New Organization
+    </button>
+  </div>
+)}
+
   </div>
 
 

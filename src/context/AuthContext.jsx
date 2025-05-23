@@ -31,6 +31,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getOrganizations = async () => {
+  try {
+    const res = await axios.get(`${backendUrl}/organizations`, {
+      withCredentials: true,
+    });
+
+    if (res.data) {
+      console.log("Organizations:", res.data);
+      return res.data; // assuming it's an array or object
+    } else {
+      console.warn("No organization data received.");
+      return null;
+    }
+
+  } catch (err) {
+    console.error("Failed to fetch organizations:", err.message);
+    return null;
+  }
+};
+
+
+
   
   // ✅ Signup logic
   const register = async ({ email, password, name, imageUrl }) => {
@@ -169,7 +191,8 @@ const createOrganization = async (name) => {
         setJustSignedUp,
         updateProfile,
         createOrganization,
-        checkUsername
+        checkUsername,
+        getOrganizations
       }}
     >
       {children}
