@@ -48,7 +48,7 @@ const Tagline = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative w-full flex justify-center items-center mt-20 sm:mt-22 lg:mt-60 z-30 min-h-[100dvh] sm:min-h-[100vh] lg:min-h-[200vh]">
+      <div className="relative w-full flex justify-center items-center sm:mt-22 lg:mt-60 z-30 min-h-[100dvh] sm:min-h-[100vh] lg:min-h-[200vh]">
         {/* Vector Curve */}
     <img
   src={vectorCurve}
