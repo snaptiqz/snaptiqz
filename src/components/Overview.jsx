@@ -92,7 +92,7 @@ const percent = (count) =>
         <img
           src={coverImage || defaultPoster}
           alt="Event Poster"
-          className="w-full h-48 object-cover p-2 rounded-2xl"
+          className="w-full h-full object-cover p-2 rounded-2xl"
         />
         <div className="p-4">
           <div className="flex justify-between items-center">

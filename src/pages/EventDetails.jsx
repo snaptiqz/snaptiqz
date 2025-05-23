@@ -23,9 +23,13 @@ const EventDetails = () => {
 const { data: event, isLoading, isError } = useEventById(eventId, organizationId);// from ?orgId=xyz
 
   
-  if (!event) {
-    return <div ><Spinner /></div>;
-  }
+ if (isLoading) {
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#010205] text-white">
+      <Spinner />
+    </div>
+  );
+}
 
   const tabs = [
     { label: 'Overview', icon: <Target size={18} />, component: <Overview event={event} /> },

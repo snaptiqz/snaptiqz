@@ -17,6 +17,7 @@ import ticket2 from '../assets/ticketdesign2.png';
 import Select from 'react-select';
 import timezoneList from '../data/timezones.json'; 
 import FormQuestions from '../components/FormQuestions';
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -35,14 +36,12 @@ const { data: eventData, isLoading } = useEventById(eventId);
   const [virtualLink, setVirtualLink] = useState('');
   const [location, setLocation] = useState('');
   const [posterFile, setPosterFile] = useState(null);
-
-
-
 const [timeRange, setTimeRange] = useState({ start: '', end: '' });
 const [timezone, setTimezone] = useState('');
 const templates = [ticket1, ticket2];
 const currentPoster = templates[posterTemplateIndex];
 const [questions, setQuestions] = useState(eventData?.formFields || []);
+const navigate = useNavigate();
 
 const customStyles = {
   control: (base) => ({
@@ -164,7 +163,7 @@ const predefinedQuestions = [
               <ArrowLeft className="text-white bg-[#2b2b2b] p-1 rounded-lg" size={28} />
             </button>
           </div>
-          <h2 className="text-xl">Edit Tickets</h2>
+          <h2 className="text-xl">Edit Event</h2>
         </div>
 
          

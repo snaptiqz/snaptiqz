@@ -27,7 +27,7 @@ const EventCardSkeleton = () => {
           
           {/* Location */}
           <div className="flex items-center gap-2">
-            <div className="w-2 h-3.5 bg-gray-700 rounded shimmer"></div>
+            <div className="w-3.5 h-2 bg-gray-700 rounded shimmer"></div>
             <div className="h-2 bg-gray-700 rounded w-36 shimmer"></div>
           </div>
           

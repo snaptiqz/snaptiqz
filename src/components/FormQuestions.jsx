@@ -352,7 +352,7 @@ const FormQuestions = ({ questions = [], setQuestions }) => {
 >
   <div className="px-3 sm:px-4 py-3">
     <div className="flex items-start sm:items-center gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
-      <div className="w-8 h-8 bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+      <div className="w-6 h-6 bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 rounded-md flex items-center justify-center flex-shrink-0">
         <span className="text-white/80 text-sm font-medium">{index + 1}</span>
       </div>
 
@@ -388,7 +388,7 @@ const FormQuestions = ({ questions = [], setQuestions }) => {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex items-center gap-1 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex items-center gap-1  group-hover:opacity-100 transition-opacity">
         <button
           onClick={() => setExpandedQuestion(isExpanded ? null : index)}
           className="text-white/60 hover:text-white transition-colors p-1.5 rounded hover:bg-white/10"
@@ -416,42 +416,53 @@ const FormQuestions = ({ questions = [], setQuestions }) => {
           </button>
 
           {q.showDropdown && (
-            <div className="absolute right-0 mt-1 bg-[#1e1e1e] border border-white/20 rounded-lg shadow-xl z-10 w-48 text-xs overflow-hidden max-h-72">
-              <div className="px-3 py-2 border-b border-white/10 text-white/60 font-medium">Field Type</div>
-              <div className="overflow-y-auto max-h-48 custom-scrollbar">
-                {questionTypes.map((type) => {
-                  const IconComp = type.icon;
-                  return (
-                    <div
-                      key={type.name}
-                      onClick={() => handleTypeChange(index, type.name)}
-                      className="px-3 py-2 hover:bg-white/10 cursor-pointer flex items-center gap-2"
-                    >
-                      <IconComp size={14} className="text-white/60" />
-                      <div>
-                        <div className="text-white">{type.name}</div>
-                        <div className="text-white/50 text-xs">{type.description}</div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="border-t border-white/10 px-3 py-2 text-white/60 font-medium">Requirement</div>
-              {["Required", "Optional"].map((r) => (
-                <div
-                  key={r}
-                  onClick={() => toggleRequired(index, r === "Required")}
-                  className="px-3 py-2 hover:bg-white/10 cursor-pointer flex items-center gap-2"
-                >
-                  <CheckCircle2
-                    size={14}
-                    className={r === "Required" ? "text-green-400" : "text-white/40"}
-                  />
-                  {r}
-                </div>
-              ))}
+  <div className="absolute right-0 mt-1 bg-[#1e1e1e] border border-white/20 rounded-lg shadow-xl z-10 w-48 text-xs overflow-hidden max-h-72">
+    <div className="px-3 py-2 border-b border-white/10 text-white/60 font-medium">Field Type</div>
+    
+    <div className="overflow-y-auto max-h-56 custom-scrollbar">
+      {/* Field Type Options */}
+      {questionTypes.map((type) => {
+        const IconComp = type.icon;
+        return (
+          <div
+            key={type.name}
+            onClick={() => handleTypeChange(index, type.name)}
+            className="px-3 py-2 hover:bg-white/10 cursor-pointer flex items-center gap-2"
+          >
+            <IconComp size={14} className="text-white/60" />
+            <div>
+              <div className="text-white">{type.name}</div>
+              <div className="text-white/50 text-xs">{type.description}</div>
             </div>
-          )}
+          </div>
+        );
+      })}
+
+      {/* Requirement Header */}
+      <div className="border-t border-white/10 px-3 py-2 text-white/60 font-medium">Requirement</div>
+
+      {/* Requirement Options */}
+      {["Required", "Optional"].map((r) => (
+        <div
+          key={r}
+          onClick={() => toggleRequired(index, r === "Required")}
+          className="px-3 py-2 hover:bg-white/10 cursor-pointer flex items-center gap-2"
+        >
+          <CheckCircle2
+            size={14}
+            className={
+              q.required === (r === "Required") ? "text-green-400" : "text-white/40"
+            }
+          />
+          <span className={q.required === (r === "Required") ? "text-white" : "text-white/40"}>
+            {r}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
         </div>
 
         <button

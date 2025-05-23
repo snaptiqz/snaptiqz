@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react';
+import React, { useEffect, useState,useRef,useMemo } from 'react';
 import ticket from '../assets/ticket.svg';
 import gridBg from '../assets/Grid_mob.svg';
 import { ChevronDown, ChevronRight, Circle, Mail, CirclePlus, Plus, SearchIcon } from 'lucide-react';
@@ -25,36 +25,38 @@ const { data: eventList = [], isLoading: loading } = useMyEvents(user?.id);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
   const scrollRef = useRef(null);
+const stableEventList = useMemo(() => eventList, [JSON.stringify(eventList)]);
 
    
   
 
   // Filter events based on active filter and search term
   useEffect(() => {
-    if (!eventList.length) {
-      setFilteredEvents([]);
-      return;
+  if (!Array.isArray(stableEventList) || !stableEventList.length) {
+    setFilteredEvents([]);
+    return;
+  }
+
+  const currentDate = new Date();
+
+  const filtered = stableEventList.filter(event => {
+    const eventStartDate = new Date(event.startDate);
+    const matchesSearch = event.title?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          event.description?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    if (activeFilter === 'DRAFT') {
+      return event.status === 'DRAFT' && matchesSearch;
+    } else if (activeFilter === 'UPCOMING') {
+      return event.status !== 'DRAFT' && eventStartDate > currentDate && matchesSearch;
+    } else if (activeFilter === 'PAST') {
+      return event.status !== 'DRAFT' && eventStartDate <= currentDate && matchesSearch;
     }
+    return matchesSearch;
+  });
 
-    const currentDate = new Date();
-    
-    let filtered = eventList.filter(event => {
-      const eventStartDate = new Date(event.startDate);
-      const matchesSearch = event.title?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                            event.description?.toLowerCase().includes(searchTerm.toLowerCase());
+  setFilteredEvents(filtered);
+}, [stableEventList, activeFilter, searchTerm]);
 
-      if (activeFilter === 'DRAFT') {
-        return event.status === 'DRAFT' && matchesSearch;
-      } else if (activeFilter === 'UPCOMING') {
-        return event.status !== 'DRAFT' && eventStartDate > currentDate && matchesSearch;
-      } else if (activeFilter === 'PAST') {
-        return event.status !== 'DRAFT' && eventStartDate <= currentDate && matchesSearch;
-      }
-      return matchesSearch;
-    });
-
-    setFilteredEvents(filtered);
-  }, [eventList, activeFilter, searchTerm]);
 
   return (
     <div
@@ -218,32 +220,33 @@ const { data: eventList = [], isLoading: loading } = useMyEvents(user?.id);
                           
                           <div key={event.id} className="relative">
                            <motion.div
-  initial={{ opacity: 0, y: 10 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.3, ease: 'easeOut', delay: 0.5 }}
-  className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[3px] border-l-[1px] border-white rounded-tl-full"
-/>
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, ease: 'easeOut', delay: 0.5 }}
+                          className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[2px] border-l-[3px] border-white rounded-tl-full"
+                        />
 
-{/* 3. Date appears after curve */}
-<motion.div
-  initial={{ opacity: 0, x: -10 }}
-  whileInView={{ opacity: 1, x: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.3, ease: 'easeOut', delay: 0.8 }}
-  className="relative flex items-center ml-14 mb-4 mt-1"
->
-  <div className="text-lg font-semibold">{date}</div>
-</motion.div>
-                           <div className="relative z-10">
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, ease: 'easeOut', delay: 0 }}
-  >
-    <EventCard event={event} className="z-20" />
-  </motion.div>
+                        {/* 3. Date appears after curve */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, ease: 'easeOut', delay: 0.8 }}
+                          className="relative flex items-center ml-14 mb-4 mt-1"
+                        >
+                          <div className="text-lg font-semibold">{date}</div>
+                        </motion.div>
+                                                  <div className="relative z-10">
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, ease: 'easeOut', delay: 0 }}
+                          >
+                            <EventCard event={event} className="z-20" />
+                             <div className="absolute  left-[18px] w-1 h-1 bg-white rounded-full -translate-x-1  z-10"></div>
+                          </motion.div>
 
                              
 
