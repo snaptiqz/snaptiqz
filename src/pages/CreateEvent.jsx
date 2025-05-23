@@ -812,8 +812,8 @@ const handlePosterUpload = (e) => {
             )}
           </div>
 
-          {/* speakers Section */}
-          <div className="space-y-3">
+       
+          {/* <div className="space-y-3">
            
             <button 
               className="flex items-center justify-center gap-2 w-full bg-[#2b2b2b] px-4 py-3 rounded-lg text-sm border border-white/20 hover:bg-white/10 transition"
@@ -822,7 +822,7 @@ const handlePosterUpload = (e) => {
               <UserPlus size={16} /> Add speakers
             </button>
             
-            {/* speaker List */}
+           
             {speakers.length > 0 && (
               <div className="mt-2 space-y-2">
                 {speakers.map((speaker) => (
@@ -851,8 +851,7 @@ const handlePosterUpload = (e) => {
                 ))}
               </div>
             )}
-          </div>
-          
+          </div>*/}
 
           {/* Ticket Type */}
         <div className="space-y-4">
