@@ -208,22 +208,26 @@ useEffect(()=>{
           <h2 className="text-xl">Edit Tickets</h2>
         </div>
 
-        <div className='bg-[#2b2b2b] rounded-lg h-[700px] p-4 sm:w-[350px]    ' ref={ticketRef}>
-  <TicketPreview
-    template={template}
-    ticketImage={ticketImage}
-    textAlign={textAlign}
-    fontFamily={fontFamily}
-    color={color}
-    bodyColor={bodyColor}
-    textColor2={textColor2}
-    showWatermark={showWatermark}
-    visibility={visibility}
-     fontSize={fontSize}
-   
-  
-  />
+       <div className="flex justify-center items-center min-h-[700px] w-full p-4">
+  <div
+    className="bg-[#2b2b2b] flex items-center justify-center rounded-xl w-full sm:w-[340px] h-[700px]"
+    ref={ticketRef}
+  >
+    <TicketPreview
+      template={template}
+      ticketImage={ticketImage}
+      textAlign={textAlign}
+      fontFamily={fontFamily}
+      color={color}
+      bodyColor={bodyColor}
+      textColor2={textColor2}
+      showWatermark={showWatermark}
+      visibility={visibility}
+      fontSize={fontSize}
+    />
+  </div>
 </div>
+
 
 
 
