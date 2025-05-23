@@ -8,6 +8,7 @@ import TemplateSelector from '../components/TemplateSelector';
 import TicketPreview from '../components/TicketPreview';
 import { useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
+import CropImageModal from '../components/CropImageModal'; 
 
 
 const TicketDesigner = () => {
@@ -22,7 +23,8 @@ const TicketDesigner = () => {
   const [textAlign, setTextAlign] = useState('center');
   const [fontFamily, setFontFamily] = useState('Inter');
   const [fontSize, setFontSize] = useState(16); // default 16px
-
+  const [cropSrc, setCropSrc] = useState(null);
+const [showCropper, setShowCropper] = useState(false);
   const [inputColor, setInputColor] = useState(color);
    const [inputBodyColor, setInputBodyColor] = useState(bodyColor);
   const [inputTextColor2, setInputTextColor2] = useState(textColor2);
@@ -40,11 +42,17 @@ const TicketDesigner = () => {
   }, []);
 
   const onFileChange = useCallback((e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setTicketImage(URL.createObjectURL(file));
-    }
-  }, []);
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setCropSrc(reader.result);
+      setShowCropper(true);
+    };
+    reader.readAsDataURL(file);
+  }
+}, []);
+
 
   const handleRemoveImage = useCallback(() => {
     setTicketImage(defaultTicket);
@@ -60,9 +68,8 @@ const TicketDesigner = () => {
 
 
   const handleTextColorChange = useCallback((newColor) => {
-    setTextColor2(newColor);
-
-  })
+  setTextColor2(newColor);
+}, []);
 
   const handleAlignChange = useCallback((alignment) => {
     setTextAlign(alignment);
@@ -111,6 +118,8 @@ const handleDownload = async () => {
   link.href = canvas.toDataURL('image/png');
   link.click();
 };
+
+
 
 useEffect(() => {
   setInputColor(color); // sync when color changes elsewhere
@@ -199,7 +208,7 @@ useEffect(()=>{
           <h2 className="text-xl">Edit Tickets</h2>
         </div>
 
-        <div className='bg-[#2b2b2b] rounded-lg h-[700px] p-4 sm:w-[400px]    ' ref={ticketRef}>
+        <div className='bg-[#2b2b2b] rounded-lg h-[700px] p-4 sm:w-[350px]    ' ref={ticketRef}>
   <TicketPreview
     template={template}
     ticketImage={ticketImage}
@@ -389,25 +398,25 @@ useEffect(()=>{
         setInputTextColor2(value);
         handleTextColorChange(value);
       }}
-      className="w-12 h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+      className="w-12  h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
     />
 
     {/* Hex code input */}
-    <input
-      type="text"
-      value={inputColor}
-      onChange={(e) => setInputColor(e.target.value)}
-      onBlur={() => {
-        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputTextColor2)) {
-          handleTextColorChange(inputTextColor2);
-        } else {
-          setInputColor(textColor2); // revert if invalid
-        }
-      }}
-      maxLength={7}
-      placeholder="#000000"
+   <input
+  type="text"
+  value={inputTextColor2}       // ✅ correct state
+  onChange={(e) => setInputTextColor2(e.target.value)}
+  onBlur={() => {
+    if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputTextColor2)) {
+      handleTextColorChange(inputTextColor2);
+    } else {
+      setInputTextColor2(textColor2); // revert if invalid
+    }
+  }}
+   maxLength={7}
+      placeholder="#ffffff"
       className="bg-[#1e1e1e] border border-white/20 rounded-md px-3 py-1 text-white text-sm w-[100px]"
-    />
+/>
   </div>
 </div>
 
@@ -477,7 +486,18 @@ useEffect(()=>{
           </button>
         </div>
       </div> 
+      {showCropper && (
+  <CropImageModal
+    imageSrc={cropSrc}
+    onCancel={() => setShowCropper(false)}
+    onCropDone={(croppedUrl) => {
+      setTicketImage(croppedUrl);
+      setShowCropper(false);
+    }}
+  />
+)}
     </div>
+    
   );
 };
 
