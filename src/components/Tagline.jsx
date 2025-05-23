@@ -95,20 +95,10 @@ const Tagline = () => {
           </div>
 
           {/* Tagline: Plan. Publish. Engage. */}
-        <motion.div
-  initial={{ opacity: 0, y: 60 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.5 }}
-  transition={{ duration: 0.8, ease: 'easeInOut' }}
-  className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument"
->
+        <div className="font-bold tracking-wide leading-tight flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-3 pb-16 sm:pb-24 font-instrument">
   {['Plan.', 'Publish.', 'Engage.'].map((text, i) => (
-    <motion.span
+    <span
       key={i}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
-      transition={{ delay: i * 0.3, duration: 0.8, ease: 'easeInOut' }}
       className="text-transparent bg-clip-text"
       style={{
         backgroundImage:
@@ -117,9 +107,9 @@ const Tagline = () => {
       }}
     >
       {text}
-    </motion.span>
+    </span>
   ))}
-</motion.div>
+</div>
 
 
           {/* AT 0% COMMISSION */}
