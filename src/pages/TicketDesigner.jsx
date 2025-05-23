@@ -316,10 +316,10 @@ useEffect(()=>{
 
         {/* Select Color */}
       <div className='mt-6 flex justify-between'>
-    <div className=''>
-  <p className='text-sm text-white/70 mb-2'>Select Ticket color</p>
-  <div className="flex items-center gap-4">
-    {/* Native color picker */}
+   <div className="">
+  <p className="text-sm text-white/70 mb-2">Select Ticket Color</p>
+  <div className="flex items-center gap-4 relative">
+    {/* Hidden native input */}
     <input
       type="color"
       value={color}
@@ -328,10 +328,18 @@ useEffect(()=>{
         setInputColor(value);
         handleColorChange(value);
       }}
-      className="w-12 h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+      className="absolute w-0 h-0 opacity-0"
+      id="ticket-color-picker"
     />
 
-    {/* Hex code input */}
+    {/* Custom color swatch */}
+    <label
+      htmlFor="ticket-color-picker"
+      className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+      style={{ backgroundColor: color }}
+    ></label>
+
+    {/* Hex input */}
     <input
       type="text"
       value={inputColor}
@@ -350,10 +358,11 @@ useEffect(()=>{
   </div>
 </div>
 
- <div className=''>
-  <p className='text-sm text-white/70 mb-2'>Select Body color</p>
-  <div className="flex items-center gap-4">
-    {/* Native color picker */}
+
+<div className="">
+  <p className="text-sm text-white/70 mb-2">Select Body Color</p>
+  <div className="flex items-center gap-4 relative">
+    {/* Hidden native input */}
     <input
       type="color"
       value={bodyColor}
@@ -362,8 +371,16 @@ useEffect(()=>{
         setInputBodyColor(value);
         handleBodyColorChange(value);
       }}
-      className="w-12 h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+      className="absolute w-0 h-0 opacity-0"
+      id="body-color-picker"
     />
+
+    {/* Custom color swatch */}
+    <label
+      htmlFor="body-color-picker"
+      className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+      style={{ backgroundColor: bodyColor }}
+    ></label>
 
     {/* Hex code input */}
     <input
@@ -383,13 +400,14 @@ useEffect(()=>{
     />
   </div>
 </div>
+
 </div>
 
 
-<div className=''>
-  <p className='text-sm text-white/70 mb-2'>Select Text Color</p>
-  <div className="flex items-center gap-4">
-    {/* Native color picker */}
+<div className="">
+  <p className="text-sm text-white/70 mb-2">Select Text Color</p>
+  <div className="flex items-center gap-4 relative">
+    {/* Hidden native color input */}
     <input
       type="color"
       value={textColor2}
@@ -398,27 +416,36 @@ useEffect(()=>{
         setInputTextColor2(value);
         handleTextColorChange(value);
       }}
-      className="w-12  h-12 border-none rounded-full cursor-pointer bg-transparent p-1 appearance-none"
+      className="absolute w-0 h-0 opacity-0"
+      id="text-color-picker"
     />
 
-    {/* Hex code input */}
-   <input
-  type="text"
-  value={inputTextColor2}       // ✅ correct state
-  onChange={(e) => setInputTextColor2(e.target.value)}
-  onBlur={() => {
-    if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputTextColor2)) {
-      handleTextColorChange(inputTextColor2);
-    } else {
-      setInputTextColor2(textColor2); // revert if invalid
-    }
-  }}
-   maxLength={7}
+    {/* Custom swatch */}
+    <label
+      htmlFor="text-color-picker"
+      className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+      style={{ backgroundColor: textColor2 }}
+    ></label>
+
+    {/* Hex input */}
+    <input
+      type="text"
+      value={inputTextColor2}
+      onChange={(e) => setInputTextColor2(e.target.value)}
+      onBlur={() => {
+        if (/^#([0-9A-Fa-f]{3}){1,2}$/.test(inputTextColor2)) {
+          handleTextColorChange(inputTextColor2);
+        } else {
+          setInputTextColor2(textColor2);
+        }
+      }}
+      maxLength={7}
       placeholder="#ffffff"
       className="bg-[#1e1e1e] border border-white/20 rounded-md px-3 py-1 text-white text-sm w-[100px]"
-/>
+    />
   </div>
 </div>
+
 
 {/* <div className='mt-6'>
   <p className='text-sm text-white/70 mb-2'>Text color</p>
