@@ -75,7 +75,11 @@ const Tagline = () => {
                     pointerEvents: 'none',
                   }}
                 />
-               
+                <img
+                  src={gridBg}
+                  alt="grid background"
+                  className="relative w-[28vw] pt-10 sm:pt-20 sm:w-[30vw] max-w-none h-auto object-contain opacity-80 z-10"
+                />
               </div>
             </div>
 
