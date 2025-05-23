@@ -108,11 +108,11 @@ const TicketPreview = ({
       }`}
       style={{ textAlign, fontFamily, color: textColor2 }}
     >
-      {visibility.showEventName && (
+     
         <h2 className={`${isTemplate3 ? 'text-lg' : 'text-2xl'} font-semibold`}>
           Event Name
         </h2>
-      )}
+     
 
       {visibility.showOrganizerImage && (
         <div className="flex w-full" style={{ justifyContent }}>
@@ -147,7 +147,7 @@ const TicketPreview = ({
     if (!['template1', 'template2', 'template3'].includes(template)) return null;
 
     const sectionClasses = `w-full flex flex-col ${
-      isTemplate3 ? 'h-[300px] rounded-t-xl' : 'h-[450px] rounded-xl'
+      isTemplate3 ? 'h-[340px] rounded-t-xl' : 'h-[450px] rounded-xl'
     } ${visibility.ticketOnly ? 'hidden' : 'block'}`;
 
     return (
