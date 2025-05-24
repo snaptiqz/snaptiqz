@@ -195,7 +195,7 @@ const Dashboard = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, ease: 'easeOut', delay: 0.5 }}
-                    className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[2px] border-l-[2px] border-white rounded-tl-full"
+                    className="absolute top-4 left-4 w-[26px] h-[32px] border-t-[2px] border-l-[2px] border-white/90 rounded-tl-full"
                   />
 
                        <motion.div
