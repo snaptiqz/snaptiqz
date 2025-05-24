@@ -185,14 +185,20 @@ const Dashboard = () => {
                 }, {})
               ).map(([date, events], dateIndex) => (
                 <div key={dateIndex} className="relative">
-                  <motion.div
+                  
+                 
+                  <div className="flex flex-col gap-4">
+                    {events.map((event) => (
+                      <div key={event.id} className="relative z-10">
+                        <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, ease: 'easeOut', delay: 0.5 }}
-                    className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[2px] border-l-[3px] border-white rounded-tl-full"
+                    className="absolute top-4 left-4 w-[28px] h-[32px] border-t-[2px] border-l-[2px] border-white rounded-tl-full"
                   />
-                  <motion.div
+
+                       <motion.div
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -201,9 +207,6 @@ const Dashboard = () => {
                   >
                     <div className="text-lg font-semibold">{date}</div>
                   </motion.div>
-                  <div className="flex flex-col gap-4">
-                    {events.map((event) => (
-                      <div key={event.id} className="relative z-10">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
