@@ -42,7 +42,7 @@ const EventProvider = ({ children }) => {
     });
 
   return (
-    <EventContext.Provider value={{ useMyEvents, useEventById }}>
+    <EventContext.Provider value={{ useMyEvents, useEventById, queryClient }}>
       {children}
     </EventContext.Provider>
   );

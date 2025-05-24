@@ -105,7 +105,7 @@ const percent = (count) =>
                 ) : (
                     <>
                     <Lock size={16} />
-                    'Private event'
+                    Private event
                     </>
                 )}
                 </span>

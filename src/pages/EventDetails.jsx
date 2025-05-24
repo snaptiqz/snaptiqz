@@ -20,7 +20,7 @@ const EventDetails = () => {
   const [searchParams] = useSearchParams();
   const organizationId = searchParams.get('orgId'); 
   const { useEventById } = useContext(EventContext);
-const { data: event, isLoading, isError } = useEventById(eventId, organizationId);// from ?orgId=xyz
+  const { data: eventData, isLoading } = useEventById(eventId);// from ?orgId=xyz
 
   
  if (isLoading) {
@@ -32,11 +32,11 @@ const { data: event, isLoading, isError } = useEventById(eventId, organizationId
 }
 
   const tabs = [
-    { label: 'Overview', icon: <Target size={18} />, component: <Overview event={event} /> },
-    { label: 'Guests', icon: <Users size={18} />, component: <Guests event={event} /> },
-    { label: 'Waiting list', icon: <History size={18} />, component: <WaitingList event={event} /> },
-    { label: 'Certificate', icon: <Award size={18} />, component: <Certificates event={event} /> },
-    { label:'Payment',icon:<IndianRupee size={18} />,component:<Payments event={event} />},
+    { label: 'Overview', icon: <Target size={18} />, component: <Overview event={eventData} /> },
+    { label: 'Guests', icon: <Users size={18} />, component: <Guests event={eventData} /> },
+    { label: 'Waiting list', icon: <History size={18} />, component: <WaitingList event={eventData} /> },
+    { label: 'Certificate', icon: <Award size={18} />, component: <Certificates event={eventData} /> },
+    { label:'Payment',icon:<IndianRupee size={18} />,component:<Payments event={eventData} />},
   ];
 
   const ActiveComponent = tabs.find(tab => tab.label === activeTab)?.component;

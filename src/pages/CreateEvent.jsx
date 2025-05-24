@@ -21,6 +21,8 @@ import ticket2 from '../assets/ticketdesign2.png';
 import timezoneList from '../data/timezones.json';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import TemplateSwitcher from '../components/TemplateSwitcher';
+
 
 const CreateEvent = () => {
   const navigate = useNavigate();
@@ -63,6 +65,11 @@ const CreateEvent = () => {
   const [showPriceModal, setShowPriceModal] = useState(false);
   const [showCapacityModal, setShowCapacityModal] = useState(false);
 
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedFont, setSelectedFont] = useState(null);
+
+
   const buildISODateTime = (date, time) => {
     if (!date || !time) return null;
     const [hours, minutes] = time.split(":");
@@ -86,6 +93,19 @@ const CreateEvent = () => {
       setEventPosterPreview(URL.createObjectURL(file));
     }
   };
+
+  const handleTemplateChange = (template) => {
+    setSelectedTemplate(template);
+  };
+
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+  };
+
+  const handleStyleChange = (style) => {
+    setSelectedFont(style);
+  };
+
 
   const handleSubmit = async (status = 'PUBLISHED') => {
   const isDraft = status === 'DRAFT';
@@ -184,6 +204,7 @@ navigate(`/event/${eventId}?orgId=${orgId}`);
           handlePosterUpload={handlePosterUpload}
         />
         
+       
 
         <div className="space-y-6">
           <div className="flex gap-3 mb-6">

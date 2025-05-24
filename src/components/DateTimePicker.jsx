@@ -4,6 +4,44 @@ import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
+const customStyles = {
+  control: (provided) => ({
+    ...provided,
+    backgroundColor: '#1E1E1E',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    borderRadius: '0.5rem',
+    color: '#fff',
+    minHeight: '40px',
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: '#fff',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: '#2B2B2B',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    borderRadius: '0.5rem',
+    zIndex: 99,
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? '#3B3B3B' : '#2B2B2B',
+    color: '#fff',
+    padding: 10,
+    cursor: 'pointer',
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: '#fff',
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: 'rgba(255, 255, 255, 0.6)',
+  }),
+};
+
 const DateTimePicker = ({
   start,
   end,
@@ -16,7 +54,6 @@ const DateTimePicker = ({
   showPicker,
   setShowPicker,
   timezoneList,
-  customStyles
 }) => {
   return (
     <div className="space-y-2">
