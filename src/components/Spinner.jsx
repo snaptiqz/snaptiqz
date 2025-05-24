@@ -15,24 +15,19 @@ const [displayedText, setDisplayedText] = useState('');
 
   const generalMessages = [
     "Still faster than your 8 AM alarm...",
-    "Loading… because teleportation isn’t ready yet.",
     "Just a sec… bribing the server hamster.",
     "Our rocket's warming up. Hold tight!",
-    "Snaptiqz is buffering your fun.",
     "Blink twice if you’re still waiting...",
     "Your data’s partying backstage. Coming soon.",
     "Pulling strings behind the curtain…",
     "Giving pixels a pep talk...",
     "This isn’t a lag, it’s dramatic timing.",
-    "Making everything look cooler ...",
     "Moonwalking through server traffic...",
     "Snaptiqz is vibing with the universe.",
     "Please enjoy this loading performance.",
-    "Manifesting magic… almost there.",
     "The launch was delayed… classic Snaptiqz.",
   "Blink twice if you skipped today’s class.",
   "Assembling the guest list — you’re obviously VIP.",
-  "Unlocking the secret to low effort, high fun...",
    "Looking for events with free pizza...",
      "Hope your ex isn’t hosting this one!",
   "Checking attendance… psych. We don’t do that here.",
@@ -45,7 +40,6 @@ const [displayedText, setDisplayedText] = useState('');
  " Finding signal... through cosmic interference",
   "Be right there. Just fixing the space-time continuum.",
   "Current status: spinning in existential crisis.",
-  "Just warming up the rocket boosters...",
   "We didn’t forget, just loading...",
    "Hope there’s free food in this one...",
    "Trying to reach our inner peace and the server.",
@@ -55,6 +49,18 @@ const [displayedText, setDisplayedText] = useState('');
    "Staring at this won’t make it faster, but hey.",
    "You’ve reached the fun part: waiting.",
    "What if… this is the whole experience?",
+   "Poking the server with a virtual stick…",
+   "Negotiating with the server aliens.",
+   "We’re not slow, we’re suspenseful.",
+   "This one better have AC and snacks.",
+   "You're reading this. That means it’s working.",
+   "Yes, this message is judging your impatience",
+   "Serving looks and loading screens.",
+   "Shhh… the pixels are concentrating.",
+   "The server said ‘I need a moment.",
+   "Someone told the database a joke. It's recovering.",
+   "Our cache is out finding itself.",
+   "We were on a break! (But now we’re loading.)",
   
 
 
@@ -161,7 +167,7 @@ useEffect(() => {
         </div>
 
         {/* Flame */}
-        <div className="flex gap-1 mt-2" style={{ transform: 'translateX(-4px)' }}>
+        <div className="flex gap-1 -mt-2" style={{ transform: 'translateX(-4px)' }}>
           {[...Array(3)].map((_, i) => (
             <div key={i} className="relative h-12 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}>
               <div
